@@ -1,8 +1,8 @@
 {
 	"name": "file-loader",
-	"version": "0.1.0",
+	"version": "0.1.1",
 	"author": "Tobias Koppers @sokra",
-	"description": "json loader module for webpack",
+	"description": "file loader module for webpack",
 	"licenses": [
 		{
 			"type": "MIT",
