@@ -6,6 +6,7 @@ module.exports = function(postfix, prefix) {
 	postfix = postfix || "";
 	prefix = prefix || "";
 	return function(content) {
+		this.cacheable && this.cacheable();
 		if(!this.emitFile) throw new Error("emitFile is required from module system");
 		if(this.buffers) content = this.buffers[0];
 		hash = new (require("crypto").Hash)("md5");
