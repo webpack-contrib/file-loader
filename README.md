@@ -2,6 +2,8 @@
 
 ## Usage
 
+[Documentation: Using loaders](http://webpack.github.io/docs/using-loaders.html)
+
 ``` javascript
 var url = require("file!./file.png");
 // => emits file.png as file in the output directory and returns the public url
