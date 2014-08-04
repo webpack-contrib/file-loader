@@ -6,6 +6,13 @@
 	"dependencies": {
 		"loader-utils": "0.2.x"
 	},
+	"devDependencies": {
+		"should": "~4.0.4",
+		"mocha": "~1.21.3"
+	},
+	"scripts": {
+		"test": "mocha -R spec"
+	},
 	"repository": {
 		"type": "git",
 		"url": "git@github.com:webpack/file-loader.git"
