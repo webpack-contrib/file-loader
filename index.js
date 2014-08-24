@@ -5,6 +5,41 @@
 var loaderUtils = require("loader-utils");
 var path = require("path");
 
+var baseEncodeTables = {
+	26: "abcdefghijklmnopqrstuvwxyz",
+	32: "123456789abcdefghjkmnpqrstuvwxyz", // no 0lio
+	36: "0123456789abcdefghijklmnopqrstuvwxyz",
+	49: "abcdefghijkmnopqrstuvwxyzABCDEFGHJKLMNPQRSTUVWXYZ", // no lIO
+	52: "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ",
+	58: "123456789abcdefghijkmnopqrstuvwxyzABCDEFGHJKLMNPQRSTUVWXYZ", // no 0lIO
+	62: "0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ",
+	64: "0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ-_"
+};
+
+function encodeBufferToBase(buffer, base, length) {
+	var encodeTable = baseEncodeTables[base];
+	if (!encodeTable) return '';
+
+	var readLength = buffer.length;
+	if (length) {
+		var bytesPerChar = Math.log(encodeTable.length) / Math.log(256);
+		readLength = Math.min(Math.ceil(bytesPerChar * length), buffer.length);
+	}
+
+	var b = require('bignum')(0);
+	for (var i = readLength - 1; i >= 0; i--) {
+		b = b.mul(256).add(buffer[i]);
+	}
+
+	var output = "";
+	while (b.gt(0)) {
+		output = encodeTable[b.mod(36)] + output;
+		b = b.div(36);
+	}
+
+	return length ? output.substr(0, length) : output;
+}
+
 module.exports = function(content) {
 	this.cacheable && this.cacheable();
 	if(!this.emitFile) throw new Error("emitFile is required from module system");
@@ -37,7 +72,13 @@ module.exports = function(content) {
 		var digestSize = query.size || 9999;
 		hash = new (require("crypto").Hash)(digest);
 		hash.update(content);
-		return hash.digest(query.digest || "hex").substr(0, digestSize);
+		if (query.digest === "base26" || query.digest === "base32" || query.digest === "base36" ||
+		    query.digest === "base49" || query.digest === "base52" || query.digest === "base58" ||
+		    query.digest === "base62" || query.digest === "base64") {
+			return encodeBufferToBase(hash.digest(), query.digest.substr(4), digestSize);
+		} else {
+			return hash.digest(query.digest || "hex").substr(0, digestSize);
+		}
 	}).replace(/\[ext\]/ig, function() {
 		return ext;
 	}).replace(/\[name\]/ig, function() {
