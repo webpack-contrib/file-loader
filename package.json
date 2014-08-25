@@ -8,7 +8,8 @@
 	},
 	"devDependencies": {
 		"should": "~4.0.4",
-		"mocha": "~1.21.3"
+		"mocha": "~1.21.3",
+		"bignum": "~0.9.0"
 	},
 	"scripts": {
 		"test": "mocha -R spec"
