@@ -1,15 +1,15 @@
 {
 	"name": "file-loader",
-	"version": "0.7.0",
+	"version": "0.7.1",
 	"author": "Tobias Koppers @sokra",
 	"description": "file loader module for webpack",
 	"dependencies": {
-		"loader-utils": "0.2.x"
+		"loader-utils": "0.2.x",
+		"bignum": "~0.9.0"
 	},
 	"devDependencies": {
 		"should": "~4.0.4",
-		"mocha": "~1.21.3",
-		"bignum": "~0.9.0"
+		"mocha": "~1.21.3"
 	},
 	"scripts": {
 		"test": "mocha -R spec"
