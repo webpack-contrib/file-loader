@@ -18,13 +18,9 @@ var baseEncodeTables = {
 
 function encodeBufferToBase(buffer, base, length) {
 	var encodeTable = baseEncodeTables[base];
-	if (!encodeTable) return '';
+	if (!encodeTable) throw new Error("Enknown encoding base" + base);
 
 	var readLength = buffer.length;
-	if (length) {
-		var bytesPerChar = Math.log(encodeTable.length) / Math.log(256);
-		readLength = Math.min(Math.ceil(bytesPerChar * length), buffer.length);
-	}
 
 	var b = require('bignum')(0);
 	for (var i = readLength - 1; i >= 0; i--) {
@@ -33,11 +29,11 @@ function encodeBufferToBase(buffer, base, length) {
 
 	var output = "";
 	while (b.gt(0)) {
-		output = encodeTable[b.mod(36)] + output;
-		b = b.div(36);
+		output = encodeTable[b.mod(base)] + output;
+		b = b.div(base);
 	}
 
-	return length ? output.substr(0, length) : output;
+	return output;
 }
 
 module.exports = function(content) {
@@ -75,7 +71,7 @@ module.exports = function(content) {
 		if (query.digest === "base26" || query.digest === "base32" || query.digest === "base36" ||
 		    query.digest === "base49" || query.digest === "base52" || query.digest === "base58" ||
 		    query.digest === "base62" || query.digest === "base64") {
-			return encodeBufferToBase(hash.digest(), query.digest.substr(4), digestSize);
+			return encodeBufferToBase(hash.digest(), query.digest.substr(4), digestSize).substr(0, digestSize);
 		} else {
 			return hash.digest(query.digest || "hex").substr(0, digestSize);
 		}

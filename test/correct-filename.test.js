@@ -51,7 +51,10 @@ describe("correct-filename", function() {
 	it("should process hash options correctly", function() {
 		test("81dc9.txt", "/file.txt", "size=5");
 		test("d4045.txt", "/file.txt", "hash=sha512&size=5");
-		test("gdyb21LQTcIANtvYMT7QVQ==.txt", "/file.txt", "digest=base64");
+		test("1lQ3UNSdIS0c9dQ5brCZO1.txt", "/file.txt", "digest=base64");
+		test("caYJDUvUOiGAdDsiHKffIEj.txt", "/file.txt", "digest=base52");
+		test("sntmopgidsdqrofkjywoyldtiij.txt", "/file.txt", "digest=base26");
+		test("sntmopgids.txt", "/file.txt", "digest=base26&size=10");
 	});
 	
 });
