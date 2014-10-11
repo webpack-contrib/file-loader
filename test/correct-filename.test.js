@@ -49,12 +49,12 @@ describe("correct-filename", function() {
 		test("d93591bdf7860e1e4ee2fca799911215.txt", "/file.txt", "", new Buffer("4321"));
 	});
 	it("should process hash options correctly", function() {
-		test("81dc9.txt", "/file.txt", "size=5");
-		test("d4045.txt", "/file.txt", "hash=sha512&size=5");
-		test("1lQ3UNSdIS0c9dQ5brCZO1.txt", "/file.txt", "digest=base64");
-		test("caYJDUvUOiGAdDsiHKffIEj.txt", "/file.txt", "digest=base52");
-		test("sntmopgidsdqrofkjywoyldtiij.txt", "/file.txt", "digest=base26");
-		test("sntmopgids.txt", "/file.txt", "digest=base26&size=10");
+		test("81dc9.txt", "/file.txt", "name=[hash:5].[ext]");
+		test("d4045.txt", "/file.txt", "name=[sha512:hash:5].[ext]");
+		test("1lQ3UNSdIS0c9dQ5brCZO1.txt", "/file.txt", "name=[hash:base64].[ext]");
+		test("caYJDUvUOiGAdDsiHKffIEj.txt", "/file.txt", "name=[hash:base52].[ext]");
+		test("sntmopgidsdqrofkjywoyldtiij.txt", "/file.txt", "name=[hash:base26].[ext]");
+		test("sntmopgids.txt", "/file.txt", "name=[hash:base26:10].[ext]");
 	});
 	
 });
