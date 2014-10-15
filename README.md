@@ -18,9 +18,11 @@ You can configure a custom filename template for your file (query param `name`).
 * `[name]` the basename of the resource
 * `[path]` the path of the resource relative to the `context` query parameter or option.
 * `[hash]` the hash or the content
-  * query param `hash` allows to choose a algorithm (default `md5`)
-  * query param `digest` allows to choose the type of digest (default `hex`)
-  * query param `size` allows to choose the length of the hash in chars
+* `[<hashType>:hash:<digestType>:<length>]` optionally you can configure
+  * other `hashType`s, i. e. `sha1`, `md5`, `sha256`, `sha512`
+  * other `digestType`s, i. e. `hex`, `base26`, `base32`, `base36`, `base49`, `base52`, `base58`, `base62`, `base64`
+  * and `length` the length in chars
+* `[N]` the N-th match obtained from matching the current file name against the query param `regExp`
 
 Examples
 
@@ -28,17 +30,17 @@ Examples
 require("file?name=js/[hash].script.[ext]!./javascript.js");
 // => js/0dcbbaa701328a3c262cfd45869e351f.script.js
 
-require("file?name=html-[hash].html&size=6!./page.html");
+require("file?name=html-[hash:6].html!./page.html");
 // => html-109fa8.html
 
 require("file?name=[hash]!./flash.txt");
 // => c31e9820c001c9c4a86bce33ce43b679
 
-require("file?hash=sha512&size=7&digest=base64!./image.png");
+require("file?name=[sha512:hash:base64:7].[ext]!./image.png");
 // => gdyb21L.png
 // use sha512 hash instead of md5 and with only 7 chars of base64
 
-require("file?name=img-[sha512:base64:7]!./image.jpg");
+require("file?name=img-[sha512:base64:7].[ext]!./image.jpg");
 // => img-VqzT5ZC.jpg
 // use custom name, sha512 hash instead of md5 and with only 7 chars of base64
 
