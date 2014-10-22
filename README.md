@@ -47,7 +47,7 @@ require("file?name=img-[sha512:base64:7].[ext]!./image.jpg");
 require("file?name=picture.png!./myself.png");
 // => picture.png
 
-require("file?[path][name].[ext]?[hash]!./dir/file.png")
+require("file?name=[path][name].[ext]?[hash]!./dir/file.png")
 // => dir/file.png?e43b20c069c4a01867c31e98cbce33c9
 ```
 
