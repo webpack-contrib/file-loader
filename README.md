@@ -40,7 +40,7 @@ require("file?name=[sha512:hash:base64:7].[ext]!./image.png");
 // => gdyb21L.png
 // use sha512 hash instead of md5 and with only 7 chars of base64
 
-require("file?name=img-[sha512:base64:7].[ext]!./image.jpg");
+require("file?name=img-[sha512:hash:base64:7].[ext]!./image.jpg");
 // => img-VqzT5ZC.jpg
 // use custom name, sha512 hash instead of md5 and with only 7 chars of base64
 
