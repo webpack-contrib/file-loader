@@ -5,7 +5,7 @@
 var loaderUtils = require("loader-utils");
 var path = require("path");
 
-module.exports = function(content) {
+module.exports = function(content, map) {
 	this.cacheable && this.cacheable();
 	if(!this.emitFile) throw new Error("emitFile is required from module system");
 	var query = loaderUtils.parseQuery(this.query);
@@ -15,6 +15,7 @@ module.exports = function(content) {
 		regExp: query.regExp
 	});
 	this.emitFile(url, content);
+	if (this.sourceMap && map) this.emitFile(url + ".map", JSON.stringify(map));
 	return "module.exports = __webpack_public_path__ + " + JSON.stringify(url);
 }
 module.exports.raw = true;
