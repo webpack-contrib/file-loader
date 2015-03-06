@@ -4,8 +4,9 @@
 */
 var path = require("path");
 var loaderUtils = require("loader-utils");
+var path = require("path");
 
-module.exports = function(content) {
+module.exports = function(content, map) {
 	this.cacheable && this.cacheable();
 	if(!this.emitFile) throw new Error("emitFile is required from module system");
 
@@ -71,6 +72,18 @@ module.exports = function(content) {
 	}
 
 	if (query.emitFile === undefined || query.emitFile) {
+		if (this.sourceMap && config.sourceMap && map) {
+			var basename = path.basename(url)
+			content = Buffer.concat([
+				content,
+				new Buffer(
+					/\.css($|\?)/i.test(basename)
+					? "\n/*# sourceMappingURL=" + basename + ".map*/"
+					: "\n//# sourceMappingURL=" + basename + ".map"
+				)
+			]);
+			this.emitFile(outputPath + ".map", JSON.stringify(map));
+		}
 		this.emitFile(outputPath, content);
 	}
 

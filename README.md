@@ -73,6 +73,10 @@ use: "file-loader?name=[name].[ext]&publicPath=assets/foo/&outputPath=app/images
   * and `length` the length in chars
 * `[N]` the N-th match obtained from matching the current file name against the query param `regExp`
 
+#### Source Maps
+
+If you are working with a text-based file with a source map, you can have the source map emitted along with the file using the `sourceMap` parameter.
+
 #### Examples
 
 ``` javascript
@@ -84,6 +88,10 @@ require("file-loader?name=html-[hash:6].html!./page.html");
 
 require("file-loader?name=[hash]!./flash.txt");
 // => c31e9820c001c9c4a86bce33ce43b679
+
+require("file-loader?name=styles.css&sourceMap!postcss!./styles.css")
+// => styles.css
+// => styles.css.map
 
 require("file-loader?name=[sha512:hash:base64:7].[ext]!./image.png");
 // => gdyb21L.png
