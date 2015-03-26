@@ -10,9 +10,17 @@ var url = require("file!./file.png");
 // => returns i. e. "/public-path/0dcbbaa701328a3c262cfd45869e351f.png"
 ```
 
-By default the filename is the md5 hash of the file and the extension of the required resource is appended.
+By default the filename of the resulting is the MD5 hash of the file's contents 
+with the original extension of the required resource.
 
-You can configure a custom filename template for your file (query param `name`).
+## Filename templates
+
+You can configure a custom filename template for your file using the query
+parameter `name`. For instance, to copy a file from your `context` directory
+into the output directory retaining the full directory structure, you might
+use `?name=name=[path][name].[ext]`.
+
+### Filename template placeholders
 
 * `[ext]` the extension of the resource
 * `[name]` the basename of the resource
@@ -24,7 +32,7 @@ You can configure a custom filename template for your file (query param `name`).
   * and `length` the length in chars
 * `[N]` the N-th match obtained from matching the current file name against the query param `regExp`
 
-Examples
+## Examples
 
 ``` javascript
 require("file?name=js/[hash].script.[ext]!./javascript.js");
