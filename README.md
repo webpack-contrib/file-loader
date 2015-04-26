@@ -10,7 +10,7 @@ var url = require("file!./file.png");
 // => returns i. e. "/public-path/0dcbbaa701328a3c262cfd45869e351f.png"
 ```
 
-By default the filename of the resulting is the MD5 hash of the file's contents 
+By default the filename of the resulting file is the MD5 hash of the file's contents 
 with the original extension of the required resource.
 
 ## Filename templates
