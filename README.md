@@ -18,7 +18,7 @@ with the original extension of the required resource.
 You can configure a custom filename template for your file using the query
 parameter `name`. For instance, to copy a file from your `context` directory
 into the output directory retaining the full directory structure, you might
-use `?name=name=[path][name].[ext]`.
+use `?name=[path][name].[ext]`.
 
 ### Filename template placeholders
 
