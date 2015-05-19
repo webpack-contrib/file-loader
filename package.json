@@ -10,6 +10,9 @@
 		"should": "~4.0.4",
 		"mocha": "~1.21.3"
 	},
+	"files": [
+		"index.js"
+	],
 	"scripts": {
 		"test": "mocha -R spec"
 	},
