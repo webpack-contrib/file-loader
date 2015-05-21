@@ -18,12 +18,21 @@
   },
   "repository": {
     "type": "git",
-    "url": "git@github.com:webpack/file-loader.git"
+    "url": "https://github.com/webpack/file-loader.git"
   },
   "licenses": [
     {
       "type": "MIT",
       "url": "http://www.opensource.org/licenses/mit-license.php"
     }
-  ]
+  ],
+  "bugs": {
+    "url": "https://github.com/webpack/file-loader/issues"
+  },
+  "homepage": "https://github.com/webpack/file-loader",
+  "main": "index.js",
+  "directories": {
+    "test": "test"
+  },
+  "license": "MIT"
 }
