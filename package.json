@@ -5,7 +5,7 @@
 	"description": "file loader module for webpack",
 	"files": [
 		"index.js"
-	]
+	],
 	"dependencies": {
 		"loader-utils": "~0.2.5"
 	},
