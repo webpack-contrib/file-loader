@@ -3,6 +3,9 @@
 	"version": "0.8.1",
 	"author": "Tobias Koppers @sokra",
 	"description": "file loader module for webpack",
+	"files": [
+		"index.js"
+	]
 	"dependencies": {
 		"loader-utils": "~0.2.5"
 	},
