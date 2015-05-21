@@ -1,29 +1,29 @@
 {
-	"name": "file-loader",
-	"version": "0.8.1",
-	"author": "Tobias Koppers @sokra",
-	"description": "file loader module for webpack",
-	"files": [
-		"index.js"
-	],
-	"dependencies": {
-		"loader-utils": "~0.2.5"
-	},
-	"devDependencies": {
-		"should": "~4.0.4",
-		"mocha": "~1.21.3"
-	},
-	"scripts": {
-		"test": "mocha -R spec"
-	},
-	"repository": {
-		"type": "git",
-		"url": "git@github.com:webpack/file-loader.git"
-	},
-	"licenses": [
-		{
-			"type": "MIT",
-			"url": "http://www.opensource.org/licenses/mit-license.php"
-		}
-	]
+  "name": "file-loader",
+  "version": "0.8.2",
+  "author": "Tobias Koppers @sokra",
+  "description": "file loader module for webpack",
+  "files": [
+    "index.js"
+  ],
+  "dependencies": {
+    "loader-utils": "~0.2.5"
+  },
+  "devDependencies": {
+    "should": "~4.0.4",
+    "mocha": "~1.21.3"
+  },
+  "scripts": {
+    "test": "mocha -R spec"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git@github.com:webpack/file-loader.git"
+  },
+  "licenses": [
+    {
+      "type": "MIT",
+      "url": "http://www.opensource.org/licenses/mit-license.php"
+    }
+  ]
 }
