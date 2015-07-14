@@ -15,6 +15,6 @@ module.exports = function(content) {
 		regExp: query.regExp
 	});
 	this.emitFile(url, content);
-	return "module.exports = __webpack_public_path__ + " + JSON.stringify(url);
+	return "module.exports = __webpack_public_path__ + " + JSON.stringify(url) + ";";
 }
 module.exports.raw = true;
