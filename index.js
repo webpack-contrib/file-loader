@@ -3,7 +3,6 @@
 	Author Tobias Koppers @sokra
 */
 var loaderUtils = require("loader-utils");
-var path = require("path");
 
 module.exports = function(content) {
 	this.cacheable && this.cacheable();
