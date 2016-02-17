@@ -71,3 +71,13 @@ describe("publicPath option", function() {
 		);
 	});
 });
+
+describe("skipEmit option", function() {
+	it("should be supported", function() {
+		var result = run("/file.txt", "skipEmit")
+		should.equal(result.file, null);
+		result.result.should.be.eql(
+			'module.exports = __webpack_public_path__ + "81dc9bdb52d04dc20036dbd8313ed055.txt";'
+		);
+	});
+});

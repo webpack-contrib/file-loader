@@ -13,7 +13,8 @@ module.exports = function(content) {
 
 	var config = {
 		publicPath: false,
-		name: "[hash].[ext]"
+		name: "[hash].[ext]",
+		skipEmit: false
 	};
 
 	// query takes precedence over config
@@ -38,7 +39,9 @@ module.exports = function(content) {
 		);
 	}
 
-	this.emitFile(url, content);
+	if(!config.skipEmit){
+		this.emitFile(url, content);
+	}
 
 	return "module.exports = " + publicPath + ";";
 }
