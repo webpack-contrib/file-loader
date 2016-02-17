@@ -66,8 +66,8 @@ describe("correct-filename", function() {
 
 describe("publicPath option", function() {
 	it("should be supported", function() {
-		run("/file.txt", "http://cdn/").result.should.be.eql(
-			'module.exports = __webpack_public_path__ + "81dc9bdb52d04dc20036dbd8313ed055.txt";'
+		run("/file.txt", "publicPath=http://cdn/").result.should.be.eql(
+			'module.exports = "http://cdn/81dc9bdb52d04dc20036dbd8313ed055.txt";'
 		);
 	});
 });
