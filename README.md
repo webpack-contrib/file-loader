@@ -59,6 +59,10 @@ require("file?name=[path][name].[ext]?[hash]!./dir/file.png")
 // => dir/file.png?e43b20c069c4a01867c31e98cbce33c9
 ```
 
+## Installation
+
+```npm install file-loader --save-dev```
+
 ## License
 
 MIT (http://www.opensource.org/licenses/mit-license.php)
