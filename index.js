@@ -16,7 +16,8 @@ module.exports = function (content) {
   if (query.dumpDirs) {
     query.dumpDirs.forEach((d) => {
       const re = new RegExp(`^${d}`)
-      if (url.match(re)) { url = url.replace(d, '') }
+      // TODO: make sure this slash is still ok on windows
+      if (url.match(re)) { url = url.replace(`${d}/`, '') }
     })
   }
   this.emitFile(url, content)
