@@ -4,7 +4,7 @@ var fileLoader = require("../");
 
 function run(resourcePath, query, content) {
 	content = content || new Buffer("1234");
-	var result = null;
+	var file = null;
 	var context = {
 		resourcePath: resourcePath,
 		query: "?" + query,
@@ -13,15 +13,20 @@ function run(resourcePath, query, content) {
 		},
 		emitFile: function(url, content2) {
 			content2.should.be.eql(content);
-			result = url;
+			file = url;
 		}
 	};
-	fileLoader.call(context, content);
-	return result;
+
+	var result = fileLoader.call(context, content)
+
+	return {
+		file: file,
+		result: result
+	}
 }
 
 function test(excepted, resourcePath, query, content) {
-	run(resourcePath, query, content).should.be.eql(excepted);
+	run(resourcePath, query, content).file.should.be.eql(excepted);
 }
 
 describe("correct-filename", function() {
@@ -57,4 +62,12 @@ describe("correct-filename", function() {
 		test("sntmopgids.txt", "/file.txt", "name=[hash:base26:10].[ext]");
 	});
 	
+});
+
+describe("publicPath option", function() {
+	it("should be supported", function() {
+		run("/file.txt", "publicPath=http://cdn/").result.should.be.eql(
+			'module.exports = "http://cdn/81dc9bdb52d04dc20036dbd8313ed055.txt";'
+		);
+	});
 });
