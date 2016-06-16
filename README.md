@@ -13,6 +13,15 @@ var url = require("file!./file.png");
 By default the filename of the resulting file is the MD5 hash of the file's contents 
 with the original extension of the required resource.
 
+By default a file is emitted, however this can be disabled if required (e.g. for server
+side packages).
+
+``` javascript
+var url = require("file?emitFile=false!./file.png");
+// => returns the public url but does NOT emit a file
+// => returns i. e. "/public-path/0dcbbaa701328a3c262cfd45869e351f.png"
+```
+
 ## Filename templates
 
 You can configure a custom filename template for your file using the query
