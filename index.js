@@ -10,13 +10,19 @@ module.exports = function(content) {
 
 	var query = loaderUtils.parseQuery(this.query);
 	var configKey = query.config || "fileLoader";
+	var options = this.options[configKey] || {};
 
 	var config = {
 		publicPath: false,
 		name: "[hash].[ext]"
 	};
 
-	// query takes precedence over config
+	// options takes precedence over config
+	Object.keys(options).forEach(function(attr) {
+		config[attr] = options[attr];
+	});
+
+	// query takes precedence over config and options
 	Object.keys(query).forEach(function(attr) {
 		config[attr] = query[attr];
 	});
