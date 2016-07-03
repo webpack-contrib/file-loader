@@ -9,7 +9,7 @@ module.exports = function(content) {
 	if(!this.emitFile) throw new Error("emitFile is required from module system");
 
 	var query = loaderUtils.parseQuery(this.query);
-	var configKey = query.config || "fileLoader";
+	var configKey = query.config || "customFileLoader";
 	var options = this.options[configKey] || {};
 
 	var config = {
@@ -35,12 +35,19 @@ module.exports = function(content) {
 
 	var publicPath = "__webpack_public_path__ + " + JSON.stringify(url);
 
-	if (config.publicPath) {
+	if (query.publicName) {
+		var publicUrl = loaderUtils.interpolateName(this, query.publicName, {
+			context: config.context || this.options.context,
+			content: content,
+			regExp: config.regExp
+		});
+		publicPath = JSON.stringify(publicUrl);
+	} else if (config.publicPath) {
 		// support functions as publicPath to generate them dynamically
 		publicPath = JSON.stringify(
-				typeof config.publicPath === "function" 
-				 ? config.publicPath(url) 
-				 : config.publicPath + url
+				typeof config.publicPath === "function"
+				 ? config.publicPath(url)
+				 : publicUrl
 		);
 	}
 
