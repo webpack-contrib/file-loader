@@ -9,7 +9,7 @@ module.exports = function(content) {
 	if(!this.emitFile) throw new Error("emitFile is required from module system");
 
 	var query = loaderUtils.parseQuery(this.query);
-	var configKey = query.config || "customFileLoader";
+	var configKey = query.config || "fileLoader";
 	var options = this.options[configKey] || {};
 
 	var config = {
