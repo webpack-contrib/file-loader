@@ -33,26 +33,28 @@ module.exports = function(content) {
 		regExp: config.regExp
 	});
 
+	var outputPath = url;
+
 	var publicPath = "__webpack_public_path__ + " + JSON.stringify(url);
 
-	if (query.publicName) {
-		var publicUrl = loaderUtils.interpolateName(this, query.publicName, {
-			context: config.context || this.options.context,
-			content: content,
-			regExp: config.regExp
-		});
-		publicPath = JSON.stringify(publicUrl);
-	} else if (config.publicPath) {
+	if (config.outputPath) {
+		 // support functions as outputPath to generate them dynamically
+		 outputPath = typeof config.outputPath === "function"
+		 ? config.outputPath(url)
+		 : config.outputPath + url
+	}
+
+	if (config.publicPath) {
 		// support functions as publicPath to generate them dynamically
 		publicPath = JSON.stringify(
 				typeof config.publicPath === "function"
 				 ? config.publicPath(url)
-				 : publicUrl
+				 : config.publicPath + url
 		);
 	}
 
 	if (query.emitFile === undefined || query.emitFile) {
-		this.emitFile(url, content);
+		this.emitFile(outputPath, content);
 	}
 
 	return "module.exports = " + publicPath + ";";
