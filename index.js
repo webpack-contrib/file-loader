@@ -48,6 +48,6 @@ module.exports = function(content) {
 		this.emitFile(url, content);
 	}
 
-	return "module.exports = " + publicPath + ";";
+	return "export default " + publicPath + ";";
 }
 module.exports.raw = true;
