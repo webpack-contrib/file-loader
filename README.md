@@ -5,7 +5,7 @@
 [Documentation: Using loaders](http://webpack.github.io/docs/using-loaders.html)
 
 ``` javascript
-var url = require("file!./file.png");
+var url = require("file-loader!./file.png");
 // => emits file.png as file in the output directory and returns the public url
 // => returns i. e. "/public-path/0dcbbaa701328a3c262cfd45869e351f.png"
 ```
@@ -17,7 +17,7 @@ By default a file is emitted, however this can be disabled if required (e.g. for
 side packages).
 
 ``` javascript
-var url = require("file?emitFile=false!./file.png");
+var url = require("file-loader?emitFile=false!./file.png");
 // => returns the public url but does NOT emit a file
 // => returns i. e. "/public-path/0dcbbaa701328a3c262cfd45869e351f.png"
 ```
@@ -44,27 +44,27 @@ use `?name=[path][name].[ext]`.
 ## Examples
 
 ``` javascript
-require("file?name=js/[hash].script.[ext]!./javascript.js");
+require("file-loader?name=js/[hash].script.[ext]!./javascript.js");
 // => js/0dcbbaa701328a3c262cfd45869e351f.script.js
 
-require("file?name=html-[hash:6].html!./page.html");
+require("file-loader?name=html-[hash:6].html!./page.html");
 // => html-109fa8.html
 
-require("file?name=[hash]!./flash.txt");
+require("file-loader?name=[hash]!./flash.txt");
 // => c31e9820c001c9c4a86bce33ce43b679
 
-require("file?name=[sha512:hash:base64:7].[ext]!./image.png");
+require("file-loader?name=[sha512:hash:base64:7].[ext]!./image.png");
 // => gdyb21L.png
 // use sha512 hash instead of md5 and with only 7 chars of base64
 
-require("file?name=img-[sha512:hash:base64:7].[ext]!./image.jpg");
+require("file-loader?name=img-[sha512:hash:base64:7].[ext]!./image.jpg");
 // => img-VqzT5ZC.jpg
 // use custom name, sha512 hash instead of md5 and with only 7 chars of base64
 
-require("file?name=picture.png!./myself.png");
+require("file-loader?name=picture.png!./myself.png");
 // => picture.png
 
-require("file?name=[path][name].[ext]?[hash]!./dir/file.png")
+require("file-loader?name=[path][name].[ext]?[hash]!./dir/file.png")
 // => dir/file.png?e43b20c069c4a01867c31e98cbce33c9
 ```
 
