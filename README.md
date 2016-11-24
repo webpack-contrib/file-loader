@@ -10,7 +10,7 @@ var url = require("file!./file.png");
 // => returns i. e. "/public-path/0dcbbaa701328a3c262cfd45869e351f.png"
 ```
 
-By default the filename of the resulting file is the MD5 hash of the file's contents 
+By default the filename of the resulting file is the MD5 hash of the file's contents
 with the original extension of the required resource.
 
 By default a file is emitted, however this can be disabled if required (e.g. for server
@@ -24,10 +24,15 @@ var url = require("file?emitFile=false!./file.png");
 
 ## Filename templates
 
-You can configure a custom filename template for your file using the query
-parameter `name`. For instance, to copy a file from your `context` directory
-into the output directory retaining the full directory structure, you might
-use `?name=[path][name].[ext]`.
+You can configure a custom filename template for your file using the query parameter `name`. For instance, to copy a file from your `context` directory into the output directory retaining the full directory structure, you might use `?name=[path][name].[ext]`.
+
+By default, the path and name you specify will output the file in that same directory and will also use that same URL path to access the file.
+
+You can specify custom output and public paths by using the `outputPath` and `publicPath` query name parameters:
+
+```
+loader: "file-loader?name=[name].[ext]&publicPath=assets/foo/&outputPath=app/images/"
+```
 
 ### Filename template placeholders
 
