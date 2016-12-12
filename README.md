@@ -1,5 +1,9 @@
 # file loader for webpack
 
+## installation
+
+`npm install file-loader --save-dev`
+
 ## Usage
 
 [Documentation: Using loaders](http://webpack.github.io/docs/using-loaders.html)
