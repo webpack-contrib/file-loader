@@ -1,17 +1,36 @@
-# file loader for webpack
+[![npm][npm]][npm-url]
+[![node][node]][node-url]
+[![deps][deps]][deps-url]
+[![tests][tests]][tests-url]
+[![coverage][cover]][cover-url]
+[![chat][chat]][chat-url]
 
-## Usage
+<div align="center">
+  <img width="200" height="200"
+    src="https://cdn.rawgit.com/webpack/file-loader/tree/master/.github/assets/file_loader_icon.svg">
+  <a href="https://github.com/webpack/webpack">
+    <img width="200" height="200"
+      src="https://webpack.js.org/assets/icon-square-big.svg">
+  </a>
+  <h1>File Loader</h1>
+</div>
 
-[Documentation: Using loaders](http://webpack.github.io/docs/using-loaders.html)
+<h2 align="center">Install</h2>
+
+```bash
+npm install --save-dev file-loader
+```
+
+<h2 align="center">Usage</h2>
+
+By default the filename of the resulting file is the MD5 hash of the file's contents
+with the original extension of the required resource.
 
 ``` javascript
 var url = require("file-loader!./file.png");
 // => emits file.png as file in the output directory and returns the public url
 // => returns i. e. "/public-path/0dcbbaa701328a3c262cfd45869e351f.png"
 ```
-
-By default the filename of the resulting file is the MD5 hash of the file's contents
-with the original extension of the required resource.
 
 By default a file is emitted, however this can be disabled if required (e.g. for server
 side packages).
@@ -22,7 +41,7 @@ var url = require("file-loader?emitFile=false!./file.png");
 // => returns i. e. "/public-path/0dcbbaa701328a3c262cfd45869e351f.png"
 ```
 
-## Filename templates
+#### Filename templates
 
 You can configure a custom filename template for your file using the query parameter `name`. For instance, to copy a file from your `context` directory into the output directory retaining the full directory structure, you might use `?name=[path][name].[ext]`.
 
@@ -31,10 +50,10 @@ By default, the path and name you specify will output the file in that same dire
 You can specify custom output and public paths by using the `outputPath` and `publicPath` query name parameters:
 
 ```
-loader: "file-loader?name=[name].[ext]&publicPath=assets/foo/&outputPath=app/images/"
+use: "file-loader?name=[name].[ext]&publicPath=assets/foo/&outputPath=app/images/"
 ```
 
-### Filename template placeholders
+#### Filename template placeholders
 
 * `[ext]` the extension of the resource
 * `[name]` the basename of the resource
@@ -46,7 +65,7 @@ loader: "file-loader?name=[name].[ext]&publicPath=assets/foo/&outputPath=app/ima
   * and `length` the length in chars
 * `[N]` the N-th match obtained from matching the current file name against the query param `regExp`
 
-## Examples
+#### Examples
 
 ``` javascript
 require("file-loader?name=js/[hash].script.[ext]!./javascript.js");
@@ -73,10 +92,56 @@ require("file-loader?name=[path][name].[ext]?[hash]!./dir/file.png")
 // => dir/file.png?e43b20c069c4a01867c31e98cbce33c9
 ```
 
-## Installation
+<h2 align="center">Contributing</h2>
 
-```npm install file-loader --save-dev```
+Don't hesitate to create a pull request. Every contribution is appreciated. In development you can start the tests by calling `npm test`.
 
-## License
+<h2 align="center">Maintainers</h2>
 
-MIT (http://www.opensource.org/licenses/mit-license.php)
+<table>
+  <tbody>
+    <tr>
+      <td align="center">
+        <img width="150 height="150"
+        src="https://avatars.githubusercontent.com/sokra?v=3">
+        <br />
+        <a href="https://github.com/">Tobias Koppers</a>
+      </td>
+      <td align="center">
+        <img width="150 height="150"
+        src="https://avatars.githubusercontent.com/SpaceK33z?v=3">
+        <br />
+        <a href="https://github.com/">Kees Kluskens</a>
+      </td>
+      <td align="center">
+        <img width="150 height="150"
+        src="https://avatars.githubusercontent.com/mobitar?v=3">
+        <br />
+        <a href="https://github.com/">Mo Bitar</a>
+      </td>
+    <tr>
+  <tbody>
+</table>
+
+
+<h2 align="center">LICENSE</h2>
+
+#### [MIT](./LICENSE)
+
+[npm]: https://img.shields.io/npm/v/file-loader.svg
+[npm-url]: https://npmjs.com/package/file-loader
+
+[node]: https://img.shields.io/node/v/file-loader.svg
+[node-url]: https://nodejs.org
+
+[deps]: https://david-dm.org/webpack/file-loader.svg
+[deps-url]: https://david-dm.org/webpack/file-loader
+
+[tests]: http://img.shields.io/travis/webpack/file-loader.svg
+[tests-url]: https://travis-ci.org/webpack/file-loader
+
+[cover]: https://coveralls.io/repos/github/webpack/file-loader/badge.svg
+[cover-url]: https://coveralls.io/github/webpack/file-loader
+
+[chat]: https://badges.gitter.im/webpack/webpack.svg
+[chat-url]: https://gitter.im/webpack/webpack
