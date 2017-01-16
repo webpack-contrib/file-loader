@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="200px" height="200px" viewBox="0 0 200 200" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <!-- Generator: Sketch 41.2 (35397) - http://www.bohemiancoding.com/sketch -->
+    <title>file_loader_icon</title>
+    <desc>Created with Sketch.</desc>
+    <defs>
+        <circle id="path-1" cx="64" cy="64" r="64"></circle>
+        <path d="M46,0 L4,0 C1.791,0 0,1.791 0,4 L0,76 C0,78.209 1.791,80 4,80 L60,80 C62.209,80 64,78.209 64,76 L64,18 L46,0 Z" id="path-3"></path>
+    </defs>
+    <g id="Page-1" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+        <g id="file_loader_icon">
+            <circle id="Oval" fill="#EAEFF0" cx="64" cy="64" r="64"></circle>
+            <g id="Background">
+                <mask id="mask-2" fill="white">
+                    <use xlink:href="#path-1"></use>
+                </mask>
+                <g id="SVGID_9_"></g>
+                <polygon id="Shape" fill="#D4D7DE" opacity="0.55" mask="url(#mask-2)" points="33.096 102.746 58.351 128 128 128 128 73.888 96 42"></polygon>
+            </g>
+            <path d="M78,24 L36,24 C33.791,24 32,25.791 32,28 L32,100 C32,102.209 33.791,104 36,104 L92,104 C94.209,104 96,102.209 96,100 L96,42 L78,24 Z" id="Shape" fill="#2195CD"></path>
+            <g id="Icon" transform="translate(32.000000, 24.000000)">
+                <mask id="mask-4" fill="white">
+                    <use xlink:href="#path-3"></use>
+                </mask>
+                <use id="layer1" fill="#4D9BD8" xlink:href="#path-3"></use>
+                <rect id="bottom" fill="#1C78C0" mask="url(#mask-4)" x="0" y="48" width="64" height="36"></rect>
+                <path d="M52,18 L64,18 L46,0 L46,12 C46,15.314 48.686,18 52,18 Z" id="fold" fill="#8ED6FB" mask="url(#mask-4)"></path>
+            </g>
+            <g id="text" transform="translate(42.000000, 74.000000)" font-size="20" font-family="Roboto-Regular, Roboto" fill="#FFFFFF" font-weight="normal">
+                <text id="file://">
+                    <tspan x="0" y="21">file://</tspan>
+                </text>
+            </g>
+        </g>
+    </g>
+</svg>
