@@ -11,10 +11,12 @@
   },
   "devDependencies": {
     "should": "~4.0.4",
+    "standard-version": "^4.0.0",
     "mocha": "~1.21.3"
   },
   "scripts": {
-    "test": "mocha -R spec"
+    "test": "mocha -R spec",
+    "release": "standard-version"
   },
   "repository": {
     "type": "git",
