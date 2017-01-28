@@ -16,6 +16,7 @@
   },
   "scripts": {
     "test": "mocha -R spec",
+    "travis:test": "npm run test",
     "release": "standard-version"
   },
   "repository": {
