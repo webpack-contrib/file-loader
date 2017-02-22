@@ -4,13 +4,29 @@
 */
 var loaderUtils = require("loader-utils");
 
+function getOptions (obj, key) {
+	if (!key) {
+		return {}
+	}
+	var keyPaths = key.split('.');
+	var Options = obj;
+	for (var path of keyPaths) {
+		if (Options) {
+			Options = Options[path];
+		} else {
+			return {};
+		}
+	}
+	return Options || {};
+}
+
 module.exports = function(content) {
 	this.cacheable && this.cacheable();
-	if(!this.emitFile) throw new Error("emitFile is required from module system");
+	if (!this.emitFile) throw new Error("emitFile is required from module system");
 
 	var query = loaderUtils.parseQuery(this.query);
 	var configKey = query.config || "fileLoader";
-	var options = this.options[configKey] || {};
+	var options = getOptions(this.options, configKey);
 
 	var config = {
 		publicPath: false,
