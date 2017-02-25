@@ -8,7 +8,7 @@ module.exports = function(content) {
 	this.cacheable && this.cacheable();
 	if(!this.emitFile) throw new Error("emitFile is required from module system");
 
-	var query = loaderUtils.parseQuery(this.query);
+	var query = loaderUtils.getOptions(this) || {};
 	var configKey = query.config || "fileLoader";
 	var options = this.options[configKey] || {};
 
