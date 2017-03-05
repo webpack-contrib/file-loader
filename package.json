@@ -4,20 +4,47 @@
   "author": "Tobias Koppers @sokra",
   "description": "file loader module for webpack",
   "files": [
-    "index.js"
+    "index.js",
+    "dist"
   ],
   "dependencies": {
     "loader-utils": "^1.0.2"
   },
   "devDependencies": {
-    "should": "~4.0.4",
+    "babel-cli": "^6.23.0",
+    "babel-jest": "^19.0.0",
+    "babel-polyfill": "^6.23.0",
+    "babel-preset-webpack": "^1.0.0",
+    "cross-env": "^3.2.3",
+    "del-cli": "^0.2.1",
+    "eslint": "^3.17.0",
+    "eslint-config-webpack": "^1.0.0",
+    "eslint-plugin-import": "^2.2.0",
+    "jest": "^19.0.2",
+    "lint-staged": "^3.3.1",
+    "nodemon": "^1.11.0",
+    "nsp": "^2.6.2",
+    "pre-commit": "^1.2.2",
     "standard-version": "^4.0.0",
-    "mocha": "~1.21.3"
+    "webpack-defaults": "^0.1.1"
   },
   "scripts": {
-    "test": "mocha -R spec",
-    "travis:test": "npm run test",
-    "release": "standard-version"
+    "test": "jest",
+    "travis:test": "yarn run test",
+    "release": "standard-version",
+    "webpack-defaults": "webpack-defaults",
+    "prepublish": "yarn run build",
+    "prebuild": "yarn run clean:dist",
+    "build": "cross-env NODE_ENV=production babel -s true src -d dist --ignore 'src/**/*.test.js'",
+    "clean:dist": "del-cli dist",
+    "start": "yarn run serve:dev src",
+    "serve:dev": "nodemon $2 --exec babel-node",
+    "lint": "eslint --cache src test",
+    "security": "nsp check",
+    "test:coverage": "jest --collectCoverageFrom='src/**/*.js' --coverage",
+    "travis:coverage": "yarn run test:coverage",
+    "travis:lint": "yarn run lint && yarn run nsp",
+    "lint-staged": "lint-staged"
   },
   "repository": {
     "type": "git",
@@ -27,9 +54,19 @@
     "url": "https://github.com/webpack/file-loader/issues"
   },
   "homepage": "https://github.com/webpack/file-loader",
-  "main": "index.js",
+  "main": "dist/index.js",
   "directories": {
     "test": "test"
   },
-  "license": "MIT"
+  "license": "MIT",
+  "engines": {
+    "node": ">=4.3.0 <5.0.0 || >=5.10"
+  },
+  "pre-commit": "lint-staged",
+  "lint-staged": {
+    "*.js": [
+      "eslint --fix",
+      "git add"
+    ]
+  }
 }
