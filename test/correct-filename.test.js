@@ -1,109 +1,72 @@
-var should = require("should");
-var path = require("path");
-var fileLoader = require("../");
+const fileLoader = require('../');
 
-function run(resourcePath, query, content) {
-	content = content || new Buffer("1234");
-	var file = null;
-	var context = {
-		resourcePath: resourcePath,
-		query: "?" + query,
-		options: {
-			context: "/this/is/the/context"
-		},
-		emitFile: function(url, content2) {
-			content2.should.be.eql(content);
-			file = url;
-		}
-	};
+const run = function run(resourcePath, query, content = new Buffer('1234')) {
+  let file = null;
 
-	var result = fileLoader.call(context, content)
+  const context = {
+    resourcePath,
+    query: `?${query}`,
+    options: {
+      context: '/this/is/the/context',
+    },
+    emitFile(url, content2) {
+      expect(content2).toEqual(content);
+      file = url;
+    },
+  };
 
-	return {
-		file: file,
-		result: result
-	}
-}
-function run_with_options(resourcePath,options, content) {
-	content = content || new Buffer("1234");
-	var file = null;
+  const result = fileLoader.call(context, content);
 
-	var context = {
-		resourcePath: resourcePath,
-		options: {
-			"fileLoader": options,
-			context: "/this/is/the/context"
-		},
-    	emitFile: function(url, content2) {
-			content2.should.be.eql(content);
-			file = url;
-		}
-	};
+  return {
+    file,
+    result,
+  };
+};
 
-	var result = fileLoader.call(context, content)
+const test = function test(excepted, resourcePath, query, content) {
+  expect(run(resourcePath, query, content).file).toEqual(excepted);
+};
 
-	return {
-		file: file,
-		result: result
-	}
-}
-
-function test(excepted, resourcePath, query, content) {
-	run(resourcePath, query, content).file.should.be.eql(excepted);
-}
-
-describe("correct-filename", function() {
-	it("should process defaults correctly", function() {
-		test("81dc9bdb52d04dc20036dbd8313ed055.txt", "/file.txt", "");
-		test("81dc9bdb52d04dc20036dbd8313ed055.png", "/file.png", "");
-		test("81dc9bdb52d04dc20036dbd8313ed055.txt", "file.txt", "");
-		test("81dc9bdb52d04dc20036dbd8313ed055.bin", "", "");
-	});
-	it("should process name correctly", function() {
-		test("file.txt", "/file.txt", "name=[name].[ext]");
-		test("file.png", "/file.png", "name=[name].[ext]");
-		test("file.txt", "file.txt", "name=[name].[ext]");
-		test("file.bin", "", "name=[name].[ext]");
-		test("file", "/file.txt", "name=[name]");
-		test("81dc9bdb52d04dc20036dbd8313ed055", "/file.txt", "name=[hash]");
-		test("81dc9bdb52d04dc20036dbd8313ed055/file.txt", "/file.txt", "name=[hash]/[name].[ext]");
-		test("file.txt", "/this/is/the/context/file.txt", "name=[path][name].[ext]");
-		test("dir/file.txt", "/this/is/the/context/dir/file.txt", "name=[path][name].[ext]");
-		test("dir/sub/file.txt", "/this/is/the/context/dir/sub/file.txt", "name=[path][name].[ext]");
-		test("_/_/dir/sub/file.txt", "/this/is/dir/sub/file.txt", "name=[path][name].[ext]");
-		test("dir/sub/file.txt", "/this/is/dir/sub/file.txt", "name=[path][name].[ext]&context=/this/is");
-	});
-	it("should process hash correctly", function() {
-		test("d93591bdf7860e1e4ee2fca799911215.txt", "/file.txt", "", new Buffer("4321"));
-	});
-	it("should process hash options correctly", function() {
-		test("81dc9.txt", "/file.txt", "name=[hash:5].[ext]");
-		test("d4045.txt", "/file.txt", "name=[sha512:hash:5].[ext]");
-		test("1lQ3UNSdIS0c9dQ5brCZO1.txt", "/file.txt", "name=[hash:base64].[ext]");
-		test("caYJDUvUOiGAdDsiHKffIEj.txt", "/file.txt", "name=[hash:base52].[ext]");
-		test("sntmopgidsdqrofkjywoyldtiij.txt", "/file.txt", "name=[hash:base26].[ext]");
-		test("sntmopgids.txt", "/file.txt", "name=[hash:base26:10].[ext]");
-	});
+describe('correct-filename', () => {
+  it('should process defaults correctly', () => {
+    test('81dc9bdb52d04dc20036dbd8313ed055.txt', '/file.txt', '');
+    test('81dc9bdb52d04dc20036dbd8313ed055.png', '/file.png', '');
+    test('81dc9bdb52d04dc20036dbd8313ed055.txt', 'file.txt', '');
+    test('81dc9bdb52d04dc20036dbd8313ed055.bin', '', '');
+  });
+  it('should process name correctly', () => {
+    test('file.txt', '/file.txt', 'name=[name].[ext]');
+    test('file.png', '/file.png', 'name=[name].[ext]');
+    test('file.txt', 'file.txt', 'name=[name].[ext]');
+    test('file.bin', '', 'name=[name].[ext]');
+    test('file', '/file.txt', 'name=[name]');
+    test('81dc9bdb52d04dc20036dbd8313ed055', '/file.txt', 'name=[hash]');
+    test('81dc9bdb52d04dc20036dbd8313ed055/file.txt', '/file.txt', 'name=[hash]/[name].[ext]');
+    test('file.txt', '/this/is/the/context/file.txt', 'name=[path][name].[ext]');
+    test('dir/file.txt', '/this/is/the/context/dir/file.txt', 'name=[path][name].[ext]');
+    test('dir/sub/file.txt', '/this/is/the/context/dir/sub/file.txt', 'name=[path][name].[ext]');
+    test('_/_/dir/sub/file.txt', '/this/is/dir/sub/file.txt', 'name=[path][name].[ext]');
+    test('dir/sub/file.txt', '/this/is/dir/sub/file.txt', 'name=[path][name].[ext]&context=/this/is');
+  });
+  it('should process hash correctly', () => {
+    test('d93591bdf7860e1e4ee2fca799911215.txt', '/file.txt', '', new Buffer('4321'));
+  });
+  it('should process hash options correctly', () => {
+    test('81dc9.txt', '/file.txt', 'name=[hash:5].[ext]');
+    test('d4045.txt', '/file.txt', 'name=[sha512:hash:5].[ext]');
+    test('1lQ3UNSdIS0c9dQ5brCZO1.txt', '/file.txt', 'name=[hash:base64].[ext]');
+    test('caYJDUvUOiGAdDsiHKffIEj.txt', '/file.txt', 'name=[hash:base52].[ext]');
+    test('sntmopgidsdqrofkjywoyldtiij.txt', '/file.txt', 'name=[hash:base26].[ext]');
+    test('sntmopgids.txt', '/file.txt', 'name=[hash:base26:10].[ext]');
+  });
 });
 
-describe("publicPath option", function() {
-	it("should be supported", function() {
-		run("/file.txt", "publicPath=http://cdn/").result.should.be.eql(
-			'module.exports = "http://cdn/81dc9bdb52d04dc20036dbd8313ed055.txt";'
-		);
-	});
-
-	it("should override public path when given empty string", function() {
-		run("file.txt", "publicPath=").result.should.be.eql(
-			'module.exports = "81dc9bdb52d04dc20036dbd8313ed055.txt";'
-		);
-	});
-
-	it("should use webpack public path when not set", function() {
-		run("file.txt").result.should.be.eql(
-			'module.exports = __webpack_public_path__ + "81dc9bdb52d04dc20036dbd8313ed055.txt";'
-		);
-	});
+describe('publicPath option', () => {
+  it('should be supported', () => {
+    expect(run('/file.txt', 'publicPath=http://cdn/').result).toEqual(
+      'module.exports = "http://cdn/81dc9bdb52d04dc20036dbd8313ed055.txt";',
+    );
+  });
 });
 
 describe("useRelativePath option", function() {

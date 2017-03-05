@@ -1,0 +1,6 @@
+{
+  "presets": [
+    "webpack",
+    "jest"
+  ]
+}

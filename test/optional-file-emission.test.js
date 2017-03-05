@@ -1,29 +1,27 @@
-var should = require("should");
-var fileLoader = require("../");
+const fileLoader = require('../');
 
-function run(resourcePath, query, content) {
-	content = content || new Buffer("1234");
-	var result = false;
-	var context = {
-		resourcePath: resourcePath,
-		query: "?" + query,
-		options: {
-			context: "/this/is/the/context"
-		},
-		emitFile: function(url, content2) {
-			result = true;
-		}
-	};
-	fileLoader.call(context, content);
-	return result;
-}
+const run = function run(resourcePath, query, content = new Buffer('1234')) {
+  let result = false;
+  const context = {
+    resourcePath,
+    query: `?${query}`,
+    options: {
+      context: '/this/is/the/context',
+    },
+    emitFile() {
+      result = true;
+    },
+  };
+  fileLoader.call(context, content);
+  return result;
+};
 
-describe("optional-emission", function() {
-	it("should emit a file by default", function() {
-		run("whatever.txt", "").should.be.true;
-	});
+describe('optional-emission', () => {
+  it('should emit a file by default', () => {
+    expect(run('whatever.txt', '')).toBe(true);
+  });
 
-	it("should not emit a file if disabled", function() {
-		run("whatever.txt", "emitFile=false").should.be.false;
-	});
+  it('should not emit a file if disabled', () => {
+    expect(run('whatever.txt', 'emitFile=false')).toBe(false);
+  });
 });
