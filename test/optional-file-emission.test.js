@@ -1,4 +1,4 @@
-const fileLoader = require('../');
+import fileLoader from '../src';
 
 const run = function run(resourcePath, query, content = new Buffer('1234')) {
   let result = false;

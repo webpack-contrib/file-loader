@@ -1,4 +1,4 @@
-const fileLoader = require('../');
+import fileLoader from '../src';
 
 const run = function run(resourcePath, query, content = new Buffer('1234')) {
   let file = null;
@@ -64,7 +64,7 @@ describe('correct-filename', () => {
 describe('publicPath option', () => {
   it('should be supported', () => {
     expect(run('/file.txt', 'publicPath=http://cdn/').result).toEqual(
-      'module.exports = "http://cdn/81dc9bdb52d04dc20036dbd8313ed055.txt";',
+      'export default = "http://cdn/81dc9bdb52d04dc20036dbd8313ed055.txt";',
     );
   });
 });
