@@ -2,9 +2,9 @@
   MIT License http://www.opensource.org/licenses/mit-license.php
   Author Tobias Koppers @sokra
 */
-const loaderUtils = require('loader-utils');
+import loaderUtils from 'loader-utils';
 
-module.exports = function fileLoader(content) {
+export default function fileLoader(content) {
   this.cacheable && this.cacheable(); // eslint-disable-line no-unused-expressions
 
   if (!this.emitFile) throw new Error('emitFile is required from module system');
@@ -54,6 +54,6 @@ module.exports = function fileLoader(content) {
     this.emitFile(outputPath, content);
   }
 
-  return `module.exports = ${publicPath};`;
-};
-module.exports.raw = true;
+  return `export default = ${publicPath};`;
+}
+export const raw = true;
