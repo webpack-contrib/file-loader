@@ -8,7 +8,7 @@ matrix:
   include:
     - os: linux
       node_js: '7'
-      env: WEBPACK_VERSION="2.2.0" BITHOUND_CHECK=true JOB_PART=lint
+      env: WEBPACK_VERSION="2.2.0" JOB_PART=lint
     - os: linux
       node_js: '4.3'
       env: WEBPACK_VERSION="2.2.0" JOB_PART=test
@@ -25,11 +25,6 @@ before_script:
   - |-
     if [ "$WEBPACK_VERSION" ]; then
       yarn add webpack@^$WEBPACK_VERSION
-    fi
-  - |-
-    if [ "$BITHOUND_CHECK" ]; then
-      yarn global add bithound
-      bithound check git@github.com:$TRAVIS_REPO_SLUG.git
     fi
 script:
   - 'yarn run travis:$JOB_PART'
