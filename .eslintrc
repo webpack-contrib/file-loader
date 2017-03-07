@@ -1,6 +1,3 @@
 {
-  "extends": "webpack",
-  "globals": {
-    "expect": true
-  }
+  "extends": "webpack"
 }
