@@ -40,21 +40,22 @@ module.exports = function(content) {
 		regExp: config.regExp
 	});
 
-	var outputPath = url;
+	var outputPath;
 	if (config.outputPath) {
 		// support functions as outputPath to generate them dynamically
 		outputPath = (
 			typeof config.outputPath === "function"
 			? config.outputPath(url)
-			: config.outputPath
+			: config.outputPath + url
 		);
 	}
 
 	if (config.relativePath) {
-		outputPath = outputPath + fileName;
 		url = relativePath + url;
 	} else if (config.outputPath) {
-		outputPath = url = outputPath + url;
+		url = outputPath;
+	} else {
+		outputPath = url;
 	}
 
 	var publicPath = "__webpack_public_path__ + " + JSON.stringify(url);
