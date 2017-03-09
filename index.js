@@ -50,7 +50,7 @@ module.exports = function(content) {
 		outputPath = (
 			typeof config.outputPath === "function"
 			? config.outputPath(url)
-			: config.outputPath
+			: config.outputPath + url
 		);
 		if (!config.relativePath) {
 			url = path.normalize(outputPath, url).split(path.sep).join("/") + url;
@@ -68,7 +68,7 @@ module.exports = function(content) {
 	}
 
 	if (query.emitFile === undefined || query.emitFile) {
-		this.emitFile(outputPath + fileName, content);
+		this.emitFile(outputPath, content);
 	}
 
 	return "module.exports = " + publicPath + ";";
