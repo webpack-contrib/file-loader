@@ -40,21 +40,21 @@ module.exports = function(content) {
 		regExp: config.regExp
 	});
 
-	if (config.relativePath) {
-		url = relativePath + url;
-	}
-
 	var outputPath = url;
 	if (config.outputPath) {
 		// support functions as outputPath to generate them dynamically
 		outputPath = (
 			typeof config.outputPath === "function"
 			? config.outputPath(url)
-			: config.outputPath + url
+			: config.outputPath
 		);
-		if (!config.relativePath) {
-			url = path.normalize(outputPath, url).split(path.sep).join("/");
-		}
+	}
+
+	if (config.relativePath) {
+		outputPath = outputPath + fileName;
+		url = relativePath + url;
+	} else {
+		url = outputPath = outputPath + url;
 	}
 
 	var publicPath = "__webpack_public_path__ + " + JSON.stringify(url);
