@@ -13,6 +13,7 @@ module.exports = function(content) {
 	var configKey = query.config || "fileLoader";
 	var options = this.options[configKey] || {};
 	var filePath = this.resourcePath;
+	var fileName = path.basename(filePath);
 	var issuerContext = this._module.issuer.context;
 	var relativeUrl = path.relative(issuerContext, filePath).split(path.sep).join("/");
 	var relativePath = relativeUrl && path.dirname(relativeUrl) + "/";
@@ -61,7 +62,7 @@ module.exports = function(content) {
 	}
 
 	if (query.emitFile === undefined || query.emitFile) {
-		this.emitFile(outputPath, content);
+		this.emitFile(outputPath + fileName, content);
 	}
 
 	return "module.exports = " + publicPath + ";";
