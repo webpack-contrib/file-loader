@@ -53,8 +53,8 @@ module.exports = function(content) {
 	if (config.relativePath) {
 		outputPath = outputPath + fileName;
 		url = relativePath + url;
-	} else {
-		url = outputPath = outputPath + url;
+	} else if (config.outputPath) {
+		outputPath = url = outputPath + url;
 	}
 
 	var publicPath = "__webpack_public_path__ + " + JSON.stringify(url);
