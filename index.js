@@ -15,7 +15,7 @@ module.exports = function(content) {
 
 	var config = {
 		publicPath: false,
-		relativePath: false,
+		useRelativePath: false,
 		name: "[hash].[ext]"
 	};
 
@@ -52,7 +52,7 @@ module.exports = function(content) {
 		);
 	}
 
-	if (config.relativePath) {
+	if (config.useRelativePath) {
 		url = relativePath + url;
 	} else if (outputPath) {
 		url = outputPath;
