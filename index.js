@@ -14,12 +14,13 @@ module.exports = function(content) {
 	var options = this.options[configKey] || {};
 	var filePath = this.resourcePath;
 	var fileName = path.basename(filePath);
-	var issuerContext = this._module && this._module.issuer && this._module.issuer.context || '';
+	var issuerContext = this._module && this._module.issuer && this._module.issuer.context || "";
 	var relativeUrl = path.relative(issuerContext, filePath).split(path.sep).join("/");
 	var relativePath = relativeUrl && path.dirname(relativeUrl) + "/";
 
 	var config = {
 		publicPath: false,
+		relativePath: false,
 		name: "[hash].[ext]"
 	};
 
@@ -33,16 +34,17 @@ module.exports = function(content) {
 		config[attr] = query[attr];
 	});
 
-	var url = relativePath + loaderUtils.interpolateName(this, config.name, {
+	var url = loaderUtils.interpolateName(this, config.name, {
 		context: config.context || this.options.context,
 		content: content,
 		regExp: config.regExp
 	});
 
+	if (config.relativePath) {
+		url = relativePath + url;
+	}
+
 	var outputPath = url;
-
-	var publicPath = "__webpack_public_path__ + " + JSON.stringify(url);
-
 	if (config.outputPath) {
 		// support functions as outputPath to generate them dynamically
 		outputPath = (
@@ -50,8 +52,12 @@ module.exports = function(content) {
 			? config.outputPath(url)
 			: config.outputPath
 		);
+		if (!config.relativePath) {
+			url = path.normalize(outputPath, url).split(path.sep).join("/") + url;
+		}
 	}
 
+	var publicPath = "__webpack_public_path__ + " + JSON.stringify(url);
 	if (config.publicPath) {
 		// support functions as publicPath to generate them dynamically
 		publicPath = JSON.stringify(
