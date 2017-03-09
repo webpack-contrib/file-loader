@@ -53,7 +53,7 @@ module.exports = function(content) {
 			: config.outputPath + url
 		);
 		if (!config.relativePath) {
-			url = path.normalize(outputPath, url).split(path.sep).join("/") + url;
+			url = path.normalize(outputPath, url).split(path.sep).join("/") + fileName;
 		}
 	}
 
