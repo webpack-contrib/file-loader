@@ -54,7 +54,7 @@
     "url": "https://github.com/webpack/file-loader/issues"
   },
   "homepage": "https://github.com/webpack/file-loader",
-  "main": "dist/index.js",
+  "main": "dist/cjs.js",
   "directories": {
     "test": "test"
   },
