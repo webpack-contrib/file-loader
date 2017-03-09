@@ -12,11 +12,6 @@ module.exports = function(content) {
 	var query = loaderUtils.getOptions(this) || {};
 	var configKey = query.config || "fileLoader";
 	var options = this.options[configKey] || {};
-	var filePath = this.resourcePath;
-	var fileName = path.basename(filePath);
-	var issuerContext = this._module && this._module.issuer && this._module.issuer.context || "";
-	var relativeUrl = path.relative(issuerContext, filePath).split(path.sep).join("/");
-	var relativePath = relativeUrl && path.dirname(relativeUrl) + "/";
 
 	var config = {
 		publicPath: false,
@@ -34,8 +29,15 @@ module.exports = function(content) {
 		config[attr] = query[attr];
 	});
 
+	var filePath = this.resourcePath;
+	var fileName = path.basename(filePath);
+	var context = config.context || this.options.context;
+	var issuerContext = this._module && this._module.issuer && this._module.issuer.context || context;
+	var relativeUrl = issuerContext && path.relative(issuerContext, filePath).split(path.sep).join("/");
+	var relativePath = relativeUrl && path.dirname(relativeUrl) + "/";
+
 	var url = loaderUtils.interpolateName(this, config.name, {
-		context: config.context || this.options.context,
+		context: context,
 		content: content,
 		regExp: config.regExp
 	});
