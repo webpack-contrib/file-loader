@@ -14,7 +14,7 @@ module.exports = function(content) {
 	var options = this.options[configKey] || {};
 	var filePath = this.resourcePath;
 	var fileName = path.basename(filePath);
-	var issuerContext = this._module.issuer.context;
+	var issuerContext = this._module && this._module.issuer && this._module.issuer.context || '';
 	var relativeUrl = path.relative(issuerContext, filePath).split(path.sep).join("/");
 	var relativePath = relativeUrl && path.dirname(relativeUrl) + "/";
 
