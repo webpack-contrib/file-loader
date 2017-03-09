@@ -3,7 +3,7 @@
     [
       "env",
       {
-        "modules": "commonjs",
+        "modules": false,
         "useBuiltIns": true,
         "targets": {
           "node": 4.3
