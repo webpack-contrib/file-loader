@@ -52,7 +52,7 @@ module.exports = function(content) {
 
 	if (config.relativePath) {
 		url = relativePath + url;
-	} else if (config.outputPath) {
+	} else if (outputPath) {
 		url = outputPath;
 	} else {
 		outputPath = url;
