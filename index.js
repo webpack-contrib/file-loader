@@ -50,10 +50,10 @@ module.exports = function(content) {
 	var relativeUrl = issuerContext && path.relative(issuerContext, filePath).split(path.sep).join("/");
 	var relativePath = relativeUrl && path.dirname(relativeUrl) + "/";
 	if (config.useRelativePath) {
-		if (relativePath.indexOf("../")) {
-			outputPath = relativePath + url;
+		if (~relativePath.indexOf("../")) {
+			outputPath = path.join(outputPath, relativePath, url);
 		} else {
-			outputPath = path.join(outputPath, relativePath) + url;
+			outputPath = relativePath + url;
 		}
 		url = relativePath + url;
 	} else if (outputPath) {
