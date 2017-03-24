@@ -46,12 +46,12 @@ module.exports = function(content) {
 	}
 
 	var filePath = this.resourcePath;
-	var issuerContext = this._module && this._module.issuer && this._module.issuer.context || context;
-	var relativeUrl = issuerContext && path.relative(issuerContext, filePath).split(path.sep).join("/");
-	var relativePath = relativeUrl && path.dirname(relativeUrl) + "/";
 	if (config.useRelativePath) {
+		var issuerContext = this._module && this._module.issuer && this._module.issuer.context || context;
+		var relativeUrl = issuerContext && path.relative(issuerContext, filePath).split(path.sep).join("/");
+		var relativePath = relativeUrl && path.dirname(relativeUrl) + "/";
 		if (~relativePath.indexOf("../")) {
-			outputPath = path.join(outputPath, relativePath, url);
+			outputPath = path.posix.join(outputPath, relativePath, url);
 		} else {
 			outputPath = relativePath + url;
 		}
