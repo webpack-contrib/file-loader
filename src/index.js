@@ -2,6 +2,7 @@
   MIT License http://www.opensource.org/licenses/mit-license.php
   Author Tobias Koppers @sokra
 */
+import path from 'path';
 import loaderUtils from 'loader-utils';
 
 export default function fileLoader(content) {
@@ -15,6 +16,7 @@ export default function fileLoader(content) {
 
   const config = {
     publicPath: false,
+    useRelativePath: false,
     name: '[hash].[ext]',
   };
 
@@ -28,21 +30,41 @@ export default function fileLoader(content) {
     config[attr] = query[attr];
   });
 
-  const url = loaderUtils.interpolateName(this, config.name, {
-    context: config.context || this.options.context,
+  const context = config.context || this.options.context;
+  let url = loaderUtils.interpolateName(this, config.name, {
+    context,
     content,
     regExp: config.regExp,
   });
 
-  let outputPath = url;
-
-  let publicPath = `__webpack_public_path__ + ${JSON.stringify(url)}`;
-
+  let outputPath = '';
   if (config.outputPath) {
     // support functions as outputPath to generate them dynamically
-    outputPath = typeof config.outputPath === 'function' ? config.outputPath(url) : config.outputPath + url;
+    outputPath = (
+      typeof config.outputPath === 'function' ? config.outputPath(url) : config.outputPath
+    );
   }
 
+  const filePath = this.resourcePath;
+  if (config.useRelativePath) {
+    const issuerContext = this._module && this._module.issuer // eslint-disable-line no-underscore-dangle
+      && this._module.issuer.context || context; // eslint-disable-line no-mixed-operators, no-underscore-dangle
+    const relativeUrl = issuerContext && path.relative(issuerContext, filePath).split(path.sep).join('/');
+    const relativePath = relativeUrl && `${path.dirname(relativeUrl)}/`;
+    if (~relativePath.indexOf('../')) { // eslint-disable-line no-bitwise
+      outputPath = path.posix.join(outputPath, relativePath, url);
+    } else {
+      outputPath = relativePath + url;
+    }
+    url = relativePath + url;
+  } else if (outputPath) {
+    outputPath += url;
+    url = outputPath;
+  } else {
+    outputPath = url;
+  }
+
+  let publicPath = `__webpack_public_path__ + ${JSON.stringify(url)}`;
   if (config.publicPath) {
     // support functions as publicPath to generate them dynamically
     publicPath = JSON.stringify(
@@ -56,4 +78,5 @@ export default function fileLoader(content) {
 
   return `export default = ${publicPath};`;
 }
+
 export const raw = true;
