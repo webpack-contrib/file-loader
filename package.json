@@ -13,6 +13,7 @@
   "devDependencies": {
     "babel-cli": "^6.23.0",
     "babel-jest": "^19.0.0",
+    "babel-plugin-transform-object-rest-spread": "^6.23.0",
     "babel-polyfill": "^6.23.0",
     "babel-preset-env": "^1.2.0",
     "cross-env": "^3.2.3",
@@ -26,7 +27,7 @@
     "nsp": "^2.6.2",
     "pre-commit": "^1.2.2",
     "standard-version": "^4.0.0",
-    "webpack-defaults": "^0.2.1"
+    "webpack-defaults": "^0.4.5"
   },
   "scripts": {
     "test": "jest",
@@ -35,7 +36,7 @@
     "webpack-defaults": "webpack-defaults",
     "prepublish": "yarn run build",
     "prebuild": "yarn run clean:dist",
-    "build": "cross-env NODE_ENV=production babel -s true src -d dist --ignore 'src/**/*.test.js'",
+    "build": "cross-env NODE_ENV=production babel src -d dist --ignore 'src/**/*.test.js'",
     "clean:dist": "del-cli dist",
     "start": "yarn run serve:dev src",
     "serve:dev": "nodemon $2 --exec babel-node",
@@ -44,7 +45,8 @@
     "test:coverage": "jest --collectCoverageFrom='src/**/*.js' --coverage",
     "travis:coverage": "yarn run test:coverage",
     "travis:lint": "yarn run lint && yarn run security",
-    "lint-staged": "lint-staged"
+    "lint-staged": "lint-staged",
+    "test:watch": "jest --watch"
   },
   "repository": {
     "type": "git",
@@ -60,7 +62,7 @@
   },
   "license": "MIT",
   "engines": {
-    "node": ">=4.3 <5.0.0 || >=5.10"
+    "node": ">= 4.3 < 5.0.0 || >= 5.10"
   },
   "pre-commit": "lint-staged",
   "lint-staged": {
