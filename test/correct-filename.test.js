@@ -1,3 +1,4 @@
+/* eslint-disable no-useless-escape */
 import fileLoader from '../src';
 
 const run = function run(resourcePath, query, content = new Buffer('1234')) {
@@ -69,19 +70,19 @@ describe('publicPath option', () => {
   });
 });
 
-describe("useRelativePath option", function() {
-	it("should be supported", function() {
-		run("/this/is/the/context/file.txt", "useRelativePath=true").result.should.be.eql(
-			'module.exports = __webpack_public_path__ + \"./81dc9bdb52d04dc20036dbd8313ed055.txt\";'
-		);
-		run("/this/is/file.txt", "useRelativePath=true").result.should.be.eql(
-			'module.exports = __webpack_public_path__ + \"../../81dc9bdb52d04dc20036dbd8313ed055.txt\";'
-		);
-		run("/this/file.txt", "context=/this/is/the/&useRelativePath=true").result.should.be.eql(
-			'module.exports = __webpack_public_path__ + \"../../81dc9bdb52d04dc20036dbd8313ed055.txt\";'
-		);
-		run("/this/file.txt", "context=/&useRelativePath=true").result.should.be.eql(
-			'module.exports = __webpack_public_path__ + \"this/81dc9bdb52d04dc20036dbd8313ed055.txt\";'
-		);
-	});
+describe('useRelativePath option', () => {
+  it('should be supported', () => {
+    expect(run('/this/is/the/context/file.txt', 'useRelativePath=true').result).toEqual(
+      'export default = __webpack_public_path__ + \"./81dc9bdb52d04dc20036dbd8313ed055.txt\";',
+    );
+    expect(run('/this/is/file.txt', 'useRelativePath=true').result).toEqual(
+      'export default = __webpack_public_path__ + \"../../81dc9bdb52d04dc20036dbd8313ed055.txt\";',
+    );
+    expect(run('/this/file.txt', 'context=/this/is/the/&useRelativePath=true').result).toEqual(
+      'export default = __webpack_public_path__ + \"../../81dc9bdb52d04dc20036dbd8313ed055.txt\";',
+    );
+    expect(run('/this/file.txt', 'context=/&useRelativePath=true').result).toEqual(
+      'export default = __webpack_public_path__ + \"this/81dc9bdb52d04dc20036dbd8313ed055.txt\";',
+    );
+  });
 });
