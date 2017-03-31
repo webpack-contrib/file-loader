@@ -2,6 +2,16 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+<a name="0.11.0"></a>
+# [0.11.0](https://github.com/webpack/file-loader/compare/v0.10.1...v0.11.0) (2017-03-31)
+
+
+### Features
+
+* Emit files with relative urls ([#135](https://github.com/webpack/file-loader/issues/135)) ([dbcd6cc](https://github.com/webpack/file-loader/commit/dbcd6cc))
+
+
+
 <a name="0.10.1"></a>
 ## [0.10.1](https://github.com/webpack/file-loader/compare/v0.10.0...v0.10.1) (2017-02-25)
 
