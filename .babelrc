@@ -3,7 +3,6 @@
     [
       "env",
       {
-        "modules": false,
         "useBuiltIns": true,
         "targets": {
           "node": 4.3
@@ -15,10 +14,21 @@
       }
     ]
   ],
+  "plugins": [
+    [
+      "transform-object-rest-spread",
+      {
+        "useBuiltIns": true
+      }
+    ]
+  ],
   "env": {
     "test": {
       "presets": [
         "env"
+      ],
+      "plugins": [
+        "transform-object-rest-spread"
       ]
     }
   }
