@@ -4,7 +4,6 @@
   "author": "Tobias Koppers @sokra",
   "description": "file loader module for webpack",
   "files": [
-    "index.js",
     "dist"
   ],
   "dependencies": {
