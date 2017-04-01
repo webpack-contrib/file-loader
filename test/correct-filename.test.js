@@ -24,6 +24,29 @@ function run(resourcePath, query, content) {
 		result: result
 	}
 }
+function run_with_options(resourcePath,options, content) {
+	content = content || new Buffer("1234");
+	var file = null;
+
+	var context = {
+		resourcePath: resourcePath,
+		options: {
+			"fileLoader": options,
+			context: "/this/is/the/context"
+		},
+    	emitFile: function(url, content2) {
+			content2.should.be.eql(content);
+			file = url;
+		}
+	};
+
+	var result = fileLoader.call(context, content)
+
+	return {
+		file: file,
+		result: result
+	}
+}
 
 function test(excepted, resourcePath, query, content) {
 	run(resourcePath, query, content).file.should.be.eql(excepted);
@@ -86,4 +109,31 @@ describe("useRelativePath option", function() {
 			'module.exports = __webpack_public_path__ + \"this/81dc9bdb52d04dc20036dbd8313ed055.txt\";'
 		);
 	});
+});
+describe("outputPath function", function() {
+	it("should be supported", function() {
+      outputFunc = function(value) {
+        return("/path/set/by/func");
+
+      };
+      var options = {};
+      options.outputPath = outputFunc;
+      run_with_options("/this/is/the/context/file.txt", options).result.should.be.eql(
+        'module.exports = __webpack_public_path__ + \"/path/set/by/func\";'
+      );
+
+	});
+	it("should be ignored if you set useRelativePath", function() {
+	      outputFunc = function(value) {
+	        return("/path/set/by/func");
+
+	      };
+	      var options = {};
+	      options.outputPath = outputFunc;
+	      options.useRelativePath = true;
+	      run_with_options("/this/is/the/context/file.txt", options).result.should.be.eql(
+	        'module.exports = __webpack_public_path__ + \"./81dc9bdb52d04dc20036dbd8313ed055.txt\";'
+	      );
+
+		});
 });
