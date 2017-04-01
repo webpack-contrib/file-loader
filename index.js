@@ -55,7 +55,6 @@ module.exports = function(content) {
 			? config.outputPath(url)
 			: config.outputPath + url
 		);
-	}
 		url = outputPath;
 	} else {
 		outputPath = url;
