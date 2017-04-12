@@ -5,6 +5,8 @@
 
 # dotfiles
 .*
+!.editorconfig
 !.gitignore
+!.travis.yml
 *~
 *#*
