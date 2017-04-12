@@ -61,6 +61,8 @@ use: "file-loader?name=[name].[ext]&publicPath=assets/foo/&outputPath=app/images
 }
 ```
 
+`textOutputPath` also should be used to define the output path from extracted file (i.e. css files) if you use them.
+
 #### Filename template placeholders
 
 * `[ext]` the extension of the resource
