@@ -73,8 +73,8 @@ module.exports = function(content) {
     var output = this.options.output || {};
     if (output.filename && output.filename !== "extract-text-webpack-plugin-output-filename") {
       relativePath = outputPath;
-    } else if (toString.call(config.textOutputPath) === '[object String]') {
-      var outputPackageDirname = output.path.replace(this.options.context + path.sep, '');
+    } else if (toString.call(config.textOutputPath) === "[object String]") {
+      var outputPackageDirname = output.path.replace(this.options.context + path.sep, "");
       var issuerOutput = path.join(context, outputPackageDirname, config.textOutputPath);
       var assetOutput = path.join(context, outputPackageDirname, outputDirname);
       relativePath = path.relative(issuerOutput, assetOutput);
