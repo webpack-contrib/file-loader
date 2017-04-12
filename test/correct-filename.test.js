@@ -97,7 +97,7 @@ describe("publicPath option", function() {
 describe("useRelativePath option", function() {
 	it("should be supported", function() {
 		run("/this/is/the/context/file.txt", "useRelativePath=true").result.should.be.eql(
-			'module.exports = __webpack_public_path__ + \"./81dc9bdb52d04dc20036dbd8313ed055.txt\";'
+			'module.exports = __webpack_public_path__ + \"81dc9bdb52d04dc20036dbd8313ed055.txt\";'
 		);
 		run("/this/is/file.txt", "useRelativePath=true").result.should.be.eql(
 			'module.exports = __webpack_public_path__ + \"../../81dc9bdb52d04dc20036dbd8313ed055.txt\";'
@@ -132,7 +132,7 @@ describe("outputPath function", function() {
 	      options.outputPath = outputFunc;
 	      options.useRelativePath = true;
 	      run_with_options("/this/is/the/context/file.txt", options).result.should.be.eql(
-	        'module.exports = __webpack_public_path__ + \"./81dc9bdb52d04dc20036dbd8313ed055.txt\";'
+	        'module.exports = __webpack_public_path__ + \"81dc9bdb52d04dc20036dbd8313ed055.txt\";'
 	      );
 
 		});
