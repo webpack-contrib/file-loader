@@ -61,7 +61,7 @@ module.exports = function(content) {
     if (outputDirname.indexOf(outputPath) !== 0) {
       outputDirname = outputPath;
     }
-    outputPath = path.join(outputDirname, url);
+    outputPath = path.join(outputDirname, url).split(path.sep).join("/");
 
     // Public path
     // Entry files doesn't pass through the `file-loader`.
