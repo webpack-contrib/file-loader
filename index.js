@@ -53,12 +53,12 @@ module.exports = function(content) {
     var issuerContext = (this._module && this._module.issuer && this._module.issuer.context) || context;
     var relativeUrl = issuerContext && path.relative(issuerContext, this.resourcePath);
     var relativePath = relativeUrl && path.dirname(relativeUrl);
-    var outputDirname = relativePath.replace(/\.\.(\/|\\)/g, "");
+    var outputDirname = relativePath.replace(/\.\.(\/|\\)/g, "").split(path.sep).join("/");
 
     // Output path
     // If the `outputDirname` is pointing to up in relation to the `outputPath`.
     // We forced him to the webpack output path config. Even though it is empty.
-    if (outputDirname.indexOf(outputPath) === -1) {
+    if (outputDirname.indexOf(outputPath) !== 0) {
       outputDirname = outputPath;
     }
     outputPath = path.join(outputDirname, url);
