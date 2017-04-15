@@ -66,8 +66,8 @@ module.exports = function(content) {
 
 		// Public path
 		// Entry files doesn't pass through the `file-loader`.
-		// So we don't have access to the files context to compare with your assets context
-		// then we need to create and the same way force the `relativePath` to bundled files
+		// So we haven't access to the files context to compare with your assets context
+		// then we need to create and the same way, force the `relativePath` to bundled files
 		// on the webpack output path config folder and manually the same with CSS file.
 		var output = this.options.output || {};
 		if (output.filename && path.extname(output.filename)) {
