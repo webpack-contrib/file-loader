@@ -72,7 +72,7 @@ module.exports = function(content) {
 		var output = this.options.output || {};
 		if (output.filename && path.extname(output.filename) === ".js") {
 			relativePath = outputDirname;
-		} else if (toString.call(config.cssOutputPath) === "[object String]") {
+		} else if (output.path && toString.call(config.cssOutputPath) === "[object String]") {
 			var outputPackageDirname = output.path.replace(this.options.context + path.sep, "");
 			var issuerOutput = path.join(context, outputPackageDirname, config.cssOutputPath);
 			var assetOutput = path.join(context, outputPackageDirname, outputDirname);
