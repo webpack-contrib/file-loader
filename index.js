@@ -70,7 +70,7 @@ module.exports = function(content) {
 		// then we need to create and the same way force the `relativePath` to bundled files
 		// on the webpack output path config folder and manually the same with CSS file.
 		var output = this.options.output || {};
-		if (output.filename && path.extname(output.filename) === ".js") {
+		if (output.filename && path.extname(output.filename)) {
 			relativePath = outputDirname;
 		} else if (output.path && toString.call(config.cssOutputPath) === "[object String]") {
 			var outputPackageDirname = output.path.replace(this.options.context + path.sep, "");
