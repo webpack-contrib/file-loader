@@ -86,7 +86,7 @@ module.exports = function(content) {
 	}
 
 	var publicPath = "__webpack_public_path__ + " + JSON.stringify(url);
-	if (config.publicPath) {
+	if (config.publicPath !== false) {
 		// support functions as publicPath to generate them dynamically
 		publicPath = JSON.stringify(
 			typeof config.publicPath === "function"
