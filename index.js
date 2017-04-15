@@ -66,12 +66,10 @@ module.exports = function(content) {
 		// Public path
 		// Entry files doesn't pass through the `file-loader`.
 		// So we don't have access to the files context to compare with your assets context
-		// then we need to kidnap from `extract-text-webpack-plugin` if you using him and the same way
-		// force the `relativePath` to extract files on the webpack output path config folder.
-		// otherwise make the same using the same output path from text extracted
-		// with `extract-text-webpack-plugin`.
+		// then we need to create and the same way force the `relativePath` to bundled files
+		// on the webpack output path config folder and manually the same with CSS file.
 		var output = this.options.output || {};
-		if (output.filename && output.filename !== "extract-text-webpack-plugin-output-filename") {
+		if (output.filename && path.extname(output.filename) === ".js") {
 			relativePath = outputDirname;
 		} else if (toString.call(config.textOutputPath) === "[object String]") {
 			var outputPackageDirname = output.path.replace(this.options.context + path.sep, "");
