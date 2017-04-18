@@ -1,0 +1,16 @@
+{
+  "name": "use-relative-path",
+  "author": "@adriancmiranda",
+  "scripts": {
+    "start": "webpack --env.dev",
+    "build": "webpack -p"
+  },
+  "optionalDependencies": {
+    "css-loader": "0.28.0",
+    "extract-text-webpack-plugin": "2.1.0",
+    "style-loader": "0.16.1"
+  },
+  "devDependencies": {
+    "webpack": "2.4.1"
+  }
+}
