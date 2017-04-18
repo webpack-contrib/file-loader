@@ -32,7 +32,7 @@ module.exports = (argv = {}) => ({
 			{
 				test: /\.css$/,
 				use: Text.extract({
-					publicPath: OUTPUT.bundle,
+					publicPath: argv.dev && OUTPUT.bundle,
 					fallback: 'style-loader',
 					use: [{
 						loader: 'css-loader',
