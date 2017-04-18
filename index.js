@@ -6,6 +6,8 @@ const path = require("path");
 const loaderUtils = require("loader-utils");
 
 module.exports = function(content) {
+	"use strict";
+
 	this.cacheable && this.cacheable();
 	if (!this.emitFile) throw new Error("emitFile is required from module system");
 
