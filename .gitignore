@@ -1,11 +1,13 @@
+# samples
+examples/*/dist/*
+
 # development
-/node_modules
-/coverage
+node_modules
+coverage
 *.log
 
 # dotfiles
 .*
-!.editorconfig
 !.gitignore
 !.travis.yml
 *~

@@ -3,6 +3,7 @@ const Text = require('extract-text-webpack-plugin');
 const fileLoader = require.resolve('../../');
 
 const resolve = (...args) => path.resolve(__dirname, ...args);
+const assetsOutputPath = 'images/';
 const cssOutputPath = 'styles/';
 const jsOutputPath = 'scripts/';
 
@@ -34,6 +35,7 @@ module.exports = (argv = {}) => ({
 				loader: fileLoader,
 				options: {
 					cssOutputPath,
+					outputPath: assetsOutputPath,
 					useRelativePath: true,
 				},
 			},
