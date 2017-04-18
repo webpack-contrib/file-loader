@@ -1,0 +1,19 @@
+*,
+*:after,
+*:before {
+  -webkit-tap-highlight-color: transparent;
+  tap-highlight-color: transparent;
+  box-sizing: border-box;
+  outline-style: none;
+}
+
+html,
+body {
+  width: 100%;
+  height: 100%;
+}
+
+body {
+  background: purple url("../../../.github/assets/file_loader_icon.svg") no-repeat 50% 50%;
+  margin: 0;
+}
