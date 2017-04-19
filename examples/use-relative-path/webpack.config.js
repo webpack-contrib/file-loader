@@ -15,12 +15,13 @@ const OUTPUT = {
 
 module.exports = (argv = {}) => ({
 	devtool: argv.dev ? '#eval-source-map' : '#source-map',
-	entry: [
+	entry: (argv.dev ? [
 		'webpack-dev-server/client?http://localhost:8080',
 		'webpack/hot/only-dev-server',
+	] : []).concat([
 		'./source/index.css',
 		'./source/index.js',
-	],
+	]),
 	output: {
 		path: resolve(OUTPUT.bundle),
 		filename: `${OUTPUT.js}[name].js`,
