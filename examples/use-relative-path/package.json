@@ -2,7 +2,7 @@
   "name": "use-relative-path",
   "author": "@adriancmiranda",
   "scripts": {
-    "dev": "webpack-dev-server --hot --inline --env.dev",
+    "dev": "webpack-dev-server --open --env.dev",
     "prebuild": "rimraf dist/",
     "build": "webpack -p"
   },

@@ -1,6 +1,7 @@
 const path = require('path');
 const Text = require('extract-text-webpack-plugin');
 const Html = require('html-webpack-plugin');
+const webpack = require('webpack');
 const fileLoader = require.resolve('../../');
 
 const resolve = (...args) => path.resolve(__dirname, ...args);
@@ -13,7 +14,10 @@ const OUTPUT = {
 };
 
 module.exports = (argv = {}) => ({
+	devtool: argv.dev ? '#eval-source-map' : '#source-map',
 	entry: [
+		'webpack-dev-server/client?http://localhost:8080',
+		'webpack/hot/only-dev-server',
 		'./source/index.css',
 		'./source/index.js',
 	],
@@ -23,9 +27,8 @@ module.exports = (argv = {}) => ({
 	},
 	devServer: {
 		contentBase: resolve(OUTPUT.bundle),
+		historyApiFallback: true,
 		stats: 'errors-only',
-		compress: true,
-		open: true,
 	},
 	module: {
 		rules: [
@@ -46,24 +49,31 @@ module.exports = (argv = {}) => ({
 				test: /\.(jpe?g|png|gif|svg)(\?v=\d+\.\d+\.\d+)?$/,
 				loader: fileLoader,
 				options: {
+					useRelativePath: true,
 					cssOutputPath: OUTPUT.css,
 					outputPath: OUTPUT.img,
-					useRelativePath: true,
 					name: '[name].[hash:7].[ext]',
 				},
 			},
 		],
 	},
 	plugins: [
+		new webpack.DefinePlugin({
+			'process.env': {
+				NODE_ENV: `'${argv.dev ? "development" : "production" }'`,
+			},
+		}),
 		new Text({
 			filename: `${OUTPUT.css}theme.css`,
 			disable: !!argv.dev,
 			allChunks: true,
 		}),
 		new Html({
-			title: 'Sample // useRelativePath',
+			title: 'file-loader // useRelativePath',
 			template: './source/index.html',
-			hash: true,
 		}),
+		new webpack.HotModuleReplacementPlugin({ quiet: true }),
+		new webpack.NoEmitOnErrorsPlugin(),
+		new webpack.NamedModulesPlugin(),
 	],
 });

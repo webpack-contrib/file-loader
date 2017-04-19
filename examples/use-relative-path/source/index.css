@@ -9,11 +9,41 @@
 
 html,
 body {
-  width: 100%;
-  height: 100%;
+	width: 100%;
+	height: 100%;
 }
 
 body {
-  background: purple url("../../../.github/assets/file_loader_icon.svg") no-repeat 50% 50%;
-  margin: 0;
+	font-family: Helvetica, sans-serif;
+	font-size: 16px;
+	line-height: 10px;
+	margin: 0;
+}
+
+div,
+canvas {
+	position: absolute;
+	width: 100%;
+	height: 100%;
+	background-color: purple;
+}
+
+div {
+	background: rgba(0,0,0,0.5) url("../../../.github/assets/file_loader_icon.svg") no-repeat 50% 50%;
+}
+
+img {
+	position: absolute;
+	right: 10px;
+	bottom: 10px;
+	display: block;
+}
+
+div:before {
+	position: absolute;
+	display: block;
+	margin-top: 10px;
+	margin-left: 10px;
+	color: #fff;
+	content: "file-loader / examples / use-relative-path";
 }
