@@ -1,15 +1,24 @@
-var should = require("should");
 var path = require("path");
+var queryString = require("querystring");
+var should = require("should");
 var fileLoader = require("../");
 
 function run(resourcePath, query, content) {
   content = content || new Buffer("1234");
+  
+  var queryObject = queryString.parse(query);
   var file = null;
+
   var context = {
     resourcePath: resourcePath,
     query: "?" + query,
     options: {
       context: "/this/is/the/context"
+    },
+    _module: {
+      issuer: {
+        context: queryObject.issuerContext
+      }
     },
     emitFile: function(url, content2) {
       content2.should.be.eql(content);
@@ -24,17 +33,25 @@ function run(resourcePath, query, content) {
     result: result
   }
 }
-function run_with_options(resourcePath,options, content) {
+
+function run_with_options(resourcePath, options, content) {
   content = content || new Buffer("1234");
+  options = Object.assign({}, options);
+
   var file = null;
 
   var context = {
     resourcePath: resourcePath,
     options: {
-      "fileLoader": options,
+      fileLoader: options,
       context: "/this/is/the/context"
     },
-      emitFile: function(url, content2) {
+    _module: {
+      issuer: {
+        context: options.issuerContext
+      }
+    },
+    emitFile: function(url, content2) {
       content2.should.be.eql(content);
       file = url;
     }
@@ -108,16 +125,34 @@ describe("publicPath option", function() {
 
 describe("useRelativePath option", function() {
   it("should be supported", function() {
-    run("/this/is/the/context/file.txt", "useRelativePath=true").result.should.be.eql(
+    run_with_options("/this/is/the/context/file.txt", {
+      useRelativePath: true,
+      cssOutputPath: "/this/is/the/context/style",
+      issuerContext: "/this/is/the/context",
+    }).result.should.be.eql(
       'module.exports = __webpack_public_path__ + \"81dc9bdb52d04dc20036dbd8313ed055.txt\";'
     );
-    run("/this/is/file.txt", "useRelativePath=true").result.should.be.eql(
+    run_with_options("/this/is/file.txt", {
+      useRelativePath: true,
+      cssOutputPath: "/this/is/the/context",
+      issuerContext: "/this/is/the/context",
+    }).result.should.be.eql(
       'module.exports = __webpack_public_path__ + \"../../81dc9bdb52d04dc20036dbd8313ed055.txt\";'
     );
-    run("/this/file.txt", "context=/this/is/the/&useRelativePath=true").result.should.be.eql(
+    run_with_options("/this/file.txt", {
+      useRelativePath: true,
+      cssOutputPath: "/this/is/the/style",
+      issuerContext: "/this/is/the/",
+      context: "/this/is/the/",
+    }).result.should.be.eql(
       'module.exports = __webpack_public_path__ + \"../../81dc9bdb52d04dc20036dbd8313ed055.txt\";'
     );
-    run("/this/file.txt", "context=/&useRelativePath=true").result.should.be.eql(
+    run_with_options("/this/file.txt", {
+      useRelativePath: true,
+      cssOutputPath: "/style",
+      issuerContext: "/",
+      context: "/",
+    }).result.should.be.eql(
       'module.exports = __webpack_public_path__ + \"this/81dc9bdb52d04dc20036dbd8313ed055.txt\";'
     );
   });
