@@ -7,13 +7,13 @@ var Utils = {
 	},
 };
 
-function FileIcon(context, x, y, width, height) {
+function FileIcon(context, scale) {
 	this.context = context;
 	this.image = new Image();
 	this.image.src = require('../../../.github/assets/file_loader_icon.svg');
 	this.canvasWidth = this.context.canvas.clientWidth;
 	this.canvasHeight = this.context.canvas.clientHeight;
-	this.scale = Math.floor(Utils.randomRange(0.05, 1) * 100) / 100;
+	this.scale = scale;
 	this.x = Math.random() * this.canvasWidth;
 	this.y = Math.random() * this.canvasHeight;
 	this.point = {
@@ -75,10 +75,10 @@ function FilesMesh(selector, options) {
 
 FilesMesh.defaults = {
 	lineColor: 'rgb(234, 239, 240)',
-	linkRadius: 300,
+	bondDistance: 300,
 	numFiles: 25,
-	minScale: 2,
-	maxScale: 2,
+	minScale: 0.03,
+	maxScale: 1,
 };
 
 FilesMesh.prototype = {
@@ -91,8 +91,9 @@ FilesMesh.prototype = {
 
 		this.files = [];
 		this.draw = this.draw.bind(this);
-		for (var id = 0; id < this.options.numFiles; id++){
-			this.files.push(new FileIcon(this.context, 0, 0, 64, 64));
+		for (var id = 0, scale; id < this.options.numFiles; id++){
+			scale = Utils.randomRange(this.options.minScale, this.options.maxScale);
+			this.files.push(new FileIcon(this.context, Math.floor(scale * 100) / 100));
 		}
 		this.drawFrameID = window.requestAnimationFrame(this.draw);
 	},
@@ -106,7 +107,7 @@ FilesMesh.prototype = {
 	bindFiles: function(file, dependencies) {
 		for (var id = 0; id < dependencies.length; id++) {
 			var distance = Utils.distance(file.x, file.y, dependencies[id].x, dependencies[id].y);
-			var alpha = 1 - distance / this.options.linkRadius;
+			var alpha = 1 - distance / this.options.bondDistance;
 			if (alpha) {
 				var dependency = dependencies[id];
 				this.context.lineWidth = 0.5;

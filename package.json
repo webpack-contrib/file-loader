@@ -10,14 +10,16 @@
     "loader-utils": "^1.0.2"
   },
   "devDependencies": {
+    "mocha": "~1.21.3",
+    "ora": "1.2.0",
     "should": "~4.0.4",
-    "standard-version": "^4.0.0",
-    "mocha": "~1.21.3"
+    "standard-version": "^4.0.0"
   },
   "scripts": {
     "test": "mocha -R spec",
     "travis:test": "npm run test",
-    "release": "standard-version"
+    "release": "standard-version",
+    "build:examples": "cd examples && node build-all.js"
   },
   "repository": {
     "type": "git",
