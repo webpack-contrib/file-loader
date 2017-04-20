@@ -16,7 +16,7 @@
     "standard-version": "^4.0.0"
   },
   "scripts": {
-    "test": "mocha \"test/[!examples]*.test.js\"",
+    "test": "mocha -R spec \"test/[!examples]*.test.js\"",
     "travis:test": "npm run test",
     "release": "standard-version",
     "build:examples": "cd examples && node build-all.js",
