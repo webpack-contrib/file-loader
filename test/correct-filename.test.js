@@ -133,11 +133,9 @@ describe("useRelativePath option", function() {
 	it("should be supported", function() {
 		run_with_options("/this/is/the/context/file.txt", {
 			useRelativePath: true,
-			cssOutputPath: "/this/is/the/context/style",
 			webpackConfig: {
 				_moduleIssuerContext: "/this/is/the/context",
 				output: {
-					path: "/this/is/the/context/dist",
 					filename: "[name].js",
 				},
 			},
@@ -146,16 +144,67 @@ describe("useRelativePath option", function() {
 		);
 		run_with_options("/this/is/file.txt", {
 			useRelativePath: true,
-			cssOutputPath: "/this/is/the/context",
 			webpackConfig: {
 				_moduleIssuerContext: "/this/is/the/context",
 				output: {
-					path: "/this/is/the/context/dist",
 					filename: "[name].js",
 				},
 			},
 		}).result.should.be.eql(
 			'module.exports = __webpack_public_path__ + \"../81dc9bdb52d04dc20036dbd8313ed055.txt\";'
+		);
+		run_with_options("/this/file.txt", {
+			useRelativePath: true,
+			context: "/this/is/the/",
+			webpackConfig: {
+				_moduleIssuerContext: "/this/is/the/",
+				output: {
+					filename: "[name].js",
+				},
+			},
+		}).result.should.be.eql(
+			'module.exports = __webpack_public_path__ + \"../81dc9bdb52d04dc20036dbd8313ed055.txt\";'
+		);
+		run_with_options("/this/file.txt", {
+			useRelativePath: true,
+			context: "/",
+			webpackConfig: {
+				_moduleIssuerContext: "/",
+				output: {
+					filename: "[name].js",
+				},
+			},
+		}).result.should.be.eql(
+			'module.exports = __webpack_public_path__ + \"this/81dc9bdb52d04dc20036dbd8313ed055.txt\";'
+		);
+	});
+});
+
+describe("cssOutputPath option", function() {
+	it("should be supported", function() {
+		run_with_options("/this/is/the/context/dist/file.txt", {
+			useRelativePath: true,
+			cssOutputPath: "style",
+			webpackConfig: {
+				_moduleIssuerContext: "/this/is/the/context/source",
+				output: {
+					path: "/this/is/the/context/dist",
+				},
+			},
+		}).result.should.be.eql(
+			'module.exports = __webpack_public_path__ + \"../dist/81dc9bdb52d04dc20036dbd8313ed055.txt\";'
+		);
+		run_with_options("/this/is/file.txt", {
+			useRelativePath: true,
+			cssOutputPath: "",
+			webpackConfig: {
+				_moduleIssuerContext: "/this/is",
+				output: {
+					path: "/this/is/the/context",
+				},
+			},
+		}).result.should.be.eql(
+			'module.exports = __webpack_public_path__ + \"81dc9bdb52d04dc20036dbd8313ed055.txt\";'
 		);
 		run_with_options("/this/file.txt", {
 			useRelativePath: true,
@@ -165,11 +214,10 @@ describe("useRelativePath option", function() {
 				_moduleIssuerContext: "/this/is/the/",
 				output: {
 					path: "/this/is/the/context/dist",
-					filename: "[name].js",
 				},
 			},
 		}).result.should.be.eql(
-			'module.exports = __webpack_public_path__ + \"../81dc9bdb52d04dc20036dbd8313ed055.txt\";'
+			'module.exports = __webpack_public_path__ + \"../../../../../81dc9bdb52d04dc20036dbd8313ed055.txt\";'
 		);
 		run_with_options("/this/file.txt", {
 			useRelativePath: true,
@@ -179,11 +227,10 @@ describe("useRelativePath option", function() {
 				_moduleIssuerContext: "/",
 				output: {
 					path: "/this/is/the/context/dist",
-					filename: "[name].js",
 				},
 			},
 		}).result.should.be.eql(
-			'module.exports = __webpack_public_path__ + \"this/81dc9bdb52d04dc20036dbd8313ed055.txt\";'
+			'module.exports = __webpack_public_path__ + \"../this/81dc9bdb52d04dc20036dbd8313ed055.txt\";'
 		);
 	});
 });
