@@ -63,7 +63,7 @@ FileIcon.prototype = {
 			this.x - imageX * 0.5,
 			this.y - imageY * 0.5,
 			imageX,
-			imageY,
+			imageY
 		);
 	},
 };

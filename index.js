@@ -50,7 +50,7 @@ module.exports = function(content) {
 		// If the `output.dirname` is pointing to up in relation to the `config.outputPath`.
 		// We forced him to the webpack output path config. Even though it is empty.
 		const output = this.options.output || {};
-		output.dirname = relation.path.replace(/\.\.(\/|\\)/g, "").split(path.sep).join("/");
+		output.dirname = relation.path.replace(/^(\.\.(\/|\\))+/g, "").split(path.sep).join("/");
 		if (output.dirname.indexOf(config.outputPath) !== 0) output.dirname = config.outputPath;
 		config.outputPath = path.join(output.dirname, url).split(path.sep).join("/");
 

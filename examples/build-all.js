@@ -18,5 +18,6 @@ module.exports = Promise.all(stack).then((response) => {
 	return response;
 }).catch((reason) => {
 	spinner.stop();
-	console.error(reason);
+	console.error(reason.stack);
+	process.exit(1);
 });
