@@ -59,10 +59,11 @@ FileIcon.prototype = {
 		var imageX = this.image.width * this.scale;
 		var imageY = this.image.height * this.scale;
 		this.context.drawImage(this.image,
+			0, 0, 128, 128, // source
 			this.x - imageX * 0.5,
 			this.y - imageY * 0.5,
 			imageX,
-			imageY
+			imageY,
 		);
 	},
 };
@@ -78,8 +79,8 @@ FilesMesh.defaults = {
 	lineColor: 'rgb(234, 239, 240)',
 	bondDistance: 300,
 	numFiles: 25,
-	minScale: 0.03,
-	maxScale: 1,
+	minScale: 0.05,
+	maxScale: 0.4,
 };
 
 FilesMesh.prototype = {

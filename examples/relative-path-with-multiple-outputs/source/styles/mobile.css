@@ -46,5 +46,5 @@ div:before {
   margin-top: 10px;
   margin-left: 10px;
   color: #fff;
-  content: "file-loader / examples / use-relative-path-multiple-output / mobile";
+  content: "file-loader / examples / relative-path-with-multiple-output / mobile";
 }

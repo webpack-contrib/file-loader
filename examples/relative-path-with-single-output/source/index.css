@@ -45,5 +45,5 @@ div:before {
 	margin-top: 10px;
 	margin-left: 10px;
 	color: #fff;
-	content: "file-loader / examples / use-relative-path-single-output";
+	content: "file-loader / examples / relative-path-with-single-output";
 }
