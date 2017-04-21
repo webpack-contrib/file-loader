@@ -9,13 +9,12 @@ var Utils = {
 
 function FileIcon(context, scale) {
 	this.context = context;
+	this.canvas = this.context.canvas;
 	this.image = new Image();
 	this.image.src = require('../../../.github/assets/file_loader_icon.svg');
-	this.canvasWidth = this.context.canvas.clientWidth;
-	this.canvasHeight = this.context.canvas.clientHeight;
 	this.scale = scale;
-	this.x = Math.random() * this.canvasWidth;
-	this.y = Math.random() * this.canvasHeight;
+	this.x = Math.random() * this.canvas.clientWidth;
+	this.y = Math.random() * this.canvas.clientHeight;
 	this.point = {
 		x: Math.cos(Math.floor(Math.random() * 360)) * 1.1,
 		y: Math.sin(Math.floor(Math.random() * 360)) * 1.1
@@ -32,12 +31,14 @@ FileIcon.prototype = {
 	},
 
 	bounds: function() {
-		var boundsX = this.canvasWidth - this.image.width * this.scale / 2;
-		var boundsY = this.canvasHeight - this.image.height * this.scale / 2;
-		if (this.x >= boundsX || this.x <= 0) {
+		var registrationPointX = this.image.width * this.scale * 0.5;
+		var registrationPointY = this.image.height * this.scale * 0.5;
+		var boundsX = this.canvas.clientWidth - registrationPointX;
+		var boundsY = this.canvas.clientHeight - registrationPointY;
+		if (this.x >= boundsX || this.x <= registrationPointX) {
 			this.point.x *= -1;
 		}
-		if (this.y >= boundsY || this.y <= 0) {
+		if (this.y >= boundsY || this.y <= registrationPointY) {
 			this.point.y *= -1;
 		}
 		if (this.x > boundsX) {
@@ -46,11 +47,11 @@ FileIcon.prototype = {
 		if (this.y > boundsY) {
 			this.y = boundsY;
 		}
-		if (this.x < 0) {
-			this.x = 0;
+		if (this.x < registrationPointX) {
+			this.x = registrationPointX;
 		}
-		if (this.y < 0) {
-			this.y = 0;
+		if (this.y < registrationPointY) {
+			this.y = registrationPointY;
 		}
 	},
 
@@ -91,9 +92,9 @@ FilesMesh.prototype = {
 
 		this.files = [];
 		this.draw = this.draw.bind(this);
-		for (var id = 0, scale; id < this.options.numFiles; id++){
+		for (var id = 0, scale; id < this.options.numFiles; id++) {
 			scale = Utils.randomRange(this.options.minScale, this.options.maxScale);
-			this.files.push(new FileIcon(this.context, Math.floor(scale * 100) / 100));
+			this.files.push(new FileIcon(this.context, scale));
 		}
 		this.drawFrameID = window.requestAnimationFrame(this.draw);
 	},
@@ -106,10 +107,10 @@ FilesMesh.prototype = {
 
 	bindFiles: function(file, dependencies) {
 		for (var id = 0; id < dependencies.length; id++) {
-			var distance = Utils.distance(file.x, file.y, dependencies[id].x, dependencies[id].y);
+			var dependency = dependencies[id];
+			var distance = Utils.distance(file.x, file.y, dependency.x, dependency.y);
 			var alpha = 1 - distance / this.options.bondDistance;
 			if (alpha) {
-				var dependency = dependencies[id];
 				this.context.lineWidth = 0.5;
 				this.context.strokeStyle = 'rgba('+ this.rgb[0] +','+ this.rgb[1] +','+ this.rgb[2] +','+ alpha +')';
 				this.context.beginPath();

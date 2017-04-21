@@ -1,0 +1,50 @@
+/* Desktop styles */
+*,
+*:after,
+*:before {
+  -webkit-tap-highlight-color: transparent;
+  tap-highlight-color: transparent;
+  box-sizing: border-box;
+  outline-style: none;
+}
+
+html,
+body {
+  width: 100%;
+  height: 100%;
+}
+
+body {
+  font-family: Helvetica, sans-serif;
+  font-size: 16px;
+  line-height: 10px;
+  margin: 0;
+}
+
+div,
+canvas {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  background-color: rgb(142, 214, 251);
+}
+
+div {
+  background: rgba(0,0,0,0.2) url("../../../../.github/assets/file_loader_icon.svg") no-repeat 50% 50%;
+}
+
+img {
+  position: absolute;
+  right: 10px;
+  bottom: 10px;
+  display: block;
+}
+
+div:before {
+  position: absolute;
+  display: block;
+  margin-top: 10px;
+  margin-left: 10px;
+  color: #fff;
+  content: "file-loader / examples / use-relative-path-multiple-output / mobile";
+}
