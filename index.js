@@ -34,7 +34,7 @@ module.exports = function(content) {
 
 	if (config.outputPath) {
 		// support functions as outputPath to generate them dynamically
-		config.outputPath = parsePath("outputPath", url);
+		config.outputPath = parsePath(config.outputPath, url);
 	}
 
 	if (config.useRelativePath) {
@@ -76,7 +76,7 @@ module.exports = function(content) {
 
 	if (config.publicPath !== false) {
 		// support functions as publicPath to generate them dynamically
-		config.publicPath = JSON.stringify(parsePath("publicPath", url));
+		config.publicPath = JSON.stringify(parsePath(config.publicPath, url));
 	} else {
 		config.publicPath = `__webpack_public_path__ + ${JSON.stringify(url)}`;
 	}
@@ -87,12 +87,12 @@ module.exports = function(content) {
 
 	return `module.exports = ${config.publicPath};`;
 	function parsePath(property, slug) {
-		if (!config[property]) {
+		if (!property) {
 			return slug;
-		} else if (typeof config[property] === 'function') {
-			return config[property](slug);
+		} else if (typeof property === 'function') {
+			return property(slug);
 		}
-		return config[property] + slug;
+		return property + slug;
 	}
 };
 
