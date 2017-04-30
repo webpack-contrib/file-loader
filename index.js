@@ -38,8 +38,8 @@ module.exports = function(content) {
 	var outputPath = "";
 
 	var filePath = this.resourcePath;
+	var issuerContext = this._module && this._module.issuer && this._module.issuer.context || context;
 	if (config.useRelativePath) {
-		var issuerContext = this._module && this._module.issuer && this._module.issuer.context || context;
 		var relativeUrl = issuerContext && path.relative(issuerContext, filePath).split(path.sep).join("/");
 		var relativePath = relativeUrl && path.dirname(relativeUrl) + "/";
 		if (~relativePath.indexOf("../")) {
@@ -48,11 +48,12 @@ module.exports = function(content) {
 			outputPath = relativePath + url;
 		}
 		url = relativePath + url;
-	} else if (config.outputPath) {
+	}
+	if (config.outputPath) {
 		// support functions as outputPath to generate them dynamically
 		outputPath = (
 			typeof config.outputPath === "function"
-			? config.outputPath(url)
+			? config.outputPath(url, issuerContext)
 			: config.outputPath + url
 		);
 		url = outputPath;
@@ -65,7 +66,7 @@ module.exports = function(content) {
 		// support functions as publicPath to generate them dynamically
 		publicPath = JSON.stringify(
 			typeof config.publicPath === "function"
-			? config.publicPath(url)
+			? config.publicPath(url, issuerContext)
 			: config.publicPath + url
 		);
 	}
