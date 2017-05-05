@@ -13,7 +13,7 @@ module.exports = function(content) {
 	var configKey = query.config || "fileLoader";
 	var options = this.options[configKey] || {};
 	var config = {
-		publicPath: false,
+		publicPath: undefined,
 		useRelativePath: false,
 		name: "[hash].[ext]"
 	};
@@ -61,7 +61,7 @@ module.exports = function(content) {
 	}
 
 	var publicPath = "__webpack_public_path__ + " + JSON.stringify(url);
-	if (config.publicPath !== false) {
+	if (config.publicPath !== undefined) {
 		// support functions as publicPath to generate them dynamically
 		publicPath = JSON.stringify(
 			typeof config.publicPath === "function"
