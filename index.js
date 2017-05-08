@@ -75,6 +75,7 @@ module.exports = function(content) {
 	}
 
 	if (is('String|Function', config.publicPath)) {
+		// support functions as publicPath to generate them dynamically
 		config.publicPath = JSON.stringify(parsePath(config.publicPath, url));
 	} else {
 		config.publicPath = `__webpack_public_path__ + ${JSON.stringify(url)}`;
@@ -87,7 +88,7 @@ module.exports = function(content) {
 	return `module.exports = ${config.publicPath};`;
 	
 	function is(expected, value) {
-		return new RegExp(`[object ${expected}]`).test(toString.call(value));
+		return new RegExp(`(${expected})`).test(toString.call(value));
 	}
 
 	function parsePath(property, slug) {
