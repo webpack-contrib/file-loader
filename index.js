@@ -18,7 +18,7 @@ module.exports = function(content) {
 		regExp: undefined,
 		context: undefined,
 		useRelativePath: false,
-		publicPath: false,
+		publicPath: undefined,
 		cssOutputPath: "",
 		outputPath: "",
 		name: "[hash].[ext]",
@@ -61,7 +61,7 @@ module.exports = function(content) {
 		// on the webpack output path config folder and manually the same with CSS file.
 		if (output.filename && path.extname(output.filename)) {
 			relation.path = output.dirname;
-		} else if (output.path && toString.call(config.cssOutputPath) === "[object String]") {
+		} else if (output.path && is('String', config.cssOutputPath)) {
 			output.bundle = output.path.replace(this.options.context + path.sep, "");
 			output.issuer = path.join(context, output.bundle, config.cssOutputPath);
 			output.asset = path.join(context, output.bundle, output.dirname);
@@ -74,8 +74,7 @@ module.exports = function(content) {
 		config.outputPath = url;
 	}
 
-	if (config.publicPath !== false) {
-		// support functions as publicPath to generate them dynamically
+	if (is('String|Function', config.publicPath)) {
 		config.publicPath = JSON.stringify(parsePath(config.publicPath, url));
 	} else {
 		config.publicPath = `__webpack_public_path__ + ${JSON.stringify(url)}`;
@@ -86,6 +85,11 @@ module.exports = function(content) {
 	}
 
 	return `module.exports = ${config.publicPath};`;
+	
+	function is(expected, value) {
+		return new RegExp(`[object ${expected}]`).test(toString.call(value));
+	}
+
 	function parsePath(property, slug) {
 		if (!property) {
 			return slug;
