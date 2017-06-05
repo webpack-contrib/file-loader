@@ -12,21 +12,21 @@
     "node": ">= 4.3 < 5.0.0 || >= 5.10"
   },
   "scripts": {
-    "start": "yarn run build -- -w",
+    "start": "npm run build -- -w",
     "build": "cross-env NODE_ENV=production babel src -d dist --ignore 'src/**/*.test.js'",
     "clean": "del-cli dist",
     "lint": "eslint --cache src test",
     "lint-staged": "lint-staged",
-    "prebuild": "yarn run clean",
-    "prepublish": "yarn run build",
-    "release": "yarn run standard-version",
+    "prebuild": "npm run clean",
+    "prepublish": "npm run build",
+    "release": "npm run standard-version",
     "security": "nsp check",
     "test": "jest",
-    "travis:test": "yarn run test",
+    "travis:test": "npm run test",
     "test:watch": "jest --watch",
     "test:coverage": "jest --collectCoverageFrom='src/**/*.js' --coverage",
-    "travis:lint": "yarn run lint && yarn run security",
-    "travis:coverage": "yarn run test:coverage",
+    "travis:lint": "npm run lint && npm run security",
+    "travis:coverage": "npm run test:coverage",
     "webpack-defaults": "webpack-defaults"
   },
   "dependencies": {

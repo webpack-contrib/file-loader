@@ -29,6 +29,6 @@ before_script:
       npm i -g webpack@^$WEBPACK_VERSION
     fi
 script:
-  - 'yarn run travis:$JOB_PART'
+  - 'npm run travis:$JOB_PART'
 after_success:
   - 'bash <(curl -s https://codecov.io/bash)'
