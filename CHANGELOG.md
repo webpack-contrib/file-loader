@@ -2,6 +2,17 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+<a name="0.11.2"></a>
+## [0.11.2](https://github.com/webpack/file-loader/compare/v0.11.1...v0.11.2) (2017-06-05)
+
+
+### Bug Fixes
+
+* **index:** allow to override publicPath with an empty string ([#145](https://github.com/webpack/file-loader/issues/145)) ([26ab81a](https://github.com/webpack/file-loader/commit/26ab81a))
+* init `publicPath` to undefined ([#159](https://github.com/webpack/file-loader/issues/159)) ([e4c0b2a](https://github.com/webpack/file-loader/commit/e4c0b2a))
+
+
+
 <a name="0.11.1"></a>
 ## [0.11.1](https://github.com/webpack/file-loader/compare/v0.11.0...v0.11.1) (2017-04-01)
 

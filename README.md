@@ -11,6 +11,7 @@
       src="https://webpack.js.org/assets/icon-square-big.svg">
   </a>
   <h1>File Loader</h1>
+  <p>Instructs webpack to emit the required object as file and to return its public url.</p>
 </div>
 
 <h2 align="center">Install</h2>
