@@ -48,6 +48,32 @@ function run_with_options(resourcePath,options, content) {
 	}
 }
 
+function run_with_path_callbacks(resourcePath, query, content) {
+	content = content || new Buffer("1234");
+	var result = { publicPath: false, outputPath: false };
+	var context = {
+		resourcePath: resourcePath,
+		query: "?" + query,
+		options: {
+			context: "/this/is/the/context",
+                        fileLoader: {
+                                publicPath: function(url, module) {
+                                  if (!!module)
+                                    result.publicPath = true
+                                },
+                                outputPath: function(url, module) {
+                                  if (!!module)
+                                    result.outputPath = true
+                                }
+                        },
+		},
+		emitFile: function(url, content2) {
+		}
+	};
+	fileLoader.call(context, content);
+	return result;
+}
+
 function test(excepted, resourcePath, query, content) {
 	run(resourcePath, query, content).file.should.be.eql(excepted);
 }
@@ -104,6 +130,14 @@ describe("publicPath option", function() {
 			'module.exports = __webpack_public_path__ + "81dc9bdb52d04dc20036dbd8313ed055.txt";'
 		);
 	});
+
+        it("should call publicPath callback with module", function() {
+                run_with_path_callbacks("whatever.txt", "").should.property("publicPath", true);
+        });
+
+        it("should call outputPath callback with module", function() {
+                run_with_path_callbacks("whatever.txt", "").should.property("outputPath", true);
+        });
 });
 
 describe("useRelativePath option", function() {

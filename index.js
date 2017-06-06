@@ -52,7 +52,7 @@ module.exports = function(content) {
 		// support functions as outputPath to generate them dynamically
 		outputPath = (
 			typeof config.outputPath === "function"
-			? config.outputPath(url)
+			? config.outputPath(url, this._module || {})
 			: config.outputPath + url
 		);
 		url = outputPath;
@@ -65,7 +65,7 @@ module.exports = function(content) {
 		// support functions as publicPath to generate them dynamically
 		publicPath = JSON.stringify(
 			typeof config.publicPath === "function"
-			? config.publicPath(url)
+			? config.publicPath(url, this._module || {})
 			: config.publicPath + url
 		);
 	}
