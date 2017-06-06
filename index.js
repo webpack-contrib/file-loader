@@ -50,12 +50,9 @@ module.exports = function(content) {
 		url = relativePath + url;
 	} else if (config.outputPath) {
 		// support functions as outputPath to generate them dynamically
-                var userRequest = this._module && this._module.userRequest
-                var rawRequest = this._module && this._module.rawRequest
-                var context = this._module && this._module.issuer && this._module.issuer.context || context;
 		outputPath = (
 			typeof config.outputPath === "function"
-			? config.outputPath(url, { userRequest, rawRequest, context })
+			? config.outputPath(url, this._module || {})
 			: config.outputPath + url
 		);
 		url = outputPath;
@@ -66,12 +63,9 @@ module.exports = function(content) {
 	var publicPath = "__webpack_public_path__ + " + JSON.stringify(url);
 	if (config.publicPath !== undefined) {
 		// support functions as publicPath to generate them dynamically
-                var userRequest = this._module && this._module.userRequest
-                var rawRequest = this._module && this._module.rawRequest
-                var context = this._module && this._module.issuer && this._module.issuer.context || context;
 		publicPath = JSON.stringify(
 			typeof config.publicPath === "function"
-			? config.publicPath(url, { userRequest, rawRequest, context })
+			? config.publicPath(url, this._module || {})
 			: config.publicPath + url
 		);
 	}
