@@ -6,8 +6,6 @@ import path from 'path';
 import loaderUtils from 'loader-utils';
 
 export default function fileLoader(content) {
-  this.cacheable && this.cacheable(); // eslint-disable-line no-unused-expressions
-
   if (!this.emitFile) throw new Error('emitFile is required from module system');
 
   const query = loaderUtils.getOptions(this) || {};
