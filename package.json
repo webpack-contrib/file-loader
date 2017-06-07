@@ -50,7 +50,7 @@
     "pre-commit": "^1.2.2",
     "should": "~4.0.4",
     "standard-version": "^4.0.0",
-    "webpack-defaults": "^1.0.1"
+    "webpack-defaults": "^1.1.0"
   },
   "repository": {
     "type": "git",
