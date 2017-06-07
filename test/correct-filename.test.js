@@ -48,6 +48,42 @@ function run_with_options(resourcePath,options, content) {
 	}
 }
 
+function run_with_callbacks(resourcePath, query, content) {
+	content = content || new Buffer("1234");
+	var file = null;
+	var result = { publicPath: false, outputPath: false };
+	var context = {
+		resourcePath: resourcePath,
+		query: "?" + query,
+		options: {
+			context: "/this/is/the/context",
+			fileLoader: {
+				publicPath: function(url, loaderAPI) {
+					if(!!loaderAPI) {
+						result.publicPath = true;
+					}
+				},
+				outputPath: function(url, loaderAPI) {
+					if(!!loaderAPI) {
+						result.outputPath = true;
+					}
+				}
+			}
+		},
+		emitFile: function(url, content2) {
+			content2.should.be.eql(content);
+			file = url;
+		}
+	};
+
+	fileLoader.call(context, content)
+
+	return {
+		file: file,
+		result: result
+	}
+}
+
 function test(excepted, resourcePath, query, content) {
 	run(resourcePath, query, content).file.should.be.eql(excepted);
 }
@@ -104,6 +140,10 @@ describe("publicPath option", function() {
 			'module.exports = __webpack_public_path__ + "81dc9bdb52d04dc20036dbd8313ed055.txt";'
 		);
 	});
+
+	it("should call publicPath callback with loader API", function() {
+		run_with_callbacks("whatever.txt", "").result.should.property("publicPath", true);
+	});
 });
 
 describe("useRelativePath option", function() {
@@ -135,6 +175,11 @@ describe("outputPath function", function() {
       );
 
 	});
+
+	it("should call outputPath callback with loader API", function() {
+		run_with_callbacks("whatever.txt", "").result.should.property("outputPath", true);
+	});
+
 	it("should be ignored if you set useRelativePath", function() {
 	      outputFunc = function(value) {
 	        return("/path/set/by/func");
