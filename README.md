@@ -149,8 +149,8 @@ MIT
 [tests]: http://img.shields.io/travis/webpack-contrib/file-loader.svg
 [tests-url]: https://travis-ci.org/webpack-contrib/file-loader
 
-[cover]: https://coveralls.io/repos/github/webpack-contrib/file-loader/badge.svg
-[cover-url]: https://coveralls.io/github/webpack-contrib/file-loader
+[cover]: https://codecov.io/gh/webpack-contrib/file-loader/branch/master/graph/badge.svg
+[cover-url]: https://codecov.io/gh/webpack-contrib/file-loader
 
 [chat]: https://badges.gitter.im/webpack/webpack.svg
 [chat-url]: https://gitter.im/webpack/webpack
