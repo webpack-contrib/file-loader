@@ -6,8 +6,6 @@ import path from 'path';
 import loaderUtils from 'loader-utils';
 
 export default function fileLoader(content) {
-  this.cacheable && this.cacheable(); // eslint-disable-line no-unused-expressions
-
   if (!this.emitFile) throw new Error('emitFile is required from module system');
 
   const query = loaderUtils.getOptions(this) || {};
@@ -15,7 +13,7 @@ export default function fileLoader(content) {
   const options = this.options[configKey] || {};
 
   const config = {
-    publicPath: false,
+    publicPath: undefined,
     useRelativePath: false,
     name: '[hash].[ext]',
   };
@@ -47,8 +45,8 @@ export default function fileLoader(content) {
 
   const filePath = this.resourcePath;
   if (config.useRelativePath) {
-    const issuerContext = this._module && this._module.issuer // eslint-disable-line no-underscore-dangle
-      && this._module.issuer.context || context; // eslint-disable-line no-mixed-operators, no-underscore-dangle
+    const issuerContext = this._module && this._module.issuer
+      && this._module.issuer.context || context; // eslint-disable-line no-mixed-operators
     const relativeUrl = issuerContext && path.relative(issuerContext, filePath).split(path.sep).join('/');
     const relativePath = relativeUrl && `${path.dirname(relativeUrl)}/`;
     if (~relativePath.indexOf('../')) { // eslint-disable-line no-bitwise
@@ -57,22 +55,23 @@ export default function fileLoader(content) {
       outputPath = relativePath + url;
     }
     url = relativePath + url;
-  } else if (outputPath) {
-    outputPath += url;
+  } else if (config.outputPath) {
+    // support functions as outputPath to generate them dynamically
+    outputPath = (typeof config.outputPath === 'function' ? config.outputPath(url) : config.outputPath + url);
     url = outputPath;
   } else {
     outputPath = url;
   }
 
   let publicPath = `__webpack_public_path__ + ${JSON.stringify(url)}`;
-  if (config.publicPath) {
+  if (config.publicPath !== undefined) {
     // support functions as publicPath to generate them dynamically
     publicPath = JSON.stringify(
       typeof config.publicPath === 'function' ? config.publicPath(url) : config.publicPath + url,
     );
   }
 
-  if (query.emitFile === undefined || query.emitFile) { // eslint-disable-line no-undefined
+  if (query.emitFile === undefined || query.emitFile) {
     this.emitFile(outputPath, content);
   }
 
