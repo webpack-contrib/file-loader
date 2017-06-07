@@ -8,3 +8,16 @@
 !.gitignore
 *~
 *#*
+
+logs
+npm-debug.log*
+.eslintcache
+/dist
+/local
+/reports
+.DS_Store
+Thumbs.db
+.idea
+.vscode
+*.sublime-project
+*.sublime-workspace

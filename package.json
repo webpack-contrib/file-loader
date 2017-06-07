@@ -2,34 +2,67 @@
   "name": "file-loader",
   "version": "0.11.2",
   "author": "Tobias Koppers @sokra",
+  "license": "MIT",
   "description": "file loader module for webpack",
+  "main": "dist/cjs.js",
   "files": [
-    "index.js"
+    "dist"
   ],
+  "engines": {
+    "node": ">= 4.3 < 5.0.0 || >= 5.10"
+  },
+  "scripts": {
+    "start": "npm run build -- -w",
+    "build": "cross-env NODE_ENV=production babel src -d dist --ignore 'src/**/*.test.js'",
+    "clean": "del-cli dist",
+    "lint": "eslint --cache src test",
+    "lint-staged": "lint-staged",
+    "prebuild": "npm run clean",
+    "prepublish": "npm run build",
+    "release": "npm run standard-version",
+    "security": "nsp check",
+    "test": "jest",
+    "travis:test": "npm run test -- --runInBand",
+    "test:watch": "jest --watch",
+    "test:coverage": "jest --collectCoverageFrom='src/**/*.js' --coverage --runInBand",
+    "travis:lint": "npm run lint && npm run security",
+    "travis:coverage": "npm run test:coverage",
+    "webpack-defaults": "webpack-defaults"
+  },
   "dependencies": {
     "loader-utils": "^1.0.2"
   },
   "devDependencies": {
-    "should": "~4.0.4",
+    "babel-cli": "^6.24.1",
+    "babel-jest": "^20.0.3",
+    "babel-plugin-transform-object-rest-spread": "^6.23.0",
+    "babel-polyfill": "^6.23.0",
+    "babel-preset-env": "^1.5.1",
+    "cross-env": "^5.0.0",
+    "del-cli": "^1.0.0",
+    "eslint": "^3.19.0",
+    "eslint-config-webpack": "^1.2.3",
+    "eslint-plugin-import": "^2.3.0",
+    "jest": "^20.0.4",
+    "lint-staged": "^3.6.0",
+    "nsp": "^2.6.3",
+    "pre-commit": "^1.2.2",
     "standard-version": "^4.0.0",
-    "mocha": "~1.21.3"
-  },
-  "scripts": {
-    "test": "mocha -R spec",
-    "travis:test": "npm run test",
-    "release": "standard-version"
+    "webpack-defaults": "^1.1.0"
   },
   "repository": {
     "type": "git",
-    "url": "https://github.com/webpack/file-loader.git"
+    "url": "https://github.com/webpack-contrib/file-loader.git"
   },
   "bugs": {
-    "url": "https://github.com/webpack/file-loader/issues"
+    "url": "https://github.com/webpack-contrib/file-loader/issues"
   },
-  "homepage": "https://github.com/webpack/file-loader",
-  "main": "index.js",
-  "directories": {
-    "test": "test"
-  },
-  "license": "MIT"
+  "homepage": "https://github.com/webpack-contrib/file-loader",
+  "pre-commit": "lint-staged",
+  "lint-staged": {
+    "*.js": [
+      "eslint --fix",
+      "git add"
+    ]
+  }
 }
