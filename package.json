@@ -47,7 +47,6 @@
     "lint-staged": "^3.6.0",
     "nsp": "^2.6.3",
     "pre-commit": "^1.2.2",
-    "should": "~4.0.4",
     "standard-version": "^4.0.0",
     "webpack-defaults": "^1.1.0"
   },
