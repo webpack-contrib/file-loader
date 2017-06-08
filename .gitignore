@@ -2,12 +2,26 @@
 examples/*/dist/*
 
 # development
-node_modules
-coverage
+node_modules/
+/coverage
+/dist
+/local
+/reports
+logs
 *.log
+*.log*
+Thumbs.db
+*.sublime-project
+*.sublime-workspace
 
 # dotfiles
 .*
+!.babelrc
+!.editorconfig
+!.eslintcache
+!.eslintignore
+!.eslintrc
+!.gitattributes
 !.gitignore
 !.travis.yml
 *~

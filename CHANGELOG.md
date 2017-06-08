@@ -2,6 +2,22 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+<a name="1.0.0-beta.0"></a>
+# [1.0.0-beta.0](https://github.com/webpack/file-loader/compare/v0.11.2...v1.0.0-beta.0) (2017-06-07)
+
+
+### Code Refactoring
+
+* Apply webpack-defaults ([#167](https://github.com/webpack/file-loader/issues/167)) ([632ed72](https://github.com/webpack/file-loader/commit/632ed72))
+
+
+### BREAKING CHANGES
+
+* Enforces Webpack standard NodeJS engines range.
+   at the time of merge `>= 4.3 < 5.0.0 || >= 5.10`.
+
+
+
 <a name="0.11.2"></a>
 ## [0.11.2](https://github.com/webpack/file-loader/compare/v0.11.1...v0.11.2) (2017-06-05)
 

@@ -6,24 +6,29 @@ branches:
 matrix:
   fast_finish: true
   include:
-    # - os: linux
-    #   node_js: "7"
-    #   env: WEBPACK_VERSION="2.2.0" JOB_PART=lint
     - os: linux
-      node_js: "6"
-      env: WEBPACK_VERSION="2.2.0" JOB_PART=test
+      node_js: '8'
+      env: WEBPACK_VERSION="2.6.0" JOB_PART=lint
     - os: linux
-      node_js: "4.3"
-      env: WEBPACK_VERSION="2.2.0" JOB_PART=test
+      node_js: '4.3'
+      env: WEBPACK_VERSION="2.6.0" JOB_PART=test
     - os: linux
-      node_js: "7"
-      env: WEBPACK_VERSION="2.2.0" JOB_PART=test
+      node_js: '6'
+      env: WEBPACK_VERSION="2.6.0" JOB_PART=test
+    - os: linux
+      node_js: '8'
+      env: WEBPACK_VERSION="2.6.0" JOB_PART=coverage
 before_install:
+  - 'if [[ `npm -v` != 5* ]]; then npm i -g npm@^5.0.0; fi'
   - nvm --version
   - node --version
+  - npm --version
 before_script:
-  - 'if [ "$WEBPACK_VERSION" ]; then npm install webpack@^$WEBPACK_VERSION; fi'
+  - |-
+    if [ "$WEBPACK_VERSION" ]; then
+      npm i --no-save webpack@^$WEBPACK_VERSION
+    fi
 script:
-  - npm run travis:$JOB_PART
-# after_success:
-#   - bash <(curl -s https://codecov.io/bash)
+  - 'npm run travis:$JOB_PART'
+after_success:
+  - 'bash <(curl -s https://codecov.io/bash)'
