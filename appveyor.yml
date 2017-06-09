@@ -18,11 +18,11 @@ build: 'off'
 matrix:
   fast_finish: true
 install:
-  - 'ps: Install-Product node $env:nodejs_version x64'
+  - ps: Install-Product node $env:nodejs_version x64
   - npm install
 before_test:
-  - 'cmd: npm install webpack@^%webpack_version%'
+  - cmd: npm install webpack@^%webpack_version%
 test_script:
   - node --version
   - npm --version
-  - 'cmd: npm run appveyor:%job_part%'
+  - cmd: npm run appveyor:%job_part%
