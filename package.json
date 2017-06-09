@@ -1,6 +1,6 @@
 {
   "name": "file-loader",
-  "version": "1.0.0-beta.0",
+  "version": "1.0.0-beta.1",
   "author": "Tobias Koppers @sokra",
   "description": "file loader module for webpack",
   "files": [
