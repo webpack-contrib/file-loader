@@ -5,6 +5,9 @@ All notable changes to this project will be documented in this file. See [standa
 <a name="1.0.0-beta.1"></a>
 # [1.0.0-beta.1](https://github.com/webpack/file-loader/compare/v1.0.0-beta.0...v1.0.0-beta.1) (2017-06-09)
 
+### Code Refactoring
+
+* Upgrade to defaults 1.3.0 ([#170](https://github.com/webpack-contrib/file-loader/pull/170)) ([632ed72](https://github.com/webpack/file-loader/commit/acd6c2f))
 
 
 <a name="1.0.0-beta.0"></a>
