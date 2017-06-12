@@ -4,6 +4,7 @@
 */
 import path from 'path';
 import loaderUtils from 'loader-utils';
+import storageSingleton from './storage-singleton';
 
 export default function fileLoader(content) {
   if (!this.emitFile) throw new Error('emitFile is required from module system');
@@ -16,6 +17,8 @@ export default function fileLoader(content) {
     publicPath: undefined,
     useRelativePath: false,
     name: '[hash].[ext]',
+    storeEmittedFile: false,
+    storeEmittedFileTarget: null,
   };
 
   // options takes precedence over config
@@ -71,7 +74,12 @@ export default function fileLoader(content) {
     );
   }
 
+  const storage = storageSingleton.getStorage();
+  const { storeEmittedFile, storeEmittedFileTarget } = config;
   if (query.emitFile === undefined || query.emitFile) {
+    if (storeEmittedFile && (!storeEmittedFileTarget || (storeEmittedFileTarget && this.target === storeEmittedFileTarget))) {
+      storage.addFile(outputPath, content);
+    }
     this.emitFile(outputPath, content);
   }
 
