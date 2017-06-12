@@ -1,6 +1,6 @@
 {
   "name": "@nadiia/file-loader",
-  "version": "1.0.0-beta.1",
+  "version": "1.0.0-beta.2",
   "author": "Tobias Koppers @sokra",
   "description": "file loader module for webpack",
   "files": [
@@ -62,9 +62,6 @@
     "test": "test"
   },
   "license": "MIT",
-  "peerDependencies": {
-    "webpack": "^2.0.0 || >= 3.0.0-rc.0 || ^3.0.0"
-  },
   "engines": {
     "node": ">= 4.3 < 5.0.0 || >= 5.10"
   },
