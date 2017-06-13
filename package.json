@@ -1,6 +1,6 @@
 {
   "name": "@nadiia/file-loader",
-  "version": "1.0.0-beta.3",
+  "version": "1.0.0-beta.4",
   "author": "Tobias Koppers @sokra",
   "description": "file loader module for webpack",
   "files": [
