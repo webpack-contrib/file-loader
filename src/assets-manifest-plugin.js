@@ -2,7 +2,8 @@
 import assetsSingleton from './storage-singleton';
 
 class AssetsManifestPlugin {
-  static apply(compiler) {
+  // eslint-disable-next-line class-methods-use-this
+  apply(compiler) {
     compiler.plugin('compilation', (compilation) => {
       compilation.plugin('additional-assets', (cb) => {
         const storage = assetsSingleton.getStorage();
