@@ -2,6 +2,26 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+<a name="1.0.0-beta.5"></a>
+# [1.0.0-beta.5](https://github.com/nadiia/file-loader/compare/v1.0.0-beta.2...v1.0.0-beta.5) (2017-06-12)
+
+### BREAKING CHANGES
+
+* storeEmittedFile option renamed to storeFile
+* storeEmittedFileTarget option renamed to storeFileTarget
+* when storeFile option is set to true files will be storred instead of emmiting
+
+<a name="1.0.0-beta.2"></a>
+# [1.0.0-beta.2](https://github.com/nadiia/file-loader/compare/v1.0.0-beta.1...v1.0.0-beta.2) (2017-06-12)
+
+### Features
+
+* storeEmittedFile option is added to store emitted files list
+* storeEmittedFileTarget option is added to store emmited files for a specific target
+* storageSingleton: stores the emitted files
+* assetsManifestPlugin: a webpack plugin to add assets stored in the storageSingleton to a compilation.assets array
+
+
 <a name="1.0.0-beta.1"></a>
 # [1.0.0-beta.1](https://github.com/webpack/file-loader/compare/v1.0.0-beta.0...v1.0.0-beta.1) (2017-06-09)
 

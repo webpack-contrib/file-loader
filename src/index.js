@@ -4,6 +4,7 @@
 */
 import path from 'path';
 import loaderUtils from 'loader-utils';
+import storageSingleton from './storage-singleton';
 
 export default function fileLoader(content) {
   if (!this.emitFile) throw new Error('emitFile is required from module system');
@@ -16,6 +17,8 @@ export default function fileLoader(content) {
     publicPath: undefined,
     useRelativePath: false,
     name: '[hash].[ext]',
+    storeFile: false,
+    storeFileTarget: null,
   };
 
   // options takes precedence over config
@@ -71,11 +74,20 @@ export default function fileLoader(content) {
     );
   }
 
+  const storage = storageSingleton.getStorage();
+  const { storeFile, storeFileTarget } = config;
   if (query.emitFile === undefined || query.emitFile) {
-    this.emitFile(outputPath, content);
+    // when storeFile param is passed we don't emit a file
+    // but store it to be added added later as an additional asset to a compilation
+    // it allows adding these files in a different compilation
+    if (storeFile && (!storeFileTarget || this.target === storeFileTarget)) {
+      storage.addFile(outputPath, content);
+    } else {
+      this.emitFile(outputPath, content);
+    }
   }
 
-  return `export default = ${publicPath};`;
+  return `export default ${publicPath};`;
 }
 
 export const raw = true;
