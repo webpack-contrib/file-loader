@@ -1,14 +1,25 @@
 /* eslint-disable no-useless-escape, no-unused-vars */
+import queryString from 'querystring';
 import fileLoader from '../src';
 
-const run = function run(resourcePath, query, content = new Buffer('1234')) {
+function run(resourcePath, query, content = new Buffer('1234')) {
   let file = null;
+
+  const queryObject = queryString.parse(query);
+  const webpackConfig = Object.assign({}, queryObject.webpackConfig);
+  delete queryObject.webpackConfig;
 
   const context = {
     resourcePath,
     query: `?${query}`,
     options: {
       context: '/this/is/the/context',
+      output: webpackConfig.output,
+    },
+    _module: {
+      issuer: {
+        context: webpackConfig._moduleIssuerContext, // eslint-disable-line no-underscore-dangle
+      },
     },
     emitFile(url, content2) {
       expect(content2).toEqual(content);
@@ -17,21 +28,27 @@ const run = function run(resourcePath, query, content = new Buffer('1234')) {
   };
 
   const result = fileLoader.call(context, content);
+  return { file, result };
+}
 
-  return {
-    file,
-    result,
-  };
-};
-
-function runWithOptions(resourcePath, options, content = new Buffer('1234')) {
+function runWithOptions(resourcePath, config, content = new Buffer('1234')) {
   let file = null;
+
+  const options = Object.assign({}, config);
+  const webpackConfig = Object.assign({}, options.webpackConfig);
+  delete options.webpackConfig;
 
   const context = {
     resourcePath,
     options: {
       fileLoader: options,
       context: '/this/is/the/context',
+      output: webpackConfig.output,
+    },
+    _module: {
+      issuer: {
+        context: webpackConfig._moduleIssuerContext, // eslint-disable-line no-underscore-dangle
+      },
     },
     emitFile(url, content2) {
       expect(content2).toEqual(content);
@@ -40,15 +57,12 @@ function runWithOptions(resourcePath, options, content = new Buffer('1234')) {
   };
 
   const result = fileLoader.call(context, content);
-
-  return {
-    file,
-    result,
-  };
+  return { file, result };
 }
-const test = function test(excepted, resourcePath, query, content) {
+
+function test(excepted, resourcePath, query, content) {
   expect(run(resourcePath, query, content).file).toEqual(excepted);
-};
+}
 
 describe('correct-filename', () => {
   it('should process defaults correctly', () => {
@@ -104,17 +118,106 @@ describe('publicPath option', () => {
 
 describe('useRelativePath option', () => {
   it('should be supported', () => {
-    expect(run('/this/is/the/context/file.txt', 'useRelativePath=true').result).toEqual(
-      'export default = __webpack_public_path__ + \"./81dc9bdb52d04dc20036dbd8313ed055.txt\";',
+    expect(runWithOptions('/this/is/the/context/file.txt', {
+      useRelativePath: true,
+      webpackConfig: {
+        _moduleIssuerContext: '/this/is/the/context',
+        output: {
+          filename: '[name].js',
+        },
+      },
+    }).result).toEqual(
+      'export default = __webpack_public_path__ + "81dc9bdb52d04dc20036dbd8313ed055.txt";',
     );
-    expect(run('/this/is/file.txt', 'useRelativePath=true').result).toEqual(
-      'export default = __webpack_public_path__ + \"../../81dc9bdb52d04dc20036dbd8313ed055.txt\";',
+    expect(runWithOptions('/this/is/file.txt', {
+      useRelativePath: true,
+      webpackConfig: {
+        _moduleIssuerContext: '/this/is/the/context',
+        output: {
+          filename: '[name].js',
+        },
+      },
+    }).result).toEqual(
+      'export default = __webpack_public_path__ + "../81dc9bdb52d04dc20036dbd8313ed055.txt";',
     );
-    expect(run('/this/file.txt', 'context=/this/is/the/&useRelativePath=true').result).toEqual(
-      'export default = __webpack_public_path__ + \"../../81dc9bdb52d04dc20036dbd8313ed055.txt\";',
+    expect(runWithOptions('/this/file.txt', {
+      useRelativePath: true,
+      context: '/this/is/the/',
+      webpackConfig: {
+        _moduleIssuerContext: '/this/is/the/',
+        output: {
+          filename: '[name].js',
+        },
+      },
+    }).result).toEqual(
+      'export default = __webpack_public_path__ + "../81dc9bdb52d04dc20036dbd8313ed055.txt";',
     );
-    expect(run('/this/file.txt', 'context=/&useRelativePath=true').result).toEqual(
-      'export default = __webpack_public_path__ + \"this/81dc9bdb52d04dc20036dbd8313ed055.txt\";',
+    expect(runWithOptions('/this/file.txt', {
+      useRelativePath: true,
+      context: '/',
+      webpackConfig: {
+        _moduleIssuerContext: '/',
+        output: {
+          filename: '[name].js',
+        },
+      },
+    }).result).toEqual(
+      'export default = __webpack_public_path__ + "this/81dc9bdb52d04dc20036dbd8313ed055.txt";',
+    );
+  });
+});
+
+describe('cssOutputPath option', () => {
+  it('should be supported', () => {
+    expect(runWithOptions('/this/is/the/context/dist/file.txt', {
+      useRelativePath: true,
+      cssOutputPath: 'style',
+      webpackConfig: {
+        _moduleIssuerContext: '/this/is/the/context/source',
+        output: {
+          path: '/this/is/the/context/dist',
+        },
+      },
+    }).result).toEqual(
+      'export default = __webpack_public_path__ + "../dist/81dc9bdb52d04dc20036dbd8313ed055.txt";',
+    );
+    expect(runWithOptions('/this/is/file.txt', {
+      useRelativePath: true,
+      cssOutputPath: '',
+      webpackConfig: {
+        _moduleIssuerContext: '/this/is',
+        output: {
+          path: '/this/is/the/context',
+        },
+      },
+    }).result).toEqual(
+      'export default = __webpack_public_path__ + "81dc9bdb52d04dc20036dbd8313ed055.txt";',
+    );
+    expect(runWithOptions('/this/file.txt', {
+      useRelativePath: true,
+      cssOutputPath: '/this/is/the/style',
+      context: '/this/is/the/',
+      webpackConfig: {
+        _moduleIssuerContext: '/this/is/the/',
+        output: {
+          path: '/this/is/the/context/dist',
+        },
+      },
+    }).result).toEqual(
+      'export default = __webpack_public_path__ + "../../../../../81dc9bdb52d04dc20036dbd8313ed055.txt";',
+    );
+    expect(runWithOptions('/this/file.txt', {
+      useRelativePath: true,
+      cssOutputPath: '/style',
+      context: '/',
+      webpackConfig: {
+        _moduleIssuerContext: '/',
+        output: {
+          path: '/this/is/the/context/dist',
+        },
+      },
+    }).result).toEqual(
+      'export default = __webpack_public_path__ + "../this/81dc9bdb52d04dc20036dbd8313ed055.txt";',
     );
   });
 });
@@ -125,7 +228,7 @@ describe('outputPath function', () => {
     const options = {};
     options.outputPath = outputFunc;
     expect(runWithOptions('/this/is/the/context/file.txt', options).result).toEqual(
-      'export default = __webpack_public_path__ + \"/path/set/by/func\";',
+      'export default = __webpack_public_path__ + "/path/set/by/func";',
     );
   });
   it('should be ignored if you set useRelativePath', () => {
@@ -134,7 +237,7 @@ describe('outputPath function', () => {
     options.outputPath = outputFunc;
     options.useRelativePath = true;
     expect(runWithOptions('/this/is/the/context/file.txt', options).result).toEqual(
-      'export default = __webpack_public_path__ + \"./81dc9bdb52d04dc20036dbd8313ed055.txt\";',
+      'export default = __webpack_public_path__ + "81dc9bdb52d04dc20036dbd8313ed055.txt";',
     );
   });
 });

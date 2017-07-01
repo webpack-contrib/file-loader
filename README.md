@@ -61,6 +61,8 @@ use: "file-loader?name=[name].[ext]&publicPath=assets/foo/&outputPath=app/images
 }
 ```
 
+`cssOutputPath` also should be used (together with `useRelativePath` property) to define the output path context.
+
 #### Filename template placeholders
 
 * `[ext]` the extension of the resource

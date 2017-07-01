@@ -4,6 +4,7 @@
 */
 import path from 'path';
 import loaderUtils from 'loader-utils';
+import { is, parsePath } from './helper';
 
 export default function fileLoader(content) {
   if (!this.emitFile) throw new Error('emitFile is required from module system');
@@ -11,71 +12,78 @@ export default function fileLoader(content) {
   const query = loaderUtils.getOptions(this) || {};
   const configKey = query.config || 'fileLoader';
   const options = this.options[configKey] || {};
-
-  const config = {
-    publicPath: undefined,
+  const config = Object.assign({
+    regExp: undefined,
+    context: undefined,
     useRelativePath: false,
+    publicPath: undefined,
+    cssOutputPath: '',
+    outputPath: '',
     name: '[hash].[ext]',
-  };
+  }, options, query);
 
-  // options takes precedence over config
-  Object.keys(options).forEach((attr) => {
-    config[attr] = options[attr];
-  });
-
-  // query takes precedence over config and options
-  Object.keys(query).forEach((attr) => {
-    config[attr] = query[attr];
-  });
-
-  const context = config.context || this.options.context;
+  const context = config.context || this.options.context || process.cwd();
+  const issuer = (this._module && this._module.issuer) || {}; // eslint-disable-line no-underscore-dangle
   let url = loaderUtils.interpolateName(this, config.name, {
+    regExp: config.regExp,
     context,
     content,
-    regExp: config.regExp,
   });
 
-  let outputPath = '';
   if (config.outputPath) {
     // support functions as outputPath to generate them dynamically
-    outputPath = (
-      typeof config.outputPath === 'function' ? config.outputPath(url) : config.outputPath
-    );
+    config.outputPath = parsePath(config.outputPath, url);
   }
 
-  const filePath = this.resourcePath;
   if (config.useRelativePath) {
-    const issuerContext = this._module && this._module.issuer
-      && this._module.issuer.context || context; // eslint-disable-line no-mixed-operators
-    const relativeUrl = issuerContext && path.relative(issuerContext, filePath).split(path.sep).join('/');
-    const relativePath = relativeUrl && `${path.dirname(relativeUrl)}/`;
-    if (~relativePath.indexOf('../')) { // eslint-disable-line no-bitwise
-      outputPath = path.posix.join(outputPath, relativePath, url);
-    } else {
-      outputPath = relativePath + url;
+    // Only the dirname is needed in this case.
+    config.outputPath = config.outputPath.replace(url, '');
+
+    // We have access only to entry point relationships. So we work with this relations.
+    issuer.context = issuer.context || context;
+    const relation = { path: issuer.context && path.relative(issuer.context, this.resourcePath) };
+    relation.path = relation.path ? path.dirname(relation.path) : config.outputPath;
+
+    // Output path
+    // If the `output.dirname` is pointing to up in relation to the `config.outputPath`.
+    // We forced him to the webpack output path config. Even though it is empty.
+    const output = this.options.output || {};
+    output.dirname = relation.path.replace(/^(\.\.(\/|\\))+/g, '').split(path.sep).join('/');
+    if (output.dirname.indexOf(config.outputPath) !== 0) output.dirname = config.outputPath;
+    config.outputPath = path.join(output.dirname, url).split(path.sep).join('/');
+
+    // Public path
+    // Entry files doesn't pass through the `file-loader`.
+    // So we haven't access to the files context to compare with your assets context
+    // then we need to create and the same way, force the `relation.path` to bundled files
+    // on the webpack output path config folder and manually the same with CSS file.
+    if (output.filename && path.extname(output.filename)) {
+      relation.path = output.dirname;
+    } else if (output.path && is('String', config.cssOutputPath)) {
+      output.bundle = output.path.replace(this.options.context + path.sep, '');
+      output.issuer = path.join(context, output.bundle, config.cssOutputPath);
+      output.asset = path.join(context, output.bundle, output.dirname);
+      relation.path = path.relative(output.issuer, output.asset);
     }
-    url = relativePath + url;
+    url = path.join(relation.path, url).split(path.sep).join('/');
   } else if (config.outputPath) {
-    // support functions as outputPath to generate them dynamically
-    outputPath = (typeof config.outputPath === 'function' ? config.outputPath(url) : config.outputPath + url);
-    url = outputPath;
+    url = config.outputPath;
   } else {
-    outputPath = url;
+    config.outputPath = url;
   }
 
-  let publicPath = `__webpack_public_path__ + ${JSON.stringify(url)}`;
-  if (config.publicPath !== undefined) {
+  if (is('String|Function', config.publicPath)) {
     // support functions as publicPath to generate them dynamically
-    publicPath = JSON.stringify(
-      typeof config.publicPath === 'function' ? config.publicPath(url) : config.publicPath + url,
-    );
+    config.publicPath = JSON.stringify(parsePath(config.publicPath, url));
+  } else {
+    config.publicPath = `__webpack_public_path__ + ${JSON.stringify(url)}`;
   }
 
   if (query.emitFile === undefined || query.emitFile) {
-    this.emitFile(outputPath, content);
+    this.emitFile(config.outputPath, content);
   }
 
-  return `export default = ${publicPath};`;
+  return `export default = ${config.publicPath};`;
 }
 
 export const raw = true;
