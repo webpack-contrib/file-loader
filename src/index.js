@@ -75,7 +75,7 @@ export default function fileLoader(content) {
     this.emitFile(outputPath, content);
   }
 
-  return `export default = ${publicPath};`;
+  return `export default ${publicPath};`;
 }
 
 export const raw = true;
