@@ -2,6 +2,16 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+<a name="1.0.0-rc.0"></a>
+# [1.0.0-rc.0](https://github.com/webpack/file-loader/compare/v1.0.0-beta.1...v1.0.0-rc.0) (2017-07-26)
+
+
+### Bug Fixes
+
+* remove `=` from default export (`SyntaxError`) ([#178](https://github.com/webpack/file-loader/issues/178)) ([3fe2d12](https://github.com/webpack/file-loader/commit/3fe2d12))
+
+
+
 <a name="1.0.0-beta.1"></a>
 # [1.0.0-beta.1](https://github.com/webpack/file-loader/compare/v1.0.0-beta.0...v1.0.0-beta.1) (2017-06-09)
 
