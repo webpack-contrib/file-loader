@@ -72,6 +72,8 @@ use: "file-loader?name=[name].[ext]&publicPath=assets/foo/&outputPath=app/images
   * other `digestType`s, i. e. `hex`, `base26`, `base32`, `base36`, `base49`, `base52`, `base58`, `base62`, `base64`
   * and `length` the length in chars
 * `[N]` the N-th match obtained from matching the current file name against the query param `regExp`
+* `outputPath` defines sub-dir relative to "dist" folder, in which all the image files whould be placed (if not specified all the image files will be placed directly in the "dist" folder)
+* `publicPath` defines path which should be prefiex to `outputPath` inside the CSS files (if not specified it will default to "./dist" ... or whatever dir was specified in webpack "output" config)
 
 #### Examples
 
