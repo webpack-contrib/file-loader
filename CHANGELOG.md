@@ -6,6 +6,23 @@ All notable changes to this project will be documented in this file. See [standa
 # [1.0.0](https://github.com/webpack/file-loader/compare/v1.0.0-rc.0...v1.0.0) (2017-07-26)
 
 
+### Bug Fixes
+
+* remove `=` from default export (`SyntaxError`) ([#178](https://github.com/webpack/file-loader/issues/178)) ([3fe2d12](https://github.com/webpack/file-loader/commit/3fe2d12))
+
+
+### Code Refactoring
+
+* Upgrade to defaults 1.3.0 ([#170](https://github.com/webpack-contrib/file-loader/pull/170)) ([632ed72](https://github.com/webpack/file-loader/commit/acd6c2f))
+* Apply webpack-defaults ([#167](https://github.com/webpack/file-loader/issues/167)) ([632ed72](https://github.com/webpack/file-loader/commit/632ed72))
+
+
+### BREAKING CHANGES
+
+* Enforces Webpack standard NodeJS engines range.
+   at the time of merge `>= 4.3 < 5.0.0 || >= 5.10`.
+
+
 
 <a name="1.0.0-rc.0"></a>
 # [1.0.0-rc.0](https://github.com/webpack/file-loader/compare/v1.0.0-beta.1...v1.0.0-rc.0) (2017-07-26)
