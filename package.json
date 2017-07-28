@@ -3,11 +3,20 @@
   "version": "1.0.0",
   "author": "Tobias Koppers @sokra",
   "description": "file loader module for webpack",
+  "license": "MIT",
+  "engines": {
+    "node": ">= 4.3 < 5.0.0 || >= 5.10"
+  },
+  "main": "dist/cjs.js",
   "files": [
     "dist"
   ],
+  "directories": {
+    "test": "test"
+  },
   "dependencies": {
-    "loader-utils": "^1.0.2"
+    "loader-utils": "^1.0.2",
+    "schema-utils": "^0.3.0"
   },
   "devDependencies": {
     "babel-cli": "^6.24.1",
@@ -33,7 +42,7 @@
   "scripts": {
     "start": "npm run build -- -w",
     "appveyor:test": "npm run test",
-    "build": "cross-env NODE_ENV=production babel src -d dist --ignore 'src/**/*.test.js'",
+    "build": "cross-env NODE_ENV=production babel src -d dist --ignore 'src/**/*.test.js' --copy-files",
     "clean": "del-cli dist",
     "lint": "eslint --cache src test",
     "lint-staged": "lint-staged",
@@ -57,14 +66,6 @@
     "url": "https://github.com/webpack/file-loader/issues"
   },
   "homepage": "https://github.com/webpack/file-loader",
-  "main": "dist/cjs.js",
-  "directories": {
-    "test": "test"
-  },
-  "license": "MIT",
-  "engines": {
-    "node": ">= 4.3 < 5.0.0 || >= 5.10"
-  },
   "pre-commit": "lint-staged",
   "lint-staged": {
     "*.js": [

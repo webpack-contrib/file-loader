@@ -1,10 +1,11 @@
-import fileLoader from '../src';
+import loader from '../src';
 
 const run = function run(resourcePath, query, content = new Buffer('1234')) {
   let result = false;
+
   const context = {
     resourcePath,
-    query: `?${query}`,
+    query: `?${query || ''}`,
     options: {
       context: '/this/is/the/context',
     },
@@ -12,7 +13,9 @@ const run = function run(resourcePath, query, content = new Buffer('1234')) {
       result = true;
     },
   };
-  fileLoader.call(context, content);
+
+  loader.call(context, content);
+
   return result;
 };
 
