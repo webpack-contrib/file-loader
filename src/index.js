@@ -10,7 +10,7 @@ export default function fileLoader(content) {
 
   const query = loaderUtils.getOptions(this) || {};
   const configKey = query.config || 'fileLoader';
-  const options = this.options[configKey] || {};
+  const options = this.options && this.options[configKey] || {};
 
   const config = {
     publicPath: undefined,
