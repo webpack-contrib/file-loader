@@ -1,6 +1,7 @@
 # development
 /node_modules
 /coverage
+/test/output
 
 logs
 *.log

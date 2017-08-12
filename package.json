@@ -7,7 +7,8 @@
     "dist"
   ],
   "dependencies": {
-    "loader-utils": "^1.0.2"
+    "loader-utils": "^1.0.2",
+    "webpack": "^3.5.4"
   },
   "devDependencies": {
     "babel-cli": "^6.24.1",
