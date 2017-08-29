@@ -10,7 +10,8 @@ export default function fileLoader(content) {
 
   const query = loaderUtils.getOptions(this) || {};
   const configKey = query.config || 'fileLoader';
-  const options = this.options[configKey] || {};
+  const options = this.options || {};
+  const fileLoaderOptions = options[configKey] || {};
 
   const config = {
     publicPath: undefined,
@@ -19,8 +20,8 @@ export default function fileLoader(content) {
   };
 
   // options takes precedence over config
-  Object.keys(options).forEach((attr) => {
-    config[attr] = options[attr];
+  Object.keys(fileLoaderOptions).forEach((attr) => {
+    config[attr] = fileLoaderOptions[attr];
   });
 
   // query takes precedence over config and options
@@ -28,7 +29,7 @@ export default function fileLoader(content) {
     config[attr] = query[attr];
   });
 
-  const context = config.context || this.options.context;
+  const context = config.context || options.context;
   let url = loaderUtils.interpolateName(this, config.name, {
     context,
     content,
