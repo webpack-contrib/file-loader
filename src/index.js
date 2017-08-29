@@ -78,4 +78,4 @@ export default function fileLoader(content) {
   return `export default ${publicPath};`;
 }
 
-export const raw = true;
+fileLoader.raw = true;
