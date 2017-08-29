@@ -71,7 +71,7 @@ You can configure a custom filename template for your file using the query param
 **webpack.config.js**
 ```js
 {
-  loader: 'file-loader'
+  loader: 'file-loader',
   options: {
     name: '[path][name].[ext]'
   }  
@@ -105,7 +105,7 @@ By default, the path and name you specify will output the file in that same dire
 **webpack.config.js**
 ```js
 {
-  loader: 'file-loader'
+  loader: 'file-loader',
   options: {
     name: '[path][name].[ext]',
     context: ''
@@ -120,7 +120,7 @@ You can specify custom `output` and `public` paths by using `outputPath`, `publi
 **webpack.config.js**
 ```js
 {
-  loader: 'file-loader'
+  loader: 'file-loader',
   options: {
     name: '[path][name].[ext]',
     publicPath: 'assets'
@@ -133,7 +133,7 @@ You can specify custom `output` and `public` paths by using `outputPath`, `publi
 **webpack.config.js**
 ```js
 {
-  loader: 'file-loader'
+  loader: 'file-loader',
   options: {
     name: '[path][name].[ext]',
     outputPath: 'images'
@@ -164,7 +164,7 @@ import img from './file.png'
 
 ```js
 {
-  loader: 'file-loader'
+  loader: 'file-loader',
   options: {
     emitFile: false
   }  
@@ -187,7 +187,7 @@ import png from 'image.png'
 **webpack.config.js**
 ```js
 {
-  loader: 'file-loader'
+  loader: 'file-loader',
   options: {
     name: 'dirname/[hash].[ext]'
   }  
@@ -201,7 +201,7 @@ dirname/0dcbbaa701328ae351f.png
 **webpack.config.js**
 ```js
 {
-  loader: 'file-loader'
+  loader: 'file-loader',
   options: {
     name: '[sha512:hash:base64:7].[ext]'
   }  
@@ -219,7 +219,7 @@ import png from 'path/to/file.png'
 **webpack.config.js**
 ```js
 {
-  loader: 'file-loader'
+  loader: 'file-loader',
   options: {
     name: '[path][name].[ext]?[hash]'
   }  
