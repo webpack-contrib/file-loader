@@ -2,6 +2,16 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+<a name="1.1.0"></a>
+# [1.1.0](https://github.com/webpack/file-loader/compare/v1.0.0...v1.1.0) (2017-09-29)
+
+
+### Features
+
+* add `options` validation (`schema-utils`) ([#184](https://github.com/webpack/file-loader/issues/184)) ([696ca77](https://github.com/webpack/file-loader/commit/696ca77))
+
+
+
 <a name="1.0.0"></a>
 # [1.0.0](https://github.com/webpack/file-loader/compare/v1.0.0-rc.0...v1.0.0) (2017-07-26)
 
