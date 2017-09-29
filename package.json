@@ -5,7 +5,7 @@
   "description": "file loader module for webpack",
   "license": "MIT",
   "engines": {
-    "node": ">= 4.3 < 5.0.0 || >= 5.10"
+    "node": ">= 4.8 < 5.0.0 || >= 5.10"
   },
   "main": "dist/cjs.js",
   "files": [
