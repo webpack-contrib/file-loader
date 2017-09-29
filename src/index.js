@@ -1,77 +1,68 @@
-/*
-  MIT License http://www.opensource.org/licenses/mit-license.php
-  Author Tobias Koppers @sokra
-*/
 import path from 'path';
 import loaderUtils from 'loader-utils';
+import validateOptions from 'schema-utils';
+import schema from './options.json';
 
-export default function fileLoader(content) {
-  if (!this.emitFile) throw new Error('emitFile is required from module system');
+export default function loader(content) {
+  if (!this.emitFile) throw new Error('File Loader\n\nemitFile is required from module system');
 
-  const query = loaderUtils.getOptions(this) || {};
-  const configKey = query.config || 'fileLoader';
-  const options = this.options[configKey] || {};
+  const options = loaderUtils.getOptions(this) || {};
 
-  const config = {
-    publicPath: undefined,
-    useRelativePath: false,
-    name: '[hash].[ext]',
-  };
+  validateOptions(schema, options, 'File Loader');
 
-  // options takes precedence over config
-  Object.keys(options).forEach((attr) => {
-    config[attr] = options[attr];
-  });
+  const context = options.context || this.options.context;
 
-  // query takes precedence over config and options
-  Object.keys(query).forEach((attr) => {
-    config[attr] = query[attr];
-  });
-
-  const context = config.context || this.options.context;
-  let url = loaderUtils.interpolateName(this, config.name, {
+  let url = loaderUtils.interpolateName(this, options.name, {
     context,
     content,
-    regExp: config.regExp,
+    regExp: options.regExp,
   });
 
   let outputPath = '';
-  if (config.outputPath) {
+
+  if (options.outputPath) {
     // support functions as outputPath to generate them dynamically
     outputPath = (
-      typeof config.outputPath === 'function' ? config.outputPath(url) : config.outputPath
+      typeof options.outputPath === 'function' ? options.outputPath(url) : options.outputPath
     );
   }
 
   const filePath = this.resourcePath;
-  if (config.useRelativePath) {
-    const issuerContext = this._module && this._module.issuer
-      && this._module.issuer.context || context; // eslint-disable-line no-mixed-operators
+
+  if (options.useRelativePath) {
+    const issuerContext = (this._module && this._module.issuer
+      && this._module.issuer.context) || context;
+
     const relativeUrl = issuerContext && path.relative(issuerContext, filePath).split(path.sep).join('/');
+
     const relativePath = relativeUrl && `${path.dirname(relativeUrl)}/`;
-    if (~relativePath.indexOf('../')) { // eslint-disable-line no-bitwise
+    // eslint-disable-next-line no-bitwise
+    if (~relativePath.indexOf('../')) {
       outputPath = path.posix.join(outputPath, relativePath, url);
     } else {
       outputPath = relativePath + url;
     }
+
     url = relativePath + url;
-  } else if (config.outputPath) {
+  } else if (options.outputPath) {
     // support functions as outputPath to generate them dynamically
-    outputPath = (typeof config.outputPath === 'function' ? config.outputPath(url) : config.outputPath + url);
+    outputPath = typeof options.outputPath === 'function' ? options.outputPath(url) : options.outputPath + url;
+
     url = outputPath;
   } else {
     outputPath = url;
   }
 
   let publicPath = `__webpack_public_path__ + ${JSON.stringify(url)}`;
-  if (config.publicPath !== undefined) {
+
+  if (options.publicPath !== undefined) {
     // support functions as publicPath to generate them dynamically
     publicPath = JSON.stringify(
-      typeof config.publicPath === 'function' ? config.publicPath(url) : config.publicPath + url,
+      typeof options.publicPath === 'function' ? options.publicPath(url) : options.publicPath + url,
     );
   }
 
-  if (query.emitFile === undefined || query.emitFile) {
+  if (options.emitFile === undefined || options.emitFile) {
     this.emitFile(outputPath, content);
   }
 
