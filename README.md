@@ -123,7 +123,7 @@ You can specify custom `output` and `public` paths by using `outputPath`, `publi
   loader: 'file-loader',
   options: {
     name: '[path][name].[ext]',
-    publicPath: 'assets'
+    publicPath: 'assets/'
   }  
 }
 ```
@@ -136,7 +136,7 @@ You can specify custom `output` and `public` paths by using `outputPath`, `publi
   loader: 'file-loader',
   options: {
     name: '[path][name].[ext]',
-    outputPath: 'images'
+    outputPath: 'images/'
   }  
 }
 ```
