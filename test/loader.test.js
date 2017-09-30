@@ -90,19 +90,19 @@ describe('correct-filename', () => {
 describe('publicPath option', () => {
   it('should be supported', () => {
     expect(run('/file.txt', 'publicPath=http://cdn/').result).toEqual(
-      'export default "http://cdn/81dc9bdb52d04dc20036dbd8313ed055.txt";',
+      'module.exports = "http://cdn/81dc9bdb52d04dc20036dbd8313ed055.txt";',
     );
   });
 
   it('should override public path when given empty string', () => {
     expect(run('/file.txt', 'publicPath=').result).toEqual(
-      'export default "81dc9bdb52d04dc20036dbd8313ed055.txt";',
+      'module.exports = "81dc9bdb52d04dc20036dbd8313ed055.txt";',
     );
   });
 
   it('should use webpack public path when not set', () => {
     expect(run('/file.txt').result).toEqual(
-      'export default __webpack_public_path__ + "81dc9bdb52d04dc20036dbd8313ed055.txt";',
+      'module.exports = __webpack_public_path__ + "81dc9bdb52d04dc20036dbd8313ed055.txt";',
     );
   });
 });
@@ -110,19 +110,19 @@ describe('publicPath option', () => {
 describe('useRelativePath option', () => {
   it('should be supported', () => {
     expect(run('/this/is/the/context/file.txt', 'useRelativePath=true').result).toEqual(
-      'export default __webpack_public_path__ + \"./81dc9bdb52d04dc20036dbd8313ed055.txt\";',
+      'module.exports = __webpack_public_path__ + \"./81dc9bdb52d04dc20036dbd8313ed055.txt\";',
     );
 
     expect(run('/this/is/file.txt', 'useRelativePath=true').result).toEqual(
-      'export default __webpack_public_path__ + \"../../81dc9bdb52d04dc20036dbd8313ed055.txt\";',
+      'module.exports = __webpack_public_path__ + \"../../81dc9bdb52d04dc20036dbd8313ed055.txt\";',
     );
 
     expect(run('/this/file.txt', 'context=/this/is/the/&useRelativePath=true').result).toEqual(
-      'export default __webpack_public_path__ + \"../../81dc9bdb52d04dc20036dbd8313ed055.txt\";',
+      'module.exports = __webpack_public_path__ + \"../../81dc9bdb52d04dc20036dbd8313ed055.txt\";',
     );
 
     expect(run('/this/file.txt', 'context=/&useRelativePath=true').result).toEqual(
-      'export default __webpack_public_path__ + \"this/81dc9bdb52d04dc20036dbd8313ed055.txt\";',
+      'module.exports = __webpack_public_path__ + \"this/81dc9bdb52d04dc20036dbd8313ed055.txt\";',
     );
   });
 });
@@ -134,7 +134,7 @@ describe('outputPath function', () => {
 
     expect(runWithOptions('/this/is/the/context/file.txt', options).result)
       .toEqual(
-        'export default __webpack_public_path__ + \"/path/set/by/func\";',
+        'module.exports = __webpack_public_path__ + \"/path/set/by/func\";',
       );
   });
 
@@ -145,7 +145,7 @@ describe('outputPath function', () => {
 
     expect(runWithOptions('/this/is/the/context/file.txt', options).result)
       .toEqual(
-        'export default __webpack_public_path__ + \"./81dc9bdb52d04dc20036dbd8313ed055.txt\";',
+        'module.exports = __webpack_public_path__ + \"./81dc9bdb52d04dc20036dbd8313ed055.txt\";',
       );
   });
 });
