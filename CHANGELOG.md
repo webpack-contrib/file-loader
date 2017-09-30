@@ -2,6 +2,16 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+<a name="1.1.4"></a>
+## [1.1.4](https://github.com/webpack/file-loader/compare/v1.1.3...v1.1.4) (2017-09-30)
+
+
+### Bug Fixes
+
+* **index:** revert to CJS exports ([#212](https://github.com/webpack/file-loader/issues/212)) ([f412b3e](https://github.com/webpack/file-loader/commit/f412b3e))
+
+
+
 <a name="1.1.3"></a>
 ## [1.1.3](https://github.com/webpack/file-loader/compare/v1.1.2...v1.1.3) (2017-09-30)
 
