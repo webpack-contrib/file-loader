@@ -1,0 +1,5 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Options name {Function} 1`] = `"module.exports = __webpack_public_path__ + \\"9c87cbf3ba33126ffd25ae7f2f6bbafb.png\\";"`;
+
+exports[`Options name {String} 1`] = `"module.exports = __webpack_public_path__ + \\"9c87cbf3ba33126ffd25ae7f2f6bbafb.png\\";"`;

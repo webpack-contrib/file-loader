@@ -1,12 +1,12 @@
-import fileLoader from '../src';
-import cjsFileLoader from '../src/cjs';
+import loader from '../src';
+import CJSLoader from '../src/cjs';
 
-describe('cjs', () => {
+describe('CJS', () => {
   it('should export loader', () => {
-    expect(cjsFileLoader).toEqual(fileLoader);
+    expect(CJSLoader).toEqual(loader);
   });
 
   it('should export `raw` flag', () => {
-    expect(cjsFileLoader.raw).toEqual(true);
+    expect(CJSLoader.raw).toEqual(true);
   });
 });

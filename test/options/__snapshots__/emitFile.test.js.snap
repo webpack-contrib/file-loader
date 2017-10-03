@@ -1,0 +1,3 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Options emitFile {Boolean} True (Default) 1`] = `"64eababb117f90535085779cc0325003.svg"`;
