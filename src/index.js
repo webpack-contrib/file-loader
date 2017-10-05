@@ -62,7 +62,15 @@ export default function loader(content) {
     );
   }
 
+  // Memcache output paths (files)
+  const cache = new Set();
+
   if (options.emitFile === undefined || options.emitFile) {
+    // Don't emit files again if cached
+    if (cache.has(outputPath)) return null;
+
+    cache.add(outputPath);
+
     this.emitFile(outputPath, content);
   }
   // TODO revert to ES2015 Module export, when new CSS Pipeline is in place
