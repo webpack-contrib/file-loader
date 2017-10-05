@@ -2,6 +2,16 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+<a name="1.1.5"></a>
+## [1.1.5](https://github.com/webpack/file-loader/compare/v1.1.4...v1.1.5) (2017-10-05)
+
+
+### Bug Fixes
+
+* **schema:** allow `name` to be a `{Function}` (`options.name`) ([#216](https://github.com/webpack/file-loader/issues/216)) ([fbfb160](https://github.com/webpack/file-loader/commit/fbfb160))
+
+
+
 <a name="1.1.4"></a>
 ## [1.1.4](https://github.com/webpack/file-loader/compare/v1.1.3...v1.1.4) (2017-09-30)
 
