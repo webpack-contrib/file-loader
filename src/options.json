@@ -1,9 +1,7 @@
 {
   "type": "object",
   "properties": {
-    "name": {
-      "type": "string"
-    },
+    "name": {},
     "regExp": {},
     "context": {
       "type": "string"

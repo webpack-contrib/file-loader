@@ -11,6 +11,6 @@ exports[`Errors Validation Error 1`] = `
 
 File Loader Invalid Options
 
-options.name should be string
+options.useRelativePath should be boolean
 "
 `;
