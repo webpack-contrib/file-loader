@@ -36,14 +36,11 @@ export default function loader(content) {
 
     const relativePath = relativeUrl && `${path.dirname(relativeUrl)}/`;
 
-    // do not override outputPath if it's set
-    if (!outputPath) {
-      // eslint-disable-next-line no-bitwise
-      if (~relativePath.indexOf('../')) {
-        outputPath = path.posix.join(outputPath, relativePath, url);
-      } else {
-        outputPath = relativePath + url;
-      }
+    // eslint-disable-next-line no-bitwise
+    if (~relativePath.indexOf('../')) {
+      outputPath = path.posix.join(outputPath, relativePath, url);
+    } else {
+      outputPath = relativePath + url;
     }
 
     url = relativePath + url;
