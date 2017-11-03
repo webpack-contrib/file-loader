@@ -19,12 +19,11 @@ export default function loader(content) {
   });
 
   let outputPath = '';
-  const filePath = this.resourcePath;
 
   if (options.outputPath) {
     // support functions as outputPath to generate them dynamically
     outputPath = (
-      typeof options.outputPath === 'function' ? options.outputPath(url, filePath) : options.outputPath
+      typeof options.outputPath === 'function' ? options.outputPath(url, this.resourcePath) : options.outputPath
     );
   }
 
@@ -32,7 +31,7 @@ export default function loader(content) {
     const issuerContext = (this._module && this._module.issuer
       && this._module.issuer.context) || context;
 
-    const relativeUrl = issuerContext && path.relative(issuerContext, filePath).split(path.sep).join('/');
+    const relativeUrl = issuerContext && path.relative(issuerContext, this.resourcePath).split(path.sep).join('/');
 
     const relativePath = relativeUrl && `${path.dirname(relativeUrl)}/`;
 
