@@ -19,11 +19,12 @@ export default function loader(content) {
   });
 
   let outputPath = '';
+  const filePath = this.resourcePath;
 
   if (options.outputPath) {
     // support functions as outputPath to generate them dynamically
     outputPath = (
-      typeof options.outputPath === 'function' ? options.outputPath(url, this.resourcePath) : options.outputPath
+      typeof options.outputPath === 'function' ? options.outputPath(url, filePath) : options.outputPath
     );
   }
 
@@ -31,15 +32,18 @@ export default function loader(content) {
     const issuerContext = (this._module && this._module.issuer
       && this._module.issuer.context) || context;
 
-    const relativeUrl = issuerContext && path.relative(issuerContext, this.resourcePath).split(path.sep).join('/');
+    const relativeUrl = issuerContext && path.relative(issuerContext, filePath).split(path.sep).join('/');
 
     const relativePath = relativeUrl && `${path.dirname(relativeUrl)}/`;
 
-    // eslint-disable-next-line no-bitwise
-    if (~relativePath.indexOf('../')) {
-      outputPath = path.posix.join(outputPath, relativePath, url);
-    } else {
-      outputPath = relativePath + url;
+    // do not override outputPath if it's set
+    if (!outputPath) {
+      // eslint-disable-next-line no-bitwise
+      if (~relativePath.indexOf('../')) {
+        outputPath = path.posix.join(outputPath, relativePath, url);
+      } else {
+        outputPath = relativePath + url;
+      }
     }
 
     url = relativePath + url;
