@@ -1,0 +1,5 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Options publicPath {Function} 1`] = `"module.exports = \\"test/9c87cbf3ba33126ffd25ae7f2f6bbafb.png\\";"`;
+
+exports[`Options publicPath {String} 1`] = `"module.exports = \\"/test/9c87cbf3ba33126ffd25ae7f2f6bbafb.png\\";"`;
