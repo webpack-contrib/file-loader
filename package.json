@@ -37,7 +37,7 @@
     "webpack-defaults": "^1.6.0"
   },
   "peerDependencies": {
-    "webpack": "^2.0.0 || ^3.0.0"
+    "webpack": "*"
   },
   "scripts": {
     "start": "npm run build -- -w",
