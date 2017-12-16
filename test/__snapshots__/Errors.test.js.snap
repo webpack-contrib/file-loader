@@ -7,9 +7,7 @@ emitFile is required from module system"
 `;
 
 exports[`Errors Validation Error 1`] = `
-"Validation Error
-
-File Loader Invalid Options
+"File Loader Invalid Options
 
 options.useRelativePath should be boolean
 "
