@@ -11,7 +11,7 @@ export default function loader(content) {
 
   validateOptions(schema, options, 'File Loader');
 
-  const context = options.context || this.rootContext || this.options && this.options.context
+  const context = this.rootContext;
 
   let url = loaderUtils.interpolateName(this, options.name, {
     context,
@@ -76,6 +76,8 @@ export default function loader(content) {
   }
 
   if (options.emitFile === undefined || options.emitFile) {
+    console.log(`Emit File: ${options.emitFile}`);
+    console.log(`Output Path: ${outputPath}`);
     this.emitFile(outputPath, content);
   }
   // TODO revert to ES2015 Module export, when new CSS Pipeline is in place

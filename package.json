@@ -63,7 +63,7 @@
     "webpack-defaults": "^2.0.0-beta.1"
   },
   "peerDependencies": {
-    "webpack": "^3.0.0 || ^4.0.0"
+    "webpack": "^4.0.0"
   },
   "engines": {
     "node": ">= 6.9.0 || >= 8.9.0"
