@@ -10,7 +10,7 @@ export default function loader(content) {
 
   validateOptions(schema, options, 'File Loader');
 
-  const context = options.context || this.options.context;
+  const context = options.context || this.rootContext || this.options && this.options.context
 
   let url = loaderUtils.interpolateName(this, options.name, {
     context,
