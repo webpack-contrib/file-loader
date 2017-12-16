@@ -2,6 +2,16 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+<a name="1.1.6"></a>
+## [1.1.6](https://github.com/webpack/file-loader/compare/v1.1.5...v1.1.6) (2017-12-16)
+
+
+### Bug Fixes
+
+* rootContext compatibility fix for legacy / v4 (#237) ([1e4b7cf](https://github.com/webpack/file-loader/commit/1e4b7cf)), closes [#237](https://github.com/webpack/file-loader/issues/237)
+
+
+
 <a name="1.1.5"></a>
 ## [1.1.5](https://github.com/webpack/file-loader/compare/v1.1.4...v1.1.5) (2017-10-05)
 
