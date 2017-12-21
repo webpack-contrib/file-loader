@@ -8,6 +8,8 @@ import path from 'path';
 import webpack from 'webpack';
 import MemoryFS from 'memory-fs';
 
+const majorVersion = require('webpack/package.json').version.split('.')[0];
+
 const module = (config) => {
   return {
     rules:
@@ -53,6 +55,11 @@ export default function(fixture, config, options) {
     module: module(config),
     plugins: plugins(config),
   };
+
+  if (Number(majorVersion) >= 4) {
+    config.mode = 'development';
+  }
+
   // Compiler Options
   options = Object.assign({ output: false }, options);
 
