@@ -9,7 +9,6 @@
     "dist"
   ],
   "scripts": {
-    "webpack-defaults": "webpack-defaults",
     "start": "npm run build -- -w",
     "build": "cross-env NODE_ENV=production babel src -d dist --ignore 'src/**/*.test.js' --copy-files",
     "clean": "del-cli dist",
@@ -29,7 +28,8 @@
     "test:coverage": "jest --collectCoverageFrom='src/**/*.js' --coverage",
     "ci:lint": "npm run lint && npm run security",
     "ci:test": "npm run test -- --runInBand",
-    "ci:coverage": "npm run test:coverage -- --runInBand"
+    "ci:coverage": "npm run test:coverage -- --runInBand",
+    "defaults": "webpack-defaults"
   },
   "dependencies": {
     "loader-utils": "^1.1.0",
@@ -60,17 +60,17 @@
     "prettier": "^1.9.2",
     "standard-version": "^4.2.0",
     "webpack": "^3.10.0",
-    "webpack-defaults": "^2.0.0-beta.1"
-  },
-  "peerDependencies": {
-    "webpack": "^4.0.0"
+    "webpack-defaults": "^2.0.0-rc.3"
   },
   "engines": {
     "node": ">= 6.9.0 || >= 8.9.0"
   },
-  "repository": "https://github.com/webpack/file-loader.git",
-  "bugs": "https://github.com/webpack/file-loader/issues",
-  "homepage": "https://webpack.js.org/loaders/file-loader",
+  "peerDependencies": {
+    "webpack": "^4.0.0"
+  },
+  "homepage": "https://github.com/webpack-contrib/file-loader",
+  "repository": "https://github.com/webpack-contrib/file-loader",
+  "bugs": "https://github.com/webpack-contrib/file-loader/issues",
   "pre-commit": "lint-staged",
   "lint-staged": {
     "*.js": [
