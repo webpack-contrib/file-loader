@@ -8,40 +8,44 @@ import path from 'path';
 import webpack from 'webpack';
 import MemoryFS from 'memory-fs';
 
+const majorVersion = require('webpack/package.json').version.split('.')[0];
+
 const module = (config) => {
   return {
-    rules: config.rules || config.loader
-      ? [
-        {
-          test: config.loader.test || /\.txt$/,
-          use: {
-            loader: path.resolve(__dirname, '../../src'),
-            options: config.loader.options || {},
-          },
-        },
-      ]
-      : [],
+    rules:
+      config.rules || config.loader
+        ? [
+            {
+              test: config.loader.test || /\.txt$/,
+              use: {
+                loader: path.resolve(__dirname, '../../src'),
+                options: config.loader.options || {},
+              },
+            },
+          ]
+        : [],
   };
 };
 
-const plugins = config => ([
-  new webpack.optimize.CommonsChunkPlugin({
-    name: ['runtime'],
-    minChunks: Infinity,
-  }),
-].concat(config.plugins || []));
+const plugins = (config) =>
+  [
+    new webpack.optimize.CommonsChunkPlugin({
+      name: 'runtime',
+      minChunks: Infinity,
+    }),
+  ].concat(config.plugins || []);
 
 const output = (config) => {
   return {
     path: path.resolve(
       __dirname,
-      `../outputs/${config.output ? config.output : ''}`,
+      `../outputs/${config.output ? config.output : ''}`
     ),
     filename: '[name].bundle.js',
   };
 };
 
-export default function (fixture, config, options) {
+export default function(fixture, config, options) {
   // webpack Config
   config = {
     devtool: config.devtool || 'sourcemap',
@@ -51,6 +55,11 @@ export default function (fixture, config, options) {
     module: module(config),
     plugins: plugins(config),
   };
+
+  if (Number(majorVersion) >= 4) {
+    config.mode = 'development';
+  }
+
   // Compiler Options
   options = Object.assign({ output: false }, options);
 
@@ -60,9 +69,11 @@ export default function (fixture, config, options) {
 
   if (!options.output) compiler.outputFileSystem = new MemoryFS();
 
-  return new Promise((resolve, reject) => compiler.run((err, stats) => {
-    if (err) reject(err);
+  return new Promise((resolve, reject) =>
+    compiler.run((err, stats) => {
+      if (err) reject(err);
 
-    resolve(stats);
-  }));
+      resolve(stats);
+    })
+  );
 }

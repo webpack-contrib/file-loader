@@ -4,13 +4,14 @@ import validateOptions from 'schema-utils';
 import schema from './options.json';
 
 export default function loader(content) {
-  if (!this.emitFile) throw new Error('File Loader\n\nemitFile is required from module system');
+  if (!this.emitFile)
+    throw new Error('File Loader\n\nemitFile is required from module system');
 
   const options = loaderUtils.getOptions(this) || {};
 
   validateOptions(schema, options, 'File Loader');
 
-  const context = options.context || this.rootContext || this.options && this.options.context
+  const context = this.rootContext;
 
   let url = loaderUtils.interpolateName(this, options.name, {
     context,
@@ -22,18 +23,25 @@ export default function loader(content) {
 
   if (options.outputPath) {
     // support functions as outputPath to generate them dynamically
-    outputPath = (
-      typeof options.outputPath === 'function' ? options.outputPath(url) : options.outputPath
-    );
+    outputPath =
+      typeof options.outputPath === 'function'
+        ? options.outputPath(url)
+        : options.outputPath;
   }
 
   const filePath = this.resourcePath;
 
   if (options.useRelativePath) {
-    const issuerContext = (this._module && this._module.issuer
-      && this._module.issuer.context) || context;
+    const issuerContext =
+      (this._module && this._module.issuer && this._module.issuer.context) ||
+      context;
 
-    const relativeUrl = issuerContext && path.relative(issuerContext, filePath).split(path.sep).join('/');
+    const relativeUrl =
+      issuerContext &&
+      path
+        .relative(issuerContext, filePath)
+        .split(path.sep)
+        .join('/');
 
     const relativePath = relativeUrl && `${path.dirname(relativeUrl)}/`;
     // eslint-disable-next-line no-bitwise
@@ -46,7 +54,10 @@ export default function loader(content) {
     url = relativePath + url;
   } else if (options.outputPath) {
     // support functions as outputPath to generate them dynamically
-    outputPath = typeof options.outputPath === 'function' ? options.outputPath(url) : options.outputPath + url;
+    outputPath =
+      typeof options.outputPath === 'function'
+        ? options.outputPath(url)
+        : options.outputPath + url;
 
     url = outputPath;
   } else {
@@ -58,7 +69,9 @@ export default function loader(content) {
   if (options.publicPath !== undefined) {
     // support functions as publicPath to generate them dynamically
     publicPath = JSON.stringify(
-      typeof options.publicPath === 'function' ? options.publicPath(url) : options.publicPath + url,
+      typeof options.publicPath === 'function'
+        ? options.publicPath(url)
+        : options.publicPath + url
     );
   }
 
