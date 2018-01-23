@@ -161,6 +161,27 @@ You can specify custom `output` and `public` paths by using `outputPath`, `publi
 }
 ```
 
+Keep in mind that when setting up the `outputPath` you will specify a path **relative** to the `path` entry in the `output` object of your configuration. To give you an example, if your webpack is setup as follows:
+
+```js
+...
+output: {
+  path: path.join(__dirname, '../public/js/'),
+  filename: 'bundle.[hash:8].js',
+}
+```
+You are trying to emit your `js` assets in `/public/js/`, now you might want to have other assets like images in `/public/images/`, in this case your `file-loader` configuration will look something like this:
+```js
+{
+  loader: 'file-loader',
+  options: {
+    name: '[path][name].[ext]',
+    outputPath: '../images/'
+  }  
+}
+```
+This is necessary because you need to navigate one level up from `/public/js/` in order to be able to emit your images in `/public/images/`.
+
 ### `useRelativePath`
 
 `useRelativePath` should be `true` if you wish to generate a relative URL to the for each file context.
