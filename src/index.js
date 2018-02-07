@@ -58,7 +58,7 @@ export default function loader(content) {
   if (options.publicPath !== undefined) {
     // support functions as publicPath to generate them dynamically
     publicPath = JSON.stringify(
-      typeof options.publicPath === 'function' ? options.publicPath(url) : options.publicPath + url,
+      typeof options.publicPath === 'function' ? options.publicPath(url, this._module.issuer.resource) : options.publicPath + url,
     );
   }
 
