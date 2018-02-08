@@ -200,7 +200,7 @@ import img from './file.png'
 
 ### `regExp`
 
-Defines an `regExp` if you want to reuse some parts of the file path in the `name` property using `[N]` placeholder. Note that `[0]` will be replaced by the entire tested string, whereas `[1]` will contain the first capturing parenthesis of your regex.
+Defines a `regExp` to match some parts of the file path. These capture groups can be reused in the `name` property using `[N]` placeholder. Note that `[0]` will be replaced by the entire tested string, whereas `[1]` will contain the first capturing parenthesis of your regex and so on...
 
 ```js
 import img from './customer01/file.png'
@@ -212,7 +212,7 @@ import img from './customer01/file.png'
   loader: 'file-loader',
   options: {
     regExp: /\/([a-z0-9]+)\/[a-z0-9]+\.png$/,
-    name: '[1]/[name].[ext]'
+    name: '[1]-[name].[ext]'
   }  
 }
 ```
