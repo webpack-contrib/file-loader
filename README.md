@@ -130,7 +130,7 @@ customer01-file.png
 |**`[name]`**|`{String}`|`file.basename`|The basename of the resource|
 |**`[path]`**|`{String}`|`file.dirname`|The path of the resource relative to the `context`|
 |**`[hash]`**|`{String}`|`md5`|The hash of the content, hashes below for more info|
-|**`[N]`**|`{String}`, with `N` `{Number}` >0 |``|The `n-th` match obtained from matching the current file name against the `regExp`|
+|**`[N]`**|`{String}`|``|The `n-th` match obtained from matching the current file name against the `regExp`|
 
 #### `hashes`
 
