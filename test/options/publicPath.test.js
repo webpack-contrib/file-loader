@@ -10,15 +10,15 @@ describe('Options', () => {
         loader: {
           test: /(png|jpg|svg)/,
           options: {
-            publicPath: '/test/',
+            publicPath: 'public_path/',
           },
         },
       };
 
       const stats = await webpack('fixture.js', config);
-      const { source } = stats.toJson().modules[1];
+      const { assets, source } = stats.toJson().modules[1];
 
-      expect(source).toMatchSnapshot();
+      expect({ assets, source }).toMatchSnapshot();
     });
 
     test('{Function}', async () => {
@@ -27,16 +27,16 @@ describe('Options', () => {
           test: /(png|jpg|svg)/,
           options: {
             publicPath(url) {
-              return `test/${url}`;
+              return `public_path/${url}`;
             },
           },
         },
       };
 
       const stats = await webpack('fixture.js', config);
-      const { source } = stats.toJson().modules[1];
+      const { assets, source } = stats.toJson().modules[1];
 
-      expect(source).toMatchSnapshot();
+      expect({ assets, source }).toMatchSnapshot();
     });
   });
 });

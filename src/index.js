@@ -10,7 +10,7 @@ export default function loader(content) {
 
   validateOptions(schema, options, 'File Loader');
 
-  const context = options.context || this.rootContext || this.options && this.options.context
+  const context = options.context || this.rootContext || (this.options && this.options.context);
 
   let url = loaderUtils.interpolateName(this, options.name, {
     context,
@@ -27,9 +27,8 @@ export default function loader(content) {
     );
   }
 
-  const filePath = this.resourcePath;
-
   if (options.useRelativePath) {
+    const filePath = this.resourcePath;
     const issuerContext = (this._module && this._module.issuer
       && this._module.issuer.context) || context;
 
@@ -44,13 +43,8 @@ export default function loader(content) {
     }
 
     url = relativePath + url;
-  } else if (options.outputPath) {
-    // support functions as outputPath to generate them dynamically
-    outputPath = typeof options.outputPath === 'function' ? options.outputPath(url) : options.outputPath + url;
-
-    url = outputPath;
   } else {
-    outputPath = url;
+    outputPath += url;
   }
 
   let publicPath = `__webpack_public_path__ + ${JSON.stringify(url)}`;
