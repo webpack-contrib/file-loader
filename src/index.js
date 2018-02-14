@@ -62,6 +62,10 @@ export default function loader(content) {
     );
   }
 
+  if (options.dynamicPublicPath !== undefined) {
+    publicPath = typeof options.dynamicPublicPath === 'function' ? options.dynamicPublicPath(url) : publicPath;
+  }
+
   if (options.emitFile === undefined || options.emitFile) {
     this.emitFile(outputPath, content);
   }

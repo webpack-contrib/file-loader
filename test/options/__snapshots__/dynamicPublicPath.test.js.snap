@@ -1,0 +1,3 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Options dynamicPublicPath {Function} 1`] = `"throw new Error(\\"Module parse failed: /Users/anvar/projects/quanttech/file-loader/src/index.js??ref--0!/Users/anvar/projects/quanttech/file-loader/test/fixtures/file.png Identifier directly after number (1:23)\\\\nYou may need an appropriate loader to handle this file type.\\\\n| module.exports = test/9c87cbf3ba33126ffd25ae7f2f6bbafb.png;\\");"`;
