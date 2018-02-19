@@ -1,5 +1,55 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`Options outputPath {Function} 1`] = `"module.exports = __webpack_public_path__ + \\"test/9c87cbf3ba33126ffd25ae7f2f6bbafb.png\\";"`;
+exports[`Options outputPath {Function} 1`] = `
+Object {
+  "assets": Array [
+    "output_path/9c87cbf3ba33126ffd25ae7f2f6bbafb.png9c87cbf3ba33126ffd25ae7f2f6bbafb.png",
+  ],
+  "source": "module.exports = __webpack_public_path__ + \\"9c87cbf3ba33126ffd25ae7f2f6bbafb.png\\";",
+}
+`;
 
-exports[`Options outputPath {String} 1`] = `"module.exports = __webpack_public_path__ + \\"/test/9c87cbf3ba33126ffd25ae7f2f6bbafb.png\\";"`;
+exports[`Options outputPath {Function} with \`publicPath\` {Function} 1`] = `
+Object {
+  "assets": Array [
+    "output_path/9c87cbf3ba33126ffd25ae7f2f6bbafb.png9c87cbf3ba33126ffd25ae7f2f6bbafb.png",
+  ],
+  "source": "module.exports = \\"public_path/9c87cbf3ba33126ffd25ae7f2f6bbafb.png\\";",
+}
+`;
+
+exports[`Options outputPath {Function} with \`publicPath\` {String} 1`] = `
+Object {
+  "assets": Array [
+    "output_path/9c87cbf3ba33126ffd25ae7f2f6bbafb.png9c87cbf3ba33126ffd25ae7f2f6bbafb.png",
+  ],
+  "source": "module.exports = \\"public_path/9c87cbf3ba33126ffd25ae7f2f6bbafb.png\\";",
+}
+`;
+
+exports[`Options outputPath {String} 1`] = `
+Object {
+  "assets": Array [
+    "output_path/9c87cbf3ba33126ffd25ae7f2f6bbafb.png",
+  ],
+  "source": "module.exports = __webpack_public_path__ + \\"9c87cbf3ba33126ffd25ae7f2f6bbafb.png\\";",
+}
+`;
+
+exports[`Options outputPath {String} with \`publicPath\` {Function} 1`] = `
+Object {
+  "assets": Array [
+    "output_path/9c87cbf3ba33126ffd25ae7f2f6bbafb.png",
+  ],
+  "source": "module.exports = \\"public_path/9c87cbf3ba33126ffd25ae7f2f6bbafb.png\\";",
+}
+`;
+
+exports[`Options outputPath {String} with \`publicPath\` {String} 1`] = `
+Object {
+  "assets": Array [
+    "output_path/9c87cbf3ba33126ffd25ae7f2f6bbafb.png",
+  ],
+  "source": "module.exports = \\"public_path/9c87cbf3ba33126ffd25ae7f2f6bbafb.png\\";",
+}
+`;
