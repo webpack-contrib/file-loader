@@ -2,6 +2,16 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+<a name="1.1.7"></a>
+## [1.1.7](https://github.com/webpack/file-loader/compare/v1.1.6...v1.1.7) (2018-02-19)
+
+
+### Bug Fixes
+
+* **index:** don't concat `options.outputPath` and `options.publicPath` ([#246](https://github.com/webpack/file-loader/issues/246)) ([98bf052](https://github.com/webpack/file-loader/commit/98bf052))
+
+
+
 <a name="1.1.6"></a>
 ## [1.1.6](https://github.com/webpack/file-loader/compare/v1.1.5...v1.1.6) (2017-12-16)
 
