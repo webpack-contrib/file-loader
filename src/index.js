@@ -32,9 +32,9 @@ export default function loader(content) {
     const relativePath = relativeUrl && `${path.dirname(relativeUrl)}/`;
     // eslint-disable-next-line no-bitwise
     if (~relativePath.indexOf('../')) {
-      outputPath = path.posix.join(outputPath, relativePath, url);
+      outputPath = path.join(outputPath, relativePath, url);
     } else {
-      outputPath = relativePath + url;
+      outputPath = path.join(relativePath, url);
     }
   }
 
@@ -43,7 +43,7 @@ export default function loader(content) {
   if (options.publicPath !== undefined) {
     // support functions as publicPath to generate them dynamically
     publicPath = JSON.stringify(
-      typeof options.publicPath === 'function' ? options.publicPath(url) : options.publicPath + url,
+      typeof options.publicPath === 'function' ? options.publicPath(url) : path.join(options.publicPath || '', url),
     );
   } else {
     publicPath = `__webpack_public_path__ + ${JSON.stringify(outputPath)}`;
