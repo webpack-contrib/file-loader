@@ -1,6 +1,6 @@
 {
   "name": "file-loader",
-  "version": "1.1.7",
+  "version": "1.1.8",
   "author": "Tobias Koppers @sokra",
   "description": "file loader module for webpack",
   "license": "MIT",
@@ -46,7 +46,7 @@
     "clean": "del-cli dist",
     "lint": "eslint --cache src test",
     "lint-staged": "lint-staged",
-    "prepublish": "npm run build",
+    "prepare": "npm run build",
     "prebuild": "npm run clean",
     "release": "standard-version",
     "security": "nsp check",

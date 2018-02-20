@@ -2,6 +2,18 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+<a name="1.1.8"></a>
+## [1.1.8](https://github.com/webpack/file-loader/compare/v1.1.7...v1.1.8) (2018-02-20)
+
+
+### Bug Fixes
+
+* **index:** `context` takes precedence over `issuer.context` (`options.useRelativePath`) ([3b071f5](https://github.com/webpack/file-loader/commit/3b071f5))
+* **index:** don't append `outputPath` to the original `url` (`options.outputPath` `{Function}`) ([4c1ccaa](https://github.com/webpack/file-loader/commit/4c1ccaa))
+* **index:** normalize and concat paths via `path.join()` ([26e47ca](https://github.com/webpack/file-loader/commit/26e47ca))
+
+
+
 <a name="1.1.7"></a>
 ## [1.1.7](https://github.com/webpack/file-loader/compare/v1.1.6...v1.1.7) (2018-02-19)
 
