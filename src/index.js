@@ -29,8 +29,8 @@ export default function loader(content) {
 
   if (options.useRelativePath) {
     const filePath = this.resourcePath;
-    const issuerContext = (this._module && this._module.issuer
-      && this._module.issuer.context) || context;
+    const issuerContext = context || (this._module && this._module.issuer
+      && this._module.issuer.context);
 
     const relativeUrl = issuerContext && path.relative(issuerContext, filePath).split(path.sep).join('/');
 
