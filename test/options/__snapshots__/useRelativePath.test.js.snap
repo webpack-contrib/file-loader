@@ -21,9 +21,9 @@ Object {
 exports[`Options useRelativePath \`true\` with absolute \`context\` 1`] = `
 Object {
   "assets": Array [
-    "../file-loader/test/fixtures/nested/9c87cbf3ba33126ffd25ae7f2f6bbafb.png",
+    "file-loader/test/fixtures/nested/9c87cbf3ba33126ffd25ae7f2f6bbafb.png",
   ],
-  "source": "module.exports = __webpack_public_path__ + \\"../file-loader/test/fixtures/nested/9c87cbf3ba33126ffd25ae7f2f6bbafb.png\\";",
+  "source": "module.exports = __webpack_public_path__ + \\"file-loader/test/fixtures/nested/9c87cbf3ba33126ffd25ae7f2f6bbafb.png\\";",
 }
 `;
 

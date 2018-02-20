@@ -17,3 +17,12 @@ Object {
   "source": "module.exports = \\"public_path/9c87cbf3ba33126ffd25ae7f2f6bbafb.png\\";",
 }
 `;
+
+exports[`Options publicPath {String} without trailing slash 1`] = `
+Object {
+  "assets": Array [
+    "9c87cbf3ba33126ffd25ae7f2f6bbafb.png",
+  ],
+  "source": "module.exports = \\"public_path9c87cbf3ba33126ffd25ae7f2f6bbafb.png\\";",
+}
+`;
