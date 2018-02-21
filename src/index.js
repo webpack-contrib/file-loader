@@ -18,16 +18,28 @@ export default function loader(content) {
     regExp: options.regExp,
   });
 
-  let outputPath = (
-    typeof options.outputPath === 'function' ? options.outputPath(url) : path.join(options.outputPath || '', url)
-  );
+  let outputPath = url;
+
+  if (options.outputPath) {
+    if (typeof options.outputPath === 'function') {
+      outputPath = options.outputPath(url);
+    } else {
+      outputPath = path.join(options.outputPath, url);
+    }
+  }
 
   if (options.useRelativePath) {
     const filePath = this.resourcePath;
-    const issuerContext = context || (this._module && this._module.issuer
-      && this._module.issuer.context);
 
-    const relativeUrl = issuerContext && path.relative(issuerContext, filePath).split(path.sep).join('/');
+    const issuerContext = context || (
+      this._module &&
+      this._module.issuer &&
+      this._module.issuer.context
+    );
+
+    const relativeUrl = issuerContext && path.relative(issuerContext, filePath)
+      .split(path.sep)
+      .join('/');
 
     const relativePath = relativeUrl && `${path.dirname(relativeUrl)}/`;
     // eslint-disable-next-line no-bitwise
@@ -38,15 +50,18 @@ export default function loader(content) {
     }
   }
 
-  let publicPath = null;
+  let publicPath = `__webpack_public_path__ + ${JSON.stringify(outputPath)}`;
 
-  if (options.publicPath !== undefined) {
-    // support functions as publicPath to generate them dynamically
-    publicPath = JSON.stringify(
-      typeof options.publicPath === 'function' ? options.publicPath(url) : path.join(options.publicPath || '', url),
-    );
-  } else {
-    publicPath = `__webpack_public_path__ + ${JSON.stringify(outputPath)}`;
+  if (options.publicPath) {
+    if (typeof options.publicPath === 'function') {
+      publicPath = options.publicPath(url);
+    } else if (options.publicPath.endsWith('/')) {
+      publicPath = options.publicPath + url;
+    } else {
+      publicPath = `${options.publicPath}/${url}`;
+    }
+
+    publicPath = JSON.stringify(publicPath);
   }
 
   if (options.emitFile === undefined || options.emitFile) {

@@ -21,12 +21,28 @@ describe('Options', () => {
       expect({ assets, source }).toMatchSnapshot();
     });
 
-    test('{String} without trailing slash', async () => {
+    test('{String} - Without trailing slash', async () => {
       const config = {
         loader: {
           test: /(png|jpg|svg)/,
           options: {
             publicPath: 'public_path',
+          },
+        },
+      };
+
+      const stats = await webpack('fixture.js', config);
+      const { assets, source } = stats.toJson().modules[1];
+
+      expect({ assets, source }).toMatchSnapshot();
+    });
+
+    test('{String} - URL', async () => {
+      const config = {
+        loader: {
+          test: /(png|jpg|svg)/,
+          options: {
+            publicPath: 'https://cdn.com/',
           },
         },
       };
