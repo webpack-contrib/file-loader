@@ -2,6 +2,17 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+<a name="1.1.9"></a>
+## [1.1.9](https://github.com/webpack/file-loader/compare/v1.1.8...v1.1.9) (2018-02-21)
+
+
+### Bug Fixes
+
+* **index:** handle protocol URL's correctly (`options.publicPath`) ([#253](https://github.com/webpack/file-loader/issues/253)) ([54fa5a3](https://github.com/webpack/file-loader/commit/54fa5a3))
+* **index:** use `path.posix` for platform consistency ([#254](https://github.com/webpack/file-loader/issues/254)) ([2afe0af](https://github.com/webpack/file-loader/commit/2afe0af))
+
+
+
 <a name="1.1.8"></a>
 ## [1.1.8](https://github.com/webpack/file-loader/compare/v1.1.7...v1.1.8) (2018-02-20)
 
