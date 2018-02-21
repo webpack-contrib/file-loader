@@ -24,7 +24,7 @@ export default function loader(content) {
     if (typeof options.outputPath === 'function') {
       outputPath = options.outputPath(url);
     } else {
-      outputPath = path.join(options.outputPath, url);
+      outputPath = path.posix.join(options.outputPath, url);
     }
   }
 
@@ -44,9 +44,9 @@ export default function loader(content) {
     const relativePath = relativeUrl && `${path.dirname(relativeUrl)}/`;
     // eslint-disable-next-line no-bitwise
     if (~relativePath.indexOf('../')) {
-      outputPath = path.join(outputPath, relativePath, url);
+      outputPath = path.posix.join(outputPath, relativePath, url);
     } else {
-      outputPath = path.join(relativePath, url);
+      outputPath = path.posix.join(relativePath, url);
     }
   }
 
