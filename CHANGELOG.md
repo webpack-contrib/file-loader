@@ -2,6 +2,16 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+<a name="1.1.10"></a>
+## [1.1.10](https://github.com/webpack/file-loader/compare/v1.1.9...v1.1.10) (2018-02-26)
+
+
+### Bug Fixes
+
+* **package:** add `webpack >= 4` (`peerDependencies`) ([#255](https://github.com/webpack/file-loader/issues/255)) ([3a6a7a1](https://github.com/webpack/file-loader/commit/3a6a7a1))
+
+
+
 <a name="1.1.9"></a>
 ## [1.1.9](https://github.com/webpack/file-loader/compare/v1.1.8...v1.1.9) (2018-02-21)
 
