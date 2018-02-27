@@ -1,3 +1,6 @@
+/* eslint-disable
+  multiline-ternary,
+*/
 import path from 'path';
 import loaderUtils from 'loader-utils';
 import validateOptions from 'schema-utils';
@@ -31,13 +34,15 @@ export default function loader(content) {
   if (options.useRelativePath) {
     const filePath = this.resourcePath;
 
-    const issuerContext = context || (
-      this._module &&
-      this._module.issuer &&
-      this._module.issuer.context
-    );
+    const issuer = options.context
+      ? context
+      : (
+        this._module &&
+        this._module.issuer &&
+        this._module.issuer.context
+      );
 
-    const relativeUrl = issuerContext && path.relative(issuerContext, filePath)
+    const relativeUrl = issuer && path.relative(issuer, filePath)
       .split(path.sep)
       .join('/');
 

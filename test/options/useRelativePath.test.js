@@ -5,7 +5,7 @@ import webpack from '../helpers/compiler';
 
 describe('Options', () => {
   describe('useRelativePath', () => {
-    test('`false`', async () => {
+    test('{Boolean} - `false`', async () => {
       const config = {
         loader: {
           test: /(png|jpg|svg)/,
@@ -15,13 +15,13 @@ describe('Options', () => {
         },
       };
 
-      const stats = await webpack('fixture-nested.js', config);
+      const stats = await webpack('nested/fixture.js', config);
       const { assets, source } = stats.toJson().modules[1];
 
       expect({ assets, source }).toMatchSnapshot();
     });
 
-    test('`true`', async () => {
+    test('{Boolean} - `true`', async () => {
       const config = {
         loader: {
           test: /(png|jpg|svg)/,
@@ -31,13 +31,13 @@ describe('Options', () => {
         },
       };
 
-      const stats = await webpack('fixture-nested.js', config);
+      const stats = await webpack('nested/fixture.js', config);
       const { assets, source } = stats.toJson().modules[1];
 
       expect({ assets, source }).toMatchSnapshot();
     });
 
-    test('`true` with relative `context`', async () => {
+    test('{Boolean} - `true` with relative `context`', async () => {
       const config = {
         loader: {
           test: /(png|jpg|svg)/,
@@ -48,13 +48,13 @@ describe('Options', () => {
         },
       };
 
-      const stats = await webpack('fixture-nested.js', config);
+      const stats = await webpack('nested/fixture.js', config);
       const { assets, source } = stats.toJson().modules[1];
 
       expect({ assets, source }).toMatchSnapshot();
     });
 
-    test('`true` with absolute `context`', async () => {
+    test('{Boolean} - `true` with absolute `context`', async () => {
       const config = {
         loader: {
           test: /(png|jpg|svg)/,
@@ -65,7 +65,7 @@ describe('Options', () => {
         },
       };
 
-      const stats = await webpack('fixture-nested.js', config);
+      const stats = await webpack('nested/fixture.js', config);
       const { assets, source } = stats.toJson().modules[1];
 
       expect({ assets, source }).toMatchSnapshot();
