@@ -1,4 +1,4 @@
 /* eslint-disable */
-import png from './nested/file.png';
+import png from './assets/file.png';
 
 export default png;
