@@ -159,7 +159,28 @@ By default, the path and name you specify will output the file in that same dire
 
 You can specify custom `output` and `public` paths by using `outputPath`, `publicPath` and `useRelativePath`
 
-### `publicPath`
+`outputPath` is relative to `output.path` specified in your configuration (`webpack.config.js`)
+
+`publicPath` is appended to the URL of the file.
+
+**webpack.config.js**
+```js
+// output.path: path.join(__dirname, 'public')
+
+{
+  loader: 'file-loader',
+  options: {
+    outputPath: 'images/'
+  }  
+}
+```
+
+Your files will be written to `public/images/` and served to the browser from `/images` (e.g `<img src="images/file.png">`)
+
+If you override the `publicPath` via `publicPath: '/foo/'` (`options.publicPath`), your files will still be written to `public/images/`, but served to the browser as `/foo/images/file.png`
+
+### `
+publicPath`
 
 **webpack.config.js**
 ```js
