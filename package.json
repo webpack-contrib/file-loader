@@ -17,7 +17,7 @@
   },
   "devDependencies": {
     "babel-cli": "^6.0.0",
-    "babel-jest": "^21.0.0",
+    "babel-jest": "^22.4.3",
     "babel-plugin-transform-object-rest-spread": "^6.0.0",
     "babel-polyfill": "^6.0.0",
     "babel-preset-env": "^1.0.0",
@@ -27,14 +27,14 @@
     "eslint": "^4.0.0",
     "eslint-config-webpack": "^1.0.0",
     "eslint-plugin-import": "^2.0.0",
-    "jest": "^21.0.0",
-    "lint-staged": "^5.0.0",
+    "jest": "^22.4.3",
+    "lint-staged": "^7.0.4",
     "memory-fs": "^0.4.0",
-    "nsp": "^2.0.0",
+    "nsp": "^3.2.1",
     "pre-commit": "^1.0.0",
     "standard-version": "^4.0.0",
-    "webpack": "^3.0.0",
-    "webpack-defaults": "^1.6.0"
+    "webpack": "^4.5.0",
+    "webpack-defaults": "^2.3.0"
   },
   "peerDependencies": {
     "webpack": "^2.0.0 || ^3.0.0 || ^4.0.0"
@@ -50,13 +50,14 @@
     "prebuild": "npm run clean",
     "release": "standard-version",
     "security": "nsp check",
-    "test": "jest",
+    "test": "jest --env=node",
     "test:watch": "jest --watch",
-    "test:coverage": "jest --collectCoverageFrom='src/**/*.js' --coverage",
+    "test:coverage": "jest --env=node --collectCoverageFrom='src/**/*.js' --coverage",
     "travis:lint": "npm run lint && npm run security",
     "travis:test": "npm run test -- --runInBand",
     "travis:coverage": "npm run test:coverage -- --runInBand",
-    "webpack-defaults": "webpack-defaults"
+    "webpack-defaults": "webpack-defaults",
+    "defaults": "webpack-defaults"
   },
   "repository": "https://github.com/webpack/file-loader.git",
   "bugs": "https://github.com/webpack/file-loader/issues",

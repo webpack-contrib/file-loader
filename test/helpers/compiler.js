@@ -24,12 +24,7 @@ const module = (config) => {
   };
 };
 
-const plugins = config => ([
-  new webpack.optimize.CommonsChunkPlugin({
-    name: ['runtime'],
-    minChunks: Infinity,
-  }),
-].concat(config.plugins || []));
+const plugins = config => ([].concat(config.plugins || []));
 
 const output = (config) => {
   return {
@@ -44,12 +39,16 @@ const output = (config) => {
 export default function (fixture, config, options) {
   // webpack Config
   config = {
+    mode: 'development',
     devtool: config.devtool || 'sourcemap',
     context: path.resolve(__dirname, '..', 'fixtures'),
     entry: `./${fixture}`,
     output: output(config),
     module: module(config),
     plugins: plugins(config),
+    optimization: {
+      runtimeChunk: true,
+    },
   };
   // Compiler Options
   options = Object.assign({ output: false }, options);

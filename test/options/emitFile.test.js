@@ -1,6 +1,4 @@
-/* eslint-disable
-  prefer-destructuring,
-*/
+
 import webpack from '../helpers/compiler';
 
 describe('Options', () => {
@@ -17,7 +15,8 @@ describe('Options', () => {
         };
 
         const stats = await webpack('emitFile/fixture.js', config);
-        const { assets } = stats.toJson().modules[1];
+        const [, module] = stats.toJson().modules;
+        const { assets } = module;
 
         expect(assets[0]).toMatchSnapshot();
       });
@@ -33,7 +32,8 @@ describe('Options', () => {
         };
 
         const stats = await webpack('emitFile/fixture.js', config);
-        const { assets } = stats.toJson().modules[1];
+        const [module] = stats.toJson().modules;
+        const { assets } = module;
 
         expect(assets[0]).toBe(undefined);
       });
