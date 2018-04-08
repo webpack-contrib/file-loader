@@ -1,4 +1,3 @@
-
 import webpack from '../helpers/compiler';
 
 describe('Options', () => {
@@ -35,6 +34,7 @@ describe('Options', () => {
         const [module] = stats.toJson().modules;
         const { assets } = module;
 
+        // eslint-disable-next-line no-undefined
         expect(assets[0]).toBe(undefined);
       });
     });

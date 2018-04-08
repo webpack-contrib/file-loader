@@ -1,6 +1,0 @@
-{
-  "extends": "webpack",
-   "rules": {
-    "no-undefined": 0
-  }
-}

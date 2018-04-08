@@ -1,4 +1,3 @@
-
 import webpack from '../helpers/compiler';
 
 describe('Options', () => {
