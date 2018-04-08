@@ -67,7 +67,12 @@ describe('Options', () => {
 
       const stats = await webpack('nested/fixture.js', config);
       const [module] = stats.toJson().modules;
-      const { assets, source } = module;
+      let { assets, source } = module;
+
+      if (process.env.CIRCLECI) {
+        assets = [assets[0].replace('project', 'file-loader')];
+        source = source.replace('project', 'file-loader');
+      }
 
       expect({ assets, source }).toMatchSnapshot();
     });
