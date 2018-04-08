@@ -26,29 +26,26 @@ To begin, you'll need to install `file-loader`:
 $ npm install file-loader --save-dev
 ```
 
-<!-- isLoader ? use(this) : delete(isPlugin) -->
-Then add the loader to your `webpack` config. For example:
+Import (or `require`) the target file(s) in one of the bundle's files:
 
-<!-- isPlugin ? use(this) : delete(isLoader) -->
-Then add the plugin to your `webpack` config. For example:
-
-**file.ext**
 ```js
-import file from 'file.ext';
+// bundle file
+import img from './file.png'
 ```
 
-<!-- isLoader ? use(this) : delete(isPlugin) -->
-**webpack.config.js**
+Then add the loader to your `webpack` config. For example:
+
 ```js
+// webpack.config.js
 module.exports = {
   module: {
     rules: [
       {
-        test: /.ext$/,
+        test: /\.(png|jpg|gif)$/,
         use: [
           {
-            loader: `file-loader`,
-            options: {...options}
+            loader: 'file-loader',
+            options: {}
           }
         ]
       }
@@ -57,63 +54,317 @@ module.exports = {
 }
 ```
 
-<!-- isPlugin ? use(this) : delete(isLoader) -->
-**webpack.config.js**
-```js
-module.exports = {
-  plugins: [
-    new `File`Plugin(options)
-  ]
-}
-```
+And run `webpack` via your preferred method. This will emit `file.png` as a file
+in the output directory (with the specified naming convention, if options are
+specified to do so) and returns the public URI of the file.
 
-And run `webpack` via your preferred method.
+_Note: By default the filename of the resulting file is the MD5 hash of the
+file's contents with the original extension of the required resource._
 
 ## Options
 
-### `[option]`
+### `context`
 
-Type: `[type|other-type]`
-Default: `[type|null]`
+Type: `String`
+Default: [`context`](https://webpack.js.org/configuration/entry-context/#context)
 
-[ option description ]
+Specifies a custom file context.
 
-<!-- isLoader ? use(this) : delete(isPlugin) -->
 ```js
-// in your webpack.config.js
+// webpack.config.js
+...
 {
-  loader: `file-loader`,
+  loader: 'file-loader',
   options: {
-    [option]: ''
+    name: '[path][name].[ext]',
+    context: ''
+  }
+}
+...
+```
+
+### `emitFile`
+
+Type: `Boolean`
+Default: `true`
+
+If true, emits a file (writes a file to the filesystem). If false, the loader
+will return a public URI but _will not_ emit the file. It is often useful to
+disable this option for server-side packages.
+
+```js
+// bundle file
+import img from './file.png'
+```
+
+```js
+// webpack.config.js
+...
+{
+  loader: 'file-loader',
+  options: {
+    emitFile: false
+  }
+}
+...
+```
+
+### `name`
+
+Type: `String|Function`
+Default: `'[hash].[ext]'`
+
+Specifies a custom filename template for the target file(s) using the query
+parameter `name`. For example, to copy a file from your `context` directory into
+the output directory retaining the full directory structure, you might use:
+
+```js
+// webpack.config.js
+{
+  loader: 'file-loader',
+  options: {
+    name: '[path][name].[ext]'
   }
 }
 ```
 
-<!-- isPlugin ? use(this) : delete(isLoader) -->
+Or using a `Function`:
+
 ```js
-// in your webpack.config.js
-new `File`Plugin({
-  [option]: ''
-})
+// webpack.config.js
+...
+{
+  loader: 'file-loader',
+  options: {
+    name (file) {
+      if (env === 'development') {
+        return '[path][name].[ext]'
+      }
+
+      return '[hash].[ext]'
+    }
+  }
+}
+...
 ```
 
-## Examples
+_Note: By default the path and name you specify will output the file in that
+same directory, and will also use the same URI path to access the file._
 
-[ example outline text ]
+### `outputPath`
+
+Type: `String|Function`
+Default: `undefined`
+
+Specify a filesystem path where target the file(s) will be placed.
+
+```js
+// webpack.config.js
+...
+{
+  loader: 'file-loader',
+  options: {
+    name: '[path][name].[ext]',
+    outputPath: 'images/'
+  }
+}
+...
+```
+
+### `publicPath`
+
+Type: `String|Function`
+Default: [`__webpack_public_path__`](https://webpack.js.org/api/module-variables/#__webpack_public_path__-webpack-specific-)
+
+Specifies a custom public path for the target file(s).
+
+```js
+// webpack.config.js
+...
+{
+  loader: 'file-loader',
+  options: {
+    name: '[path][name].[ext]',
+    publicPath: 'assets/'
+  }
+}
+...
+```
+
+### `regExp`
+
+Type: `RegExp`
+Default: `undefined`
+
+Specifies a Regular Expression to one or many parts of the target file path.
+The capture groups can be reused in the `name` property using `[N]`
+[placeholder](https://github.com/webpack-contrib/file-loader#placeholders).
+
+```js
+import img from './customer01/file.png'
+```
 
 **webpack.config.js**
 ```js
-// Example setup here..
+{
+  loader: 'file-loader',
+  options: {
+    regExp: /\/([a-z0-9]+)\/[a-z0-9]+\.png$/,
+    name: '[1]-[name].[ext]'
+  }
+}
 ```
 
-**file.ext**
+_Note: If `[0]` is used, it will be replaced by the entire tested string,
+whereas `[1]` will contain the first capturing parenthesis of your regex and so
+on..._
+
+### `useRelativePath`
+
+Type: `Boolean`
+Default: `false`
+
+Specifies whether or not to generate a relative URI for each target file context.
+
 ```js
-// Source code here...
+// webpack.config.js
+{
+  loader: 'file-loader',
+  options: {
+    useRelativePath: process.env.NODE_ENV === "production"
+  }
+}
 ```
 
-**bundle.js**
+## Placeholders
+
+### `[ext]`
+
+Type: `String`
+Default: `file.extname`
+
+The file extension of the target file/resource.
+
+### `[hash]`
+
+Type: `String`
+Default: `'md5'`
+
+Specifies the hash method to use for hashing the file content. See
+[Hashes](https://github.com/webpack-contrib/file-loader#hashes).
+
+### `[N]`
+
+Type: `String`
+Default: `undefined`
+
+The n-th match obtained from matching the current file name against the regExp
+
+### `[name]`
+
+Type: `String`
+Default: `file.basename`
+
+The basename of the file/resource.
+
+### `[path]`
+
+Type: `String`
+Default: `file.dirname`
+
+The path of the resource relative to the webpack/config context.
+
+## Hashes
+
+Custom hashes can be used by specifying a hash with the following format:
+ `[<hashType>:hash:<digestType>:<length>]`.
+
+### `digestType`
+
+Type: `String`
+Default: `'hex'`
+
+The [digest](https://en.wikipedia.org/wiki/Cryptographic_hash_function) that the
+hash function should use. Valid values include: base26, base32, base36,
+base49, base52, base58, base62, base64, and hex.
+
+### `hashType`
+
+Type: `String`
+Default: `'md5'`
+
+The type of hash that the has function should use. Valid values include: md5,
+sha1, sha256, and sha512.
+
+### `length`
+
+Type: `Number`
+Default: `9999`
+
+Users may also specify a length for the computed hash.
+
+## Examples
+
+The following examples show how one might use `file-loader` and what the result
+would be.
+
 ```js
-// Bundle code here...
+// bundle file
+import png from 'image.png'
+```
+
+```js
+// webpack.config.js
+{
+  loader: 'file-loader',
+  options: {
+    name: 'dirname/[hash].[ext]'
+  }
+}
+```
+
+```bash
+# result
+dirname/0dcbbaa701328ae351f.png
+```
+
+---
+
+```js
+// webpack.config.js
+{
+  loader: 'file-loader',
+  options: {
+    name: '[sha512:hash:base64:7].[ext]'
+  }
+}
+```
+
+```bash
+# result
+gdyb21L.png
+```
+
+---
+
+```js
+// bundle file
+import png from 'path/to/file.png'
+```
+
+```js
+// webpack.config.js
+{
+  loader: 'file-loader',
+  options: {
+    name: '[path][name].[ext]?[hash]'
+  }
+}
+```
+
+```bash
+# result
+path/to/file.png?e43b20c069c4a01867c31e98cbce33c9
 ```
 
 ## Contributing
