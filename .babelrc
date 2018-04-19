@@ -5,19 +5,6 @@
       {
         "useBuiltIns": true,
         "targets": {
-          "node": "4.3"
-        },
-        "exclude": [
-          "transform-async-to-generator",
-          "transform-regenerator"
-        ]
-      }
-    ],
-    [
-      "env",
-      {
-        "useBuiltIns": true,
-        "targets": {
           "node": "6.9.0"
         },
         "exclude": [
