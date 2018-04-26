@@ -66,7 +66,9 @@ export default function loader(content) {
       publicPath = `${options.publicPath}/${url}`;
     }
 
-    publicPath = JSON.stringify(publicPath);
+    if (options.stringifyPublicPath === undefined || options.stringifyPublicPath) {
+      publicPath = JSON.stringify(publicPath);
+    }
   }
 
   if (options.emitFile === undefined || options.emitFile) {

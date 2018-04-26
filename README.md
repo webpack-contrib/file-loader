@@ -38,7 +38,7 @@ module.exports = {
         use: [
           {
             loader: 'file-loader',
-            options: {}  
+            options: {}
           }
         ]
       }
@@ -61,6 +61,7 @@ Emits `file.png` as file in the output directory and returns the public URL
 |**`regExp`**|`{RegExp}`|`'undefined'`|Let you extract some parts of the file path to reuse them in the `name` property|
 |**`context`**|`{String}`|`this.options.context`|Configure a custom file context, defaults to `webpack.config.js` [context](https://webpack.js.org/configuration/entry-context/#context)|
 |**`publicPath`**|`{String\|Function}`|[`__webpack_public_path__ `](https://webpack.js.org/api/module-variables/#__webpack_public_path__-webpack-specific-)|Configure a custom `public` path for your file|
+|**`stringifyPublicPath`**|`{Boolean}`|`true`|By default, the `publicPath` is ran through JSON.stringify. Set this to false if your publicPath requires dynamic properties at runtime|
 |**`outputPath`**|`{String\|Function}`|`'undefined'`|Configure a custom `output` path for your file|
 |**`useRelativePath`**|`{Boolean}`|`false`|Should be `true` if you wish to generate a `context` relative URL for each file|
 |**`emitFile`**|`{Boolean}`|`true`|By default a file is emitted, however this can be disabled if required (e.g. for server side packages)|
@@ -77,7 +78,7 @@ You can configure a custom filename template for your file using the query param
   loader: 'file-loader',
   options: {
     name: '[path][name].[ext]'
-  }  
+  }
 }
 ```
 
@@ -95,7 +96,7 @@ You can configure a custom filename template for your file using the query param
 
       return '[hash].[ext]'
     }
-  }  
+  }
 }
 ```
 
@@ -114,7 +115,7 @@ import img from './customer01/file.png'
   options: {
     regExp: /\/([a-z0-9]+)\/[a-z0-9]+\.png$/,
     name: '[1]-[name].[ext]'
-  }  
+  }
 }
 ```
 
@@ -153,11 +154,11 @@ By default, the path and name you specify will output the file in that same dire
   options: {
     name: '[path][name].[ext]',
     context: ''
-  }  
+  }
 }
 ```
 
-You can specify custom `output` and `public` paths by using `outputPath`, `publicPath` and `useRelativePath`
+You can specify custom `output` and `public` paths by using `outputPath`, `publicPath`, `useRelativePath`, and `stringifyPublicPath`
 
 ### `publicPath`
 
@@ -168,7 +169,7 @@ You can specify custom `output` and `public` paths by using `outputPath`, `publi
   options: {
     name: '[path][name].[ext]',
     publicPath: 'assets/'
-  }  
+  }
 }
 ```
 
@@ -181,7 +182,7 @@ You can specify custom `output` and `public` paths by using `outputPath`, `publi
   options: {
     name: '[path][name].[ext]',
     outputPath: 'images/'
-  }  
+  }
 }
 ```
 
@@ -194,6 +195,33 @@ You can specify custom `output` and `public` paths by using `outputPath`, `publi
   loader: 'file-loader',
   options: {
     useRelativePath: process.env.NODE_ENV === "production"
+  }
+}
+```
+
+### `stringifyPublicPath`
+
+By default the `publicPath` is ran through `JSON.stringify`.
+
+```js
+{
+  loader: 'file-loader',
+  options: {
+    name: '[path][name].[ext]',
+    publicPath: 'assets/'
+  }
+}
+```
+
+If you wish to generate a URL at runtime, `stringifyPublicPath` can be set to `false` (e.g. for CDN switching)
+
+```js
+{
+  loader: 'file-loader',
+  options: {
+    name: '[path][name].[ext]',
+    publicPath: url => `(window.CDN_PATH ? window.CDN_PATH + "${url}" : "${url}")`,
+    stringifyPublicPath: false
   }
 }
 ```
@@ -211,7 +239,7 @@ import img from './file.png'
   loader: 'file-loader',
   options: {
     emitFile: false
-  }  
+  }
 }
 ```
 
@@ -234,7 +262,7 @@ import png from 'image.png'
   loader: 'file-loader',
   options: {
     name: 'dirname/[hash].[ext]'
-  }  
+  }
 }
 ```
 
@@ -248,7 +276,7 @@ dirname/0dcbbaa701328ae351f.png
   loader: 'file-loader',
   options: {
     name: '[sha512:hash:base64:7].[ext]'
-  }  
+  }
 }
 ```
 
@@ -266,7 +294,7 @@ import png from 'path/to/file.png'
   loader: 'file-loader',
   options: {
     name: '[path][name].[ext]?[hash]'
-  }  
+  }
 }
 ```
 
