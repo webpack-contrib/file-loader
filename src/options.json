@@ -7,6 +7,9 @@
       "type": "string"
     },
     "publicPath": {},
+    "stringifyPublicPath": {
+      "type": "boolean"
+    },
     "outputPath": {},
     "useRelativePath": {
       "type": "boolean"
