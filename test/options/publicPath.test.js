@@ -1,6 +1,3 @@
-/* eslint-disable
-  prefer-destructuring,
-*/
 import webpack from '../helpers/compiler';
 
 describe('Options', () => {
@@ -16,7 +13,8 @@ describe('Options', () => {
       };
 
       const stats = await webpack('fixture.js', config);
-      const { assets, source } = stats.toJson().modules[1];
+      const [module] = stats.toJson().modules;
+      const { assets, source } = module;
 
       expect({ assets, source }).toMatchSnapshot();
     });
@@ -32,7 +30,8 @@ describe('Options', () => {
       };
 
       const stats = await webpack('fixture.js', config);
-      const { assets, source } = stats.toJson().modules[1];
+      const [module] = stats.toJson().modules;
+      const { assets, source } = module;
 
       expect({ assets, source }).toMatchSnapshot();
     });
@@ -48,7 +47,8 @@ describe('Options', () => {
       };
 
       const stats = await webpack('fixture.js', config);
-      const { assets, source } = stats.toJson().modules[1];
+      const [module] = stats.toJson().modules;
+      const { assets, source } = module;
 
       expect({ assets, source }).toMatchSnapshot();
     });
@@ -66,7 +66,8 @@ describe('Options', () => {
       };
 
       const stats = await webpack('fixture.js', config);
-      const { assets, source } = stats.toJson().modules[1];
+      const [module] = stats.toJson().modules;
+      const { assets, source } = module;
 
       expect({ assets, source }).toMatchSnapshot();
     });

@@ -2,18 +2,24 @@
   multiline-ternary,
 */
 import path from 'path';
+
 import loaderUtils from 'loader-utils';
 import validateOptions from 'schema-utils';
+
 import schema from './options.json';
 
 export default function loader(content) {
-  if (!this.emitFile) throw new Error('File Loader\n\nemitFile is required from module system');
+  if (!this.emitFile)
+    throw new Error('File Loader\n\nemitFile is required from module system');
 
   const options = loaderUtils.getOptions(this) || {};
 
   validateOptions(schema, options, 'File Loader');
 
-  const context = options.context || this.rootContext || (this.options && this.options.context);
+  const context =
+    options.context ||
+    this.rootContext ||
+    (this.options && this.options.context);
 
   const url = loaderUtils.interpolateName(this, options.name, {
     context,
@@ -36,15 +42,14 @@ export default function loader(content) {
 
     const issuer = options.context
       ? context
-      : (
-        this._module &&
-        this._module.issuer &&
-        this._module.issuer.context
-      );
+      : this._module && this._module.issuer && this._module.issuer.context;
 
-    const relativeUrl = issuer && path.relative(issuer, filePath)
-      .split(path.sep)
-      .join('/');
+    const relativeUrl =
+      issuer &&
+      path
+        .relative(issuer, filePath)
+        .split(path.sep)
+        .join('/');
 
     const relativePath = relativeUrl && `${path.dirname(relativeUrl)}/`;
     // eslint-disable-next-line no-bitwise
@@ -69,6 +74,7 @@ export default function loader(content) {
     publicPath = JSON.stringify(publicPath);
   }
 
+  // eslint-disable-next-line no-undefined
   if (options.emitFile === undefined || options.emitFile) {
     this.emitFile(outputPath, content);
   }

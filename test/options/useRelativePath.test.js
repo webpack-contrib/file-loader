@@ -1,6 +1,3 @@
-/* eslint-disable
-  prefer-destructuring,
-*/
 import webpack from '../helpers/compiler';
 
 describe('Options', () => {
@@ -16,7 +13,8 @@ describe('Options', () => {
       };
 
       const stats = await webpack('nested/fixture.js', config);
-      const { assets, source } = stats.toJson().modules[1];
+      const [module] = stats.toJson().modules;
+      const { assets, source } = module;
 
       expect({ assets, source }).toMatchSnapshot();
     });
@@ -32,7 +30,8 @@ describe('Options', () => {
       };
 
       const stats = await webpack('nested/fixture.js', config);
-      const { assets, source } = stats.toJson().modules[1];
+      const [module] = stats.toJson().modules;
+      const { assets, source } = module;
 
       expect({ assets, source }).toMatchSnapshot();
     });
@@ -49,7 +48,8 @@ describe('Options', () => {
       };
 
       const stats = await webpack('nested/fixture.js', config);
-      const { assets, source } = stats.toJson().modules[1];
+      const [module] = stats.toJson().modules;
+      const { assets, source } = module;
 
       expect({ assets, source }).toMatchSnapshot();
     });
@@ -66,7 +66,13 @@ describe('Options', () => {
       };
 
       const stats = await webpack('nested/fixture.js', config);
-      const { assets, source } = stats.toJson().modules[1];
+      const [module] = stats.toJson().modules;
+      let { assets, source } = module;
+
+      if (process.env.CIRCLECI) {
+        assets = [assets[0].replace('project', 'file-loader')];
+        source = source.replace('project', 'file-loader');
+      }
 
       expect({ assets, source }).toMatchSnapshot();
     });
