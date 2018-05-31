@@ -394,3 +394,4 @@ Please take a moment to read our contributing guidelines if you haven't yet done
 
 [chat]: https://img.shields.io/badge/gitter-webpack%2Fwebpack-brightgreen.svg
 [chat-url]: https://gitter.im/webpack/webpack
+
