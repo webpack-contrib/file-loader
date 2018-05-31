@@ -371,7 +371,7 @@ path/to/file.png?e43b20c069c4a01867c31e98cbce33c9
 
 Please take a moment to read our contributing guidelines if you haven't yet done so.
 
-#### [CONTRIBUTING](./.github/CONTRIBUTING)
+#### [CONTRIBUTING](./.github/CONTRIBUTING.md)
 
 ## License
 
