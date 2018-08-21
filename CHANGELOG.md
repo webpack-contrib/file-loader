@@ -13,7 +13,7 @@ All notable changes to this project will be documented in this file. See [standa
 
 ### BREAKING CHANGES
 
-* **defaults:** Enforces `engines` of `"node": ">=6.9.0 < 7.0.0 || >= 8.9.0`
+* **defaults:** Enforces `engines` of `"node": ">=6.9.0 < 7.0.0 || >= 8.9.0"`
 
 
 
