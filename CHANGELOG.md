@@ -2,6 +2,21 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+<a name="2.0.0"></a>
+# [2.0.0](https://github.com/webpack-contrib/file-loader/compare/v1.1.11...v2.0.0) (2018-08-21)
+
+
+### Code Refactoring
+
+* **defaults:** update to latest webpack-defaults ([#268](https://github.com/webpack-contrib/file-loader/issues/268)) ([687f422](https://github.com/webpack-contrib/file-loader/commit/687f422))
+
+
+### BREAKING CHANGES
+
+* **defaults:** Enforces `engines` of `"node": ">=6.9.0 < 7.0.0 || >= 8.9.0`
+
+
+
 <a name="1.1.11"></a>
 ## [1.1.11](https://github.com/webpack/file-loader/compare/v1.1.10...v1.1.11) (2018-03-01)
 

@@ -1,6 +1,6 @@
 {
   "name": "file-loader",
-  "version": "1.1.11",
+  "version": "2.0.0",
   "description": "A file loader module for webpack",
   "license": "MIT",
   "repository": "webpack-contrib/file-loader",
@@ -10,7 +10,7 @@
   "bin": "",
   "main": "dist/cjs.js",
   "engines": {
-    "node": ">= 6.9.0 <7.0.0 || >= 8.9.0"
+    "node": ">= 6.9.0 < 7.0.0 || >= 8.9.0"
   },
   "scripts": {
     "start": "npm run build -- -w",
@@ -22,7 +22,7 @@
     "ci:lint:commits": "commitlint --from=${CIRCLE_BRANCH} --to=${CIRCLE_SHA1}",
     "lint-staged": "lint-staged",
     "prebuild": "npm run clean",
-    "prepublish": "npm run build",
+    "prepare": "npm run build",
     "release": "standard-version",
     "release:ci": "conventional-github-releaser -p angular",
     "release:validate": "commitlint --from=$(git describe --tags --abbrev=0) --to=$(git rev-parse HEAD)",
