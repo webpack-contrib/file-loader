@@ -16,7 +16,7 @@ A file loader module for webpack
 
 ## Requirements
 
-This module requires a minimum of Node v6.9.0 and Webpack v4.0.0.
+This module requires a minimum of Node v6.9.0 and works with Webpack v3 and Webpack v4.
 
 ## Getting Started
 
@@ -394,4 +394,3 @@ Please take a moment to read our contributing guidelines if you haven't yet done
 
 [chat]: https://img.shields.io/badge/gitter-webpack%2Fwebpack-brightgreen.svg
 [chat-url]: https://gitter.im/webpack/webpack
-
