@@ -156,7 +156,7 @@ same directory, and will also use the same URI path to access the file._
 Type: `String|Function`
 Default: `undefined`
 
-Specify a filesystem path where target the file(s) will be placed.
+Specify a filesystem path where the target file(s) will be placed.
 
 ```js
 // webpack.config.js
