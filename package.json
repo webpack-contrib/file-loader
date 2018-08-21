@@ -42,9 +42,8 @@
     "webpack": "^2.0.0 || ^3.0.0 || ^4.0.0"
   },
   "dependencies": {
-    "@webpack-contrib/schema-utils": "^1.0.0-beta.0",
     "loader-utils": "^1.0.2",
-    "schema-utils": "^0.4.5"
+    "schema-utils": "^1.0.0"
   },
   "devDependencies": {
     "@commitlint/cli": "^6.1.3",
