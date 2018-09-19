@@ -12,7 +12,7 @@
 
 # file-loader
 
-A file loader module for webpack
+The file-loader resolves import/require() on a file into a url and emits the file into the output directory. 
 
 ## Requirements
 
