@@ -1,0 +1,91 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`when applied with \`outputPath\` option matches snapshot for \`{Function}\` value 1`] = `
+Object {
+  "assets": Array [
+    "output_path_func/9c87cbf3ba33126ffd25ae7f2f6bbafb.png",
+  ],
+  "source": "module.exports = __webpack_public_path__ + \\"output_path_func/9c87cbf3ba33126ffd25ae7f2f6bbafb.png\\";",
+}
+`;
+
+exports[`when applied with \`outputPath\` option matches snapshot for \`{Function}\` value with \`options.name\` 1`] = `
+Object {
+  "assets": Array [
+    "output_path_func/file.png",
+  ],
+  "source": "module.exports = __webpack_public_path__ + \\"output_path_func/file.png\\";",
+}
+`;
+
+exports[`when applied with \`outputPath\` option matches snapshot for \`{Function}\` value with \`publicPath\` (\`{Function}\`) 1`] = `
+Object {
+  "assets": Array [
+    "output_path_func/9c87cbf3ba33126ffd25ae7f2f6bbafb.png",
+  ],
+  "source": "module.exports = \\"public_path_func/9c87cbf3ba33126ffd25ae7f2f6bbafb.png\\";",
+}
+`;
+
+exports[`when applied with \`outputPath\` option matches snapshot for \`{Function}\` value with \`publicPath\` (\`{String}\`) 1`] = `
+Object {
+  "assets": Array [
+    "output_path_func/9c87cbf3ba33126ffd25ae7f2f6bbafb.png",
+  ],
+  "source": "module.exports = \\"public_path/9c87cbf3ba33126ffd25ae7f2f6bbafb.png\\";",
+}
+`;
+
+exports[`when applied with \`outputPath\` option matches snapshot for \`{String}\` value 1`] = `
+Object {
+  "assets": Array [
+    "output_path/9c87cbf3ba33126ffd25ae7f2f6bbafb.png",
+  ],
+  "source": "module.exports = __webpack_public_path__ + \\"output_path/9c87cbf3ba33126ffd25ae7f2f6bbafb.png\\";",
+}
+`;
+
+exports[`when applied with \`outputPath\` option matches snapshot for \`{String}\` value with \`publicPath\` (\`{Function}\`) 1`] = `
+Object {
+  "assets": Array [
+    "output_path/9c87cbf3ba33126ffd25ae7f2f6bbafb.png",
+  ],
+  "source": "module.exports = \\"public_path_func/9c87cbf3ba33126ffd25ae7f2f6bbafb.png\\";",
+}
+`;
+
+exports[`when applied with \`outputPath\` option matches snapshot for \`{String}\` value with \`publicPath\` (\`{String}\`) 1`] = `
+Object {
+  "assets": Array [
+    "output_path/9c87cbf3ba33126ffd25ae7f2f6bbafb.png",
+  ],
+  "source": "module.exports = \\"public_path/9c87cbf3ba33126ffd25ae7f2f6bbafb.png\\";",
+}
+`;
+
+exports[`when applied with \`outputPath\` option matches snapshot for \`{String}\` value with \`publicPath\` (\`{String}\`) without trailing slash 1`] = `
+Object {
+  "assets": Array [
+    "output_path/9c87cbf3ba33126ffd25ae7f2f6bbafb.png",
+  ],
+  "source": "module.exports = \\"public_path/9c87cbf3ba33126ffd25ae7f2f6bbafb.png\\";",
+}
+`;
+
+exports[`when applied with \`outputPath\` option matches snapshot for \`{String}\` value without trailing slash 1`] = `
+Object {
+  "assets": Array [
+    "output_path/9c87cbf3ba33126ffd25ae7f2f6bbafb.png",
+  ],
+  "source": "module.exports = __webpack_public_path__ + \\"output_path/9c87cbf3ba33126ffd25ae7f2f6bbafb.png\\";",
+}
+`;
+
+exports[`when applied with \`outputPath\` option matches snapshot for \`{String}\` with \`name\` option 1`] = `
+Object {
+  "assets": Array [
+    "output_path/file.png",
+  ],
+  "source": "module.exports = __webpack_public_path__ + \\"output_path/file.png\\";",
+}
+`;
