@@ -1,0 +1,37 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`when applied with \`publicPath\` option matches snapshot for \`{Function}\` value 1`] = `
+Object {
+  "assets": Array [
+    "9c87cbf3ba33126ffd25ae7f2f6bbafb.png",
+  ],
+  "source": "module.exports = \\"public_path/9c87cbf3ba33126ffd25ae7f2f6bbafb.png\\";",
+}
+`;
+
+exports[`when applied with \`publicPath\` option matches snapshot for \`{String}\` value 1`] = `
+Object {
+  "assets": Array [
+    "9c87cbf3ba33126ffd25ae7f2f6bbafb.png",
+  ],
+  "source": "module.exports = \\"public_path/9c87cbf3ba33126ffd25ae7f2f6bbafb.png\\";",
+}
+`;
+
+exports[`when applied with \`publicPath\` option matches snapshot for \`{String}\` value as URL 1`] = `
+Object {
+  "assets": Array [
+    "9c87cbf3ba33126ffd25ae7f2f6bbafb.png",
+  ],
+  "source": "module.exports = \\"https://cdn.com/9c87cbf3ba33126ffd25ae7f2f6bbafb.png\\";",
+}
+`;
+
+exports[`when applied with \`publicPath\` option matches snapshot for \`{String}\` value without trailing slash 1`] = `
+Object {
+  "assets": Array [
+    "9c87cbf3ba33126ffd25ae7f2f6bbafb.png",
+  ],
+  "source": "module.exports = \\"public_path/9c87cbf3ba33126ffd25ae7f2f6bbafb.png\\";",
+}
+`;

@@ -75,8 +75,7 @@ export default function loader(content) {
     publicPath = JSON.stringify(publicPath);
   }
 
-  // eslint-disable-next-line no-undefined
-  if (options.emitFile === undefined || options.emitFile) {
+  if (typeof options.emitFile === 'undefined' || options.emitFile) {
     this.emitFile(outputPath, content);
   }
 

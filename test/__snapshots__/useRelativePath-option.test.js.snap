@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`Options useRelativePath {Boolean} - \`false\` 1`] = `
+exports[`when applied with \`useRelativePath\` option matches snapshot for \`false\` value (\`{Boolean}\`) 1`] = `
 Object {
   "assets": Array [
     "9c87cbf3ba33126ffd25ae7f2f6bbafb.png",
@@ -9,7 +9,7 @@ Object {
 }
 `;
 
-exports[`Options useRelativePath {Boolean} - \`true\` 1`] = `
+exports[`when applied with \`useRelativePath\` option matches snapshot for \`true\` value (\`{Boolean}\`) 1`] = `
 Object {
   "assets": Array [
     "assets/9c87cbf3ba33126ffd25ae7f2f6bbafb.png",
@@ -18,7 +18,7 @@ Object {
 }
 `;
 
-exports[`Options useRelativePath {Boolean} - \`true\` with absolute \`context\` 1`] = `
+exports[`when applied with \`useRelativePath\` option matches snapshot for \`true\` value (\`{Boolean}\`) and with absolute \`context\` 1`] = `
 Object {
   "assets": Array [
     "file-loader/test/fixtures/nested/assets/9c87cbf3ba33126ffd25ae7f2f6bbafb.png",
@@ -27,7 +27,7 @@ Object {
 }
 `;
 
-exports[`Options useRelativePath {Boolean} - \`true\` with relative \`context\` 1`] = `
+exports[`when applied with \`useRelativePath\` option matches snapshot for \`true\` value (\`{Boolean}\`) and with relative \`context\` 1`] = `
 Object {
   "assets": Array [
     "assets/9c87cbf3ba33126ffd25ae7f2f6bbafb.png",

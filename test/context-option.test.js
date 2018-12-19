@@ -1,11 +1,13 @@
 import webpack from './helpers/compiler';
 
-describe('loader', () => {
-  it('should works without options', async () => {
+describe('when applied with `context` option', () => {
+  it('matches snapshot for `{String}` value', async () => {
     const config = {
       loader: {
         test: /(png|jpg|svg)/,
-        options: {},
+        options: {
+          context: `${__dirname}`,
+        },
       },
     };
 
