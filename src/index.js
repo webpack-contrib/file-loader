@@ -1,6 +1,3 @@
-/* eslint-disable
-  multiline-ternary,
-*/
 import path from 'path';
 
 import loaderUtils from 'loader-utils';
@@ -9,18 +6,11 @@ import validateOptions from 'schema-utils';
 import schema from './options.json';
 
 export default function loader(content) {
-  if (!this.emitFile) {
-    throw new Error('File Loader\n\nemitFile is required from module system');
-  }
-
   const options = loaderUtils.getOptions(this) || {};
 
   validateOptions(schema, options, 'File Loader');
 
-  const context =
-    options.context ||
-    this.rootContext ||
-    (this.options && this.options.context);
+  const context = options.context || this.rootContext;
 
   const url = loaderUtils.interpolateName(this, options.name, {
     context,
