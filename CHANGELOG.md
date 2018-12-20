@@ -2,6 +2,16 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+<a name="3.0.1"></a>
+## [3.0.1](https://github.com/webpack-contrib/file-loader/compare/v3.0.0...v3.0.1) (2018-12-20)
+
+
+### Bug Fixes
+
+* relax options validation for additional properties ([#309](https://github.com/webpack-contrib/file-loader/issues/309)) ([c74d44e](https://github.com/webpack-contrib/file-loader/commit/c74d44e))
+
+
+
 <a name="3.0.0"></a>
 # [3.0.0](https://github.com/webpack-contrib/file-loader/compare/v2.0.0...v3.0.0) (2018-12-20)
 

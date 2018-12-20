@@ -1,6 +1,6 @@
 {
   "name": "file-loader",
-  "version": "3.0.0",
+  "version": "3.0.1",
   "description": "A file loader module for webpack",
   "license": "MIT",
   "repository": "webpack-contrib/file-loader",
