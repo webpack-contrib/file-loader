@@ -180,10 +180,19 @@ Specify a filesystem path where the target file(s) will be placed.
   loader: 'file-loader',
   options: {
     name: '[path][name].[ext]',
-    outputPath: (url, resourcePath) => {
+    outputPath: (url, resourcePath, context) => {
       // `resourcePath` is original absolute path to asset
+      // `context` is directory where stored asset (`rootContext`) or `context` option
+      
+      // To get relative path you can use
+      // const relativePath = path.relative(context, resourcePath);
+      
       if (/my-custom-image\.png/.test(resourcePath)) {
         return `other_output_path/${url}`
+      }
+      
+      if (/images/.test(context)) {
+        return `image_output_path/${url}`;
       }
 
       return `output_path/${url}`;
@@ -224,10 +233,19 @@ Specifies a custom public path for the target file(s).
   loader: 'file-loader',
   options: {
     name: '[path][name].[ext]',
-    publicPath: (url, resourcePath) {
+    publicPath: (url, resourcePath, context) => {
       // `resourcePath` is original absolute path to asset
+      // `context` is directory where stored asset (`rootContext`) or `context` option
+      
+      // To get relative path you can use
+      // const relativePath = path.relative(context, resourcePath);
+      
       if (/my-custom-image\.png/.test(resourcePath)) {
         return `other_public_path/${url}`
+      }
+      
+      if (/images/.test(context)) {
+        return `image_output_path/${url}`;
       }
 
       return `public_path/${url}`;
