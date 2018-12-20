@@ -3,20 +3,13 @@
 exports[`validation errors 1`] = `
 "File Loader Invalid Options
 
-options should NOT have additional properties
-"
-`;
-
-exports[`validation errors 2`] = `
-"File Loader Invalid Options
-
 options.name should be string
 options.name should pass \\"instanceof\\" keyword validation
 options.name should match some schema in anyOf
 "
 `;
 
-exports[`validation errors 3`] = `
+exports[`validation errors 2`] = `
 "File Loader Invalid Options
 
 options.outputPath should be string
@@ -25,7 +18,7 @@ options.outputPath should match some schema in anyOf
 "
 `;
 
-exports[`validation errors 4`] = `
+exports[`validation errors 3`] = `
 "File Loader Invalid Options
 
 options.publicPath should be string
@@ -34,21 +27,21 @@ options.publicPath should match some schema in anyOf
 "
 `;
 
-exports[`validation errors 5`] = `
+exports[`validation errors 4`] = `
 "File Loader Invalid Options
 
 options.context should be string
 "
 `;
 
-exports[`validation errors 6`] = `
+exports[`validation errors 5`] = `
 "File Loader Invalid Options
 
 options.emitFile should be boolean
 "
 `;
 
-exports[`validation errors 7`] = `
+exports[`validation errors 6`] = `
 "File Loader Invalid Options
 
 options.regExp should be string

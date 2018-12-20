@@ -15,9 +15,9 @@ describe('validation', () => {
         'a { color: red; }'
       );
 
-    expect(() =>
-      validate({ unknown: 'unknown' })
-    ).toThrowErrorMatchingSnapshot();
+    // The `file-loader` loader can be used as `fallback` loader and options can contain not only `file-loader` options
+    // so we use `additionalProperties: false` to avoid problems.
+    expect(() => validate({ limit: 8192 })).not.toThrow();
 
     expect(() => validate({ name: '[path][name].[ext]' })).not.toThrow();
     expect(() =>
