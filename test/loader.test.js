@@ -10,9 +10,24 @@ describe('loader', () => {
     };
 
     const stats = await webpack('fixture.js', config);
-    const [module] = stats.toJson().modules;
-    const { source } = module;
+    const jsonStats = stats.toJson();
+    const { modules, assets } = jsonStats;
+    const [{ source }] = modules;
 
+    // eslint-disable-next-line no-new-func
+    const assetName = new Function(
+      'exports',
+      'require',
+      'module',
+      '__filename',
+      '__dirname',
+      `'use strict'\nvar __webpack_public_path__ = '';\nreturn ${source}`
+    )(exports, require, module, __filename, __dirname);
+    const hasModuleAsAsset = Boolean(
+      assets.find((asset) => asset.name === assetName)
+    );
+
+    expect(hasModuleAsAsset).toBe(true);
     expect(source).toMatchSnapshot();
   });
 
