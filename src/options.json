@@ -1,24 +1,60 @@
 {
-  "type": "object",
+  "additionalProperties": false,
   "properties": {
-    "name": {},
-    "regExp": {},
+    "name": {
+      "anyOf": [
+        {
+          "type": "string"
+        },
+        {
+          "instanceof": "Function"
+        }
+      ]
+    },
+    "outputPath": {
+      "anyOf": [
+        {
+          "type": "string"
+        },
+        {
+          "instanceof": "Function"
+        }
+      ]
+    },
+    "publicPath": {
+      "anyOf": [
+        {
+          "type": "string"
+        },
+        {
+          "instanceof": "Function"
+        }
+      ]
+    },
     "context": {
       "type": "string"
     },
-    "publicPath": {},
-    "outputPath": {},
-    "useRelativePath": {
-      "type": "boolean"
-    },
     "emitFile": {
       "type": "boolean"
+    },
+    "regExp": {
+      "anyOf": [
+        {
+          "type": "string"
+        },
+        {
+          "instanceof": "RegExp"
+        }
+      ]
     }
   },
   "errorMessages": {
+    "name": "should be {String} or {Function} (https://github.com/webpack-contrib/file-loader#name)",
+    "outputPath": "should be {String} or {Function} (https://github.com/webpack-contrib/file-loader#outputpath)",
+    "publicPath": "should be {String} or {Function} (https://github.com/webpack-contrib/file-loader#publicpath)",
     "context": "should be {String} (https://github.com/webpack-contrib/file-loader#context)",
-    "useRelativePath": "should be {Boolean} (https://github.com/webpack-contrib/file-loader#userelativepath)",
-    "emitFile": "should be {Boolean} (https://github.com/webpack-contrib/file-loader#emitfile)"
+    "emitFile": "should be {Boolean} (https://github.com/webpack-contrib/file-loader#emitfile)",
+    "regExp": "should be {String} or {RegExp} (https://github.com/webpack-contrib/file-loader#regexp)"
   },
-  "additionalProperties": true
+  "type": "object"
 }

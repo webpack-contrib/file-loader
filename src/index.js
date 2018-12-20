@@ -28,29 +28,6 @@ export default function loader(content) {
     }
   }
 
-  if (options.useRelativePath) {
-    const filePath = this.resourcePath;
-
-    const issuer = options.context
-      ? context
-      : this._module && this._module.issuer && this._module.issuer.context;
-
-    const relativeUrl =
-      issuer &&
-      path
-        .relative(issuer, filePath)
-        .split(path.sep)
-        .join('/');
-
-    const relativePath = relativeUrl && `${path.dirname(relativeUrl)}/`;
-    // eslint-disable-next-line no-bitwise
-    if (~relativePath.indexOf('../')) {
-      outputPath = path.posix.join(outputPath, relativePath, url);
-    } else {
-      outputPath = path.posix.join(relativePath, url);
-    }
-  }
-
   let publicPath = `__webpack_public_path__ + ${JSON.stringify(outputPath)}`;
 
   if (options.publicPath) {
