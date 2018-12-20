@@ -10,18 +10,19 @@ import MemoryFS from 'memory-fs';
 
 const module = (config) => {
   return {
-    rules:
-      config.rules || config.loader
-        ? [
-            {
-              test: config.loader.test || /\.txt$/,
-              use: {
-                loader: path.resolve(__dirname, '../../src'),
-                options: config.loader.options || {},
-              },
+    rules: config.rules
+      ? config.rules
+      : config.loader
+      ? [
+          {
+            test: (config.loader && config.loader.test) || /\.txt$/,
+            use: {
+              loader: path.resolve(__dirname, '../../src'),
+              options: (config.loader && config.loader.options) || {},
             },
-          ]
-        : [],
+          },
+        ]
+      : [],
   };
 };
 

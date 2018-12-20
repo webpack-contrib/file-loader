@@ -1,5 +1,5 @@
 {
-  "additionalProperties": false,
+  "additionalProperties": true,
   "properties": {
     "name": {
       "anyOf": [
