@@ -2,6 +2,29 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+<a name="3.0.0"></a>
+# [3.0.0](https://github.com/webpack-contrib/file-loader/compare/v2.0.0...v3.0.0) (2018-12-20)
+
+
+### Code Refactoring
+
+* drop support for webpack < 4 ([#303](https://github.com/webpack-contrib/file-loader/issues/303)) ([203a4ee](https://github.com/webpack-contrib/file-loader/commit/203a4ee))
+* more validations in `options` schema
+
+
+### Features
+
+* `resourcePath` is now available in `outputPath` and `publicPath` ([#304](https://github.com/webpack-contrib/file-loader/issues/304)) ([0d66e64](https://github.com/webpack-contrib/file-loader/commit/0d66e64))
+* `context` is now available in `outputPath` and `publicPath` ([#305](https://github.com/webpack-contrib/file-loader/issues/305)) ([d5eb823](https://github.com/webpack-contrib/file-loader/commit/d5eb823))
+
+
+### BREAKING CHANGES
+
+* removed the `useRelativePath` option. It is dangerously and break url when you use multiple entry points.
+* drop support for webpack < 4
+
+
+
 <a name="2.0.0"></a>
 # [2.0.0](https://github.com/webpack-contrib/file-loader/compare/v1.1.11...v2.0.0) (2018-08-21)
 
