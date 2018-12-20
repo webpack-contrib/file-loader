@@ -107,3 +107,12 @@ Object {
   "source": "module.exports = __webpack_public_path__ + \\"output_path/file.png\\";",
 }
 `;
+
+exports[`when applied with \`outputPath\` option matches snapshot without value 1`] = `
+Object {
+  "assets": Array [
+    "9c87cbf3ba33126ffd25ae7f2f6bbafb.png",
+  ],
+  "source": "module.exports = __webpack_public_path__ + \\"9c87cbf3ba33126ffd25ae7f2f6bbafb.png\\";",
+}
+`;
