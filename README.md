@@ -283,23 +283,6 @@ _Note: If `[0]` is used, it will be replaced by the entire tested string,
 whereas `[1]` will contain the first capturing parenthesis of your regex and so
 on..._
 
-### `useRelativePath`
-
-Type: `Boolean`
-Default: `false`
-
-Specifies whether or not to generate a relative URI for each target file context.
-
-```js
-// webpack.config.js
-{
-  loader: 'file-loader',
-  options: {
-    useRelativePath: process.env.NODE_ENV === "production"
-  }
-}
-```
-
 ## Placeholders
 
 ### `[ext]`
