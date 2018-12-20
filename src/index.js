@@ -22,7 +22,7 @@ export default function loader(content) {
 
   if (options.outputPath) {
     if (typeof options.outputPath === 'function') {
-      outputPath = options.outputPath(url);
+      outputPath = options.outputPath(url, this.resourcePath);
     } else {
       outputPath = path.posix.join(options.outputPath, url);
     }
@@ -55,7 +55,7 @@ export default function loader(content) {
 
   if (options.publicPath) {
     if (typeof options.publicPath === 'function') {
-      publicPath = options.publicPath(url);
+      publicPath = options.publicPath(url, this.resourcePath);
     } else if (options.publicPath.endsWith('/')) {
       publicPath = options.publicPath + url;
     } else {

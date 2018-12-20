@@ -114,6 +114,8 @@ Specifies a custom filename template for the target file(s) using the query
 parameter `name`. For example, to copy a file from your `context` directory into
 the output directory retaining the full directory structure, you might use:
 
+#### `String`
+
 ```js
 // webpack.config.js
 {
@@ -124,7 +126,7 @@ the output directory retaining the full directory structure, you might use:
 }
 ```
 
-Or using a `Function`:
+#### `Function`
 
 ```js
 // webpack.config.js
@@ -154,6 +156,8 @@ Default: `undefined`
 
 Specify a filesystem path where the target file(s) will be placed.
 
+#### `String`
+
 ```js
 // webpack.config.js
 ...
@@ -167,12 +171,36 @@ Specify a filesystem path where the target file(s) will be placed.
 ...
 ```
 
+#### `Function`
+
+```js
+// webpack.config.js
+...
+{
+  loader: 'file-loader',
+  options: {
+    name: '[path][name].[ext]',
+    outputPath: (url, resourcePath) => {
+      // `resourcePath` is original absolute path to asset
+      if (/my-custom-image\.png/.test(resourcePath)) {
+        return `other_output_path/${url}`
+      }
+
+      return `output_path/${url}`;
+    },
+  }
+}
+...
+```
+
 ### `publicPath`
 
 Type: `String|Function`
 Default: [`__webpack_public_path__`](https://webpack.js.org/api/module-variables/#__webpack_public_path__-webpack-specific-)
 
 Specifies a custom public path for the target file(s).
+
+#### `String`
 
 ```js
 // webpack.config.js
@@ -182,6 +210,28 @@ Specifies a custom public path for the target file(s).
   options: {
     name: '[path][name].[ext]',
     publicPath: 'assets/'
+  }
+}
+...
+```
+
+#### `Function`
+
+```js
+// webpack.config.js
+...
+{
+  loader: 'file-loader',
+  options: {
+    name: '[path][name].[ext]',
+    publicPath: (url, resourcePath) {
+      // `resourcePath` is original absolute path to asset
+      if (/my-custom-image\.png/.test(resourcePath)) {
+        return `other_public_path/${url}`
+      }
+
+      return `public_path/${url}`;
+    }
   }
 }
 ...

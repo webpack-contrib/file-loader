@@ -103,7 +103,7 @@ describe('when applied with `outputPath` option', () => {
       },
     };
 
-    const stats = await webpack('fixture.js', config);
+    const stats = await webpack('nested/fixture.js', config);
     const [module] = stats.toJson().modules;
     const { assets, source } = module;
 
@@ -178,6 +178,27 @@ describe('when applied with `outputPath` option', () => {
           },
           publicPath(url) {
             return `public_path_func/${url}`;
+          },
+        },
+      },
+    };
+
+    const stats = await webpack('fixture.js', config);
+    const [module] = stats.toJson().modules;
+    const { assets, source } = module;
+
+    expect({ assets, source }).toMatchSnapshot();
+  });
+
+  it('matches snapshot for `{Function}` value and pass `resourcePath`', async () => {
+    const config = {
+      loader: {
+        test: /(png|jpg|svg)/,
+        options: {
+          outputPath(url, resourcePath) {
+            expect(resourcePath).toMatch('file.png');
+
+            return `output_path_func/${url}`;
           },
         },
       },
