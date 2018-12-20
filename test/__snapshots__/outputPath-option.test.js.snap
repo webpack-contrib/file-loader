@@ -9,6 +9,15 @@ Object {
 }
 `;
 
+exports[`when applied with \`outputPath\` option matches snapshot for \`{Function}\` value and pass \`context\` 1`] = `
+Object {
+  "assets": Array [
+    "output_path_func/9c87cbf3ba33126ffd25ae7f2f6bbafb.png",
+  ],
+  "source": "module.exports = __webpack_public_path__ + \\"output_path_func/9c87cbf3ba33126ffd25ae7f2f6bbafb.png\\";",
+}
+`;
+
 exports[`when applied with \`outputPath\` option matches snapshot for \`{Function}\` value and pass \`resourcePath\` 1`] = `
 Object {
   "assets": Array [

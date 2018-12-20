@@ -210,4 +210,25 @@ describe('when applied with `outputPath` option', () => {
 
     expect({ assets, source }).toMatchSnapshot();
   });
+
+  it('matches snapshot for `{Function}` value and pass `context`', async () => {
+    const config = {
+      loader: {
+        test: /(png|jpg|svg)/,
+        options: {
+          outputPath(url, resourcePath, context) {
+            expect(context).toMatch('fixtures');
+
+            return `output_path_func/${url}`;
+          },
+        },
+      },
+    };
+
+    const stats = await webpack('fixture.js', config);
+    const [module] = stats.toJson().modules;
+    const { assets, source } = module;
+
+    expect({ assets, source }).toMatchSnapshot();
+  });
 });

@@ -91,4 +91,25 @@ describe('when applied with `publicPath` option', () => {
 
     expect({ assets, source }).toMatchSnapshot();
   });
+
+  it('matches snapshot for `{Function}` value and pass `context`', async () => {
+    const config = {
+      loader: {
+        test: /(png|jpg|svg)/,
+        options: {
+          publicPath(url, resourcePath, context) {
+            expect(context).toMatch('fixtures');
+
+            return `public_path/${url}`;
+          },
+        },
+      },
+    };
+
+    const stats = await webpack('fixture.js', config);
+    const [module] = stats.toJson().modules;
+    const { assets, source } = module;
+
+    expect({ assets, source }).toMatchSnapshot();
+  });
 });
