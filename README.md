@@ -81,10 +81,14 @@ module.exports = {
     rules: [
       {
         test: /\.(png|jpg|gif)$/,
-        loader: 'file-loader',
-        options: {
-          name: '[path][name].[ext]',
-        },
+        use: [
+          {
+            loader: 'file-loader',
+            options: {
+              name: '[path][name].[ext]',
+            },
+          },
+        ],
       },
     ],
   },
@@ -101,16 +105,20 @@ module.exports = {
     rules: [
       {
         test: /\.(png|jpg|gif)$/,
-        loader: 'file-loader',
-        options: {
-          name(file) {
-            if (process.env.NODE_ENV === 'development') {
-              return '[path][name].[ext]';
-            }
+        use: [
+          {
+            loader: 'file-loader',
+            options: {
+              name(file) {
+                if (process.env.NODE_ENV === 'development') {
+                  return '[path][name].[ext]';
+                }
 
-            return '[hash].[ext]';
+                return '[hash].[ext]';
+              },
+            },
           },
-        },
+        ],
       },
     ],
   },
@@ -136,10 +144,14 @@ module.exports = {
     rules: [
       {
         test: /\.(png|jpg|gif)$/,
-        loader: 'file-loader',
-        options: {
-          outputPath: 'images',
-        },
+        use: [
+          {
+            loader: 'file-loader',
+            options: {
+              outputPath: 'images',
+            },
+          },
+        ],
       },
     ],
   },
@@ -156,26 +168,30 @@ module.exports = {
     rules: [
       {
         test: /\.(png|jpg|gif)$/,
-        loader: 'file-loader',
-        options: {
-          outputPath: (url, resourcePath, context) => {
-            // `resourcePath` is original absolute path to asset
-            // `context` is directory where stored asset (`rootContext`) or `context` option
+        use: [
+          {
+            loader: 'file-loader',
+            options: {
+              outputPath: (url, resourcePath, context) => {
+                // `resourcePath` is original absolute path to asset
+                // `context` is directory where stored asset (`rootContext`) or `context` option
 
-            // To get relative path you can use
-            // const relativePath = path.relative(context, resourcePath);
+                // To get relative path you can use
+                // const relativePath = path.relative(context, resourcePath);
 
-            if (/my-custom-image\.png/.test(resourcePath)) {
-              return `other_output_path/${url}`;
-            }
+                if (/my-custom-image\.png/.test(resourcePath)) {
+                  return `other_output_path/${url}`;
+                }
 
-            if (/images/.test(context)) {
-              return `image_output_path/${url}`;
-            }
+                if (/images/.test(context)) {
+                  return `image_output_path/${url}`;
+                }
 
-            return `output_path/${url}`;
+                return `output_path/${url}`;
+              },
+            },
           },
-        },
+        ],
       },
     ],
   },
@@ -199,10 +215,14 @@ module.exports = {
     rules: [
       {
         test: /\.(png|jpg|gif)$/,
-        loader: 'file-loader',
-        options: {
-          publicPath: 'assets',
-        },
+        use: [
+          {
+            loader: 'file-loader',
+            options: {
+              publicPath: 'assets',
+            },
+          },
+        ],
       },
     ],
   },
@@ -219,26 +239,30 @@ module.exports = {
     rules: [
       {
         test: /\.(png|jpg|gif)$/,
-        loader: 'file-loader',
-        options: {
-          publicPath: (url, resourcePath, context) => {
-            // `resourcePath` is original absolute path to asset
-            // `context` is directory where stored asset (`rootContext`) or `context` option
+        use: [
+          {
+            loader: 'file-loader',
+            options: {
+              publicPath: (url, resourcePath, context) => {
+                // `resourcePath` is original absolute path to asset
+                // `context` is directory where stored asset (`rootContext`) or `context` option
 
-            // To get relative path you can use
-            // const relativePath = path.relative(context, resourcePath);
+                // To get relative path you can use
+                // const relativePath = path.relative(context, resourcePath);
 
-            if (/my-custom-image\.png/.test(resourcePath)) {
-              return `other_public_path/${url}`;
-            }
+                if (/my-custom-image\.png/.test(resourcePath)) {
+                  return `other_public_path/${url}`;
+                }
 
-            if (/images/.test(context)) {
-              return `image_output_path/${url}`;
-            }
+                if (/images/.test(context)) {
+                  return `image_output_path/${url}`;
+                }
 
-            return `public_path/${url}`;
+                return `public_path/${url}`;
+              },
+            },
           },
-        },
+        ],
       },
     ],
   },
@@ -258,10 +282,14 @@ module.exports = {
     rules: [
       {
         test: /\.(png|jpg|gif)$/,
-        loader: 'file-loader',
-        options: {
-          context: 'project',
-        },
+        use: [
+          {
+            loader: 'file-loader',
+            options: {
+              context: 'project',
+            },
+          },
+        ],
       },
     ],
   },
@@ -292,10 +320,14 @@ module.exports = {
     rules: [
       {
         test: /\.css$/,
-        loader: 'file-loader',
-        options: {
-          emitFile: false,
-        },
+        use: [
+          {
+            loader: 'file-loader',
+            options: {
+              emitFile: false,
+            },
+          },
+        ],
       },
     ],
   },
@@ -325,11 +357,15 @@ module.exports = {
     rules: [
       {
         test: /\.(png|jpg|gif)$/,
-        loader: 'file-loader',
-        options: {
-          regExp: /\/([a-z0-9]+)\/[a-z0-9]+\.png$/,
-          name: '[1]-[name].[ext]',
-        },
+        use: [
+          {
+            loader: 'file-loader',
+            options: {
+              regExp: /\/([a-z0-9]+)\/[a-z0-9]+\.png$/,
+              name: '[1]-[name].[ext]',
+            },
+          },
+        ],
       },
     ],
   },
@@ -446,10 +482,14 @@ module.exports = {
     rules: [
       {
         test: /\.(png|jpg|gif)$/,
-        loader: 'file-loader',
-        options: {
-          name: 'dirname/[hash].[ext]',
-        },
+        use: [
+          {
+            loader: 'file-loader',
+            options: {
+              name: 'dirname/[hash].[ext]',
+            },
+          }
+        ],
       },
     ],
   },
@@ -479,10 +519,14 @@ module.exports = {
     rules: [
       {
         test: /\.(png|jpg|gif)$/,
-        loader: 'file-loader',
-        options: {
-          name: '[sha512:hash:base64:7].[ext]',
-        },
+        use: [
+          {
+            loader: 'file-loader',
+            options: {
+              name: '[sha512:hash:base64:7].[ext]',
+            },
+          },
+        ],
       },
     ],
   },
@@ -512,10 +556,14 @@ module.exports = {
     rules: [
       {
         test: /\.(png|jpg|gif)$/,
-        loader: 'file-loader',
-        options: {
-          name: '[path][name].[ext]?[hash]',
-        },
+        use: [
+          {
+            loader: 'file-loader',
+            options: {
+              name: '[path][name].[ext]?[hash]',
+            },
+          },
+        ],
       },
     ],
   },
