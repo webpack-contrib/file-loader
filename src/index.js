@@ -5,19 +5,23 @@ import validateOptions from 'schema-utils';
 
 import schema from './options.json';
 
-export default function loader(content) {
+function getOptions() {
   const options = loaderUtils.getOptions(this) || {};
 
   validateOptions(schema, options, 'File Loader');
 
-  const context = options.context || this.rootContext;
+  return options;
+}
 
-  const url = loaderUtils.interpolateName(this, options.name, {
+function createUrl(context, options, content) {
+  return loaderUtils.interpolateName(this, options.name, {
     context,
     content,
     regExp: options.regExp,
   });
+}
 
+function createOutputPath(url, options, context) {
   let outputPath = url;
 
   if (options.outputPath) {
@@ -28,6 +32,15 @@ export default function loader(content) {
     }
   }
 
+  return outputPath;
+}
+
+export default function loader(content) {
+  const options = getOptions.call(this);
+  const context = options.context || this.rootContext;
+  const url = createUrl.call(this, context, options, content);
+
+  const outputPath = createOutputPath.call(this, url, options, context);
   let publicPath = `__webpack_public_path__ + ${JSON.stringify(outputPath)}`;
 
   if (options.publicPath) {
@@ -53,3 +66,11 @@ export default function loader(content) {
 }
 
 export const raw = true;
+
+export function getOutputPath(loaderInstance) {
+  const options = getOptions.call(loaderInstance);
+  const context = options.context || loaderInstance.rootContext;
+  const url = createUrl.call(loaderInstance, context, options, null);
+
+  return createOutputPath.call(loaderInstance, url, options);
+}
