@@ -67,10 +67,19 @@ export default function loader(content) {
 
 export const raw = true;
 
-export function getOutputPath(loaderInstance) {
-  const options = getOptions.call(loaderInstance);
-  const context = options.context || loaderInstance.rootContext;
-  const url = createUrl.call(loaderInstance, context, options, null);
+export function pitch() {
+  const options = getOptions.call(this);
+  const context = options.context || this.rootContext;
+  const url = createUrl.call(this, context, options, null);
 
-  return createOutputPath.call(loaderInstance, url, options);
+  const outputPath = createOutputPath.call(this, url, options, context);
+
+  for (let i = this.loaderIndex; i < this.loaders.length; i++) {
+    const loadr = this.loaders[i];
+    const data = loadr.data || {};
+
+    data.outputPath = outputPath;
+
+    loadr.data = data;
+  }
 }

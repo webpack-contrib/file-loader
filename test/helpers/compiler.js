@@ -28,11 +28,13 @@ const module = (config) => {
 
 const plugins = (config) => [].concat(config.plugins || []);
 
+const outputFolder = 'outputs/';
+
 const output = (config) => {
   return {
     path: path.resolve(
       __dirname,
-      `../outputs/${config.output ? config.output : ''}`
+      `../${outputFolder}${config.output ? config.output : ''}`
     ),
     filename: '[name].bundle.js',
   };
@@ -58,12 +60,16 @@ export default function(fixture, config, options) {
   if (options.output) del.sync(config.output.path);
 
   const compiler = webpack(config);
+  const mfs = new MemoryFS();
 
-  if (!options.output) compiler.outputFileSystem = new MemoryFS();
+  if (!options.output) compiler.outputFileSystem = mfs;
 
   return new Promise((resolve, reject) =>
     compiler.run((err, stats) => {
       if (err) reject(err);
+
+      stats.usedFileSystem = mfs;
+      stats.outputFolder = outputFolder;
 
       resolve(stats);
     })
