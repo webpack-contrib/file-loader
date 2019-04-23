@@ -257,6 +257,12 @@ module.exports = {
                 if (/images/.test(context)) {
                   return `image_output_path/${url}`;
                 }
+                
+                if (/runtime/.test(context)) {
+                  return function(url) {
+                    return window.customPublicPath + url;
+                  }
+                }
 
                 return `public_path/${url}`;
               },
