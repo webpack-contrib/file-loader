@@ -41,7 +41,10 @@ export default function loader(content) {
       }${url}`;
     }
 
-    publicPath = JSON.stringify(publicPath);
+    publicPath =
+      typeof publicPath === 'function'
+        ? `(${publicPath})("${url}")`
+        : JSON.stringify(publicPath);
   }
 
   if (typeof options.emitFile === 'undefined' || options.emitFile) {
