@@ -27,6 +27,18 @@ Object {
 }
 `;
 
+exports[`when applied with \`publicPath\` option matches snapshot for \`{Function}\` value returning \`{Function}\` 1`] = `
+Object {
+  "assets": Array [
+    "9c87cbf3ba33126ffd25ae7f2f6bbafb.png",
+  ],
+  "source": "module.exports = (function publicPath(url) {
+              // eslint-disable-next-line no-undef
+              return window.imageCdnBasePath + url;
+            })(\\"9c87cbf3ba33126ffd25ae7f2f6bbafb.png\\");",
+}
+`;
+
 exports[`when applied with \`publicPath\` option matches snapshot for \`{String}\` value 1`] = `
 Object {
   "assets": Array [

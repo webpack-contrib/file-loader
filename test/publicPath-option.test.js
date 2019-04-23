@@ -126,4 +126,26 @@ describe('when applied with `publicPath` option', () => {
 
     expect({ assets, source }).toMatchSnapshot();
   });
+
+  it('matches snapshot for `{Function}` value returning `{Function}`', async () => {
+    const config = {
+      loader: {
+        test: /(png|jpg|svg)/,
+        options: {
+          publicPath() {
+            return function publicPath(url) {
+              // eslint-disable-next-line no-undef
+              return window.imageCdnBasePath + url;
+            };
+          },
+        },
+      },
+    };
+
+    const stats = await webpack('fixture.js', config);
+    const [module] = stats.toJson().modules;
+    const { assets, source } = module;
+
+    expect({ assets, source }).toMatchSnapshot();
+  });
 });
