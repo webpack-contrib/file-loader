@@ -45,6 +45,10 @@ export default function loader(content) {
     }
 
     publicPath = JSON.stringify(publicPath);
+
+    if (options.prefixPublicPathWithWebpackPublicPath) {
+      publicPath = `__webpack_public_path__ + ${publicPath}`;
+    }
   }
 
   if (typeof options.emitFile === 'undefined' || options.emitFile) {
