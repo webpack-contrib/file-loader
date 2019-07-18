@@ -8,7 +8,10 @@ import schema from './options.json';
 export default function loader(content) {
   const options = loaderUtils.getOptions(this) || {};
 
-  validateOptions(schema, options, 'File Loader');
+  validateOptions(schema, options, {
+    name: 'File Loader',
+    baseDataPath: 'options',
+  });
 
   const context = options.context || this.rootContext;
 
