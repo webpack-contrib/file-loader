@@ -34,8 +34,8 @@
         }
       ]
     },
-    "prefixPublicPathWithWebpackPublicPath": {
-      "type": "boolean"
+    "postTransformPublicPath": {
+      "instanceof": "Function"
     },
     "context": {
       "description": "A custom file context (https://github.com/webpack-contrib/file-loader#context).",
