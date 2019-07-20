@@ -269,6 +269,32 @@ module.exports = {
 };
 ```
 
+### `postTransformPublicPath`
+
+Type: `Function`
+Default: `undefined`
+
+Specifies a custom function to post-process the generated public path. This can be used to prepend or append dynamic global variables that are only available at runtime, like `__webpack_public_path__`. This would not be possible with just `publicPath`, since it stringifies the values.
+
+**webpack.config.js**
+
+```js
+module.exports = {
+  module: {
+    rules: [
+      {
+        test: /\.(png|jpg|gif)$/,
+        loader: 'file-loader',
+        options: {
+          publicPath: '/some/path/',
+          postTransformPublicPath: (p) => `__webpack_public_path__ + ${p}`,
+        },
+      },
+    ],
+  },
+};
+```
+
 ### `context`
 
 Type: `String`
