@@ -51,8 +51,11 @@ export default function loader(content) {
     this.emitFile(outputPath, content);
   }
 
+  const esModules =
+    typeof options.esModules === 'boolean' && options.esModules === true;
+
   // TODO revert to ES2015 Module export, when new CSS Pipeline is in place
-  return `module.exports = ${publicPath};`;
+  return `${esModules ? 'export default' : 'module.exports ='} ${publicPath};`;
 }
 
 export const raw = true;
