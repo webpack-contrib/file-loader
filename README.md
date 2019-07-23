@@ -603,6 +603,72 @@ Result:
 path/to/file.png?e43b20c069c4a01867c31e98cbce33c9
 ```
 
+---
+
+**main.js**
+
+```js
+const namespace = process.env.NAMESPACE;
+const assetPrefixForNamespace = (namespace) => {
+  switch (namespace) {
+    case 'prod':
+      return 'https://cache.myserver.net/web';
+    case 'uat':
+      return 'https://cache-uat.myserver.net/web';
+    case 'st':
+      return 'https://cache-st.myserver.net/web';
+    case 'dev':
+      return 'https://cache-dev.myserver.net/web';
+    default:
+      return '';
+  }
+};
+__webpack_public_path__ = `${assetPrefixForNamespace(namespace)}/`;
+```
+
+**file.js**
+
+```js
+import png from './image.png';
+```
+
+**webpack.config.js**
+
+```js
+module.exports = {
+  module: {
+    rules: [
+      {
+        test: /\.(png|jpg|gif)$/,
+        loader: 'file-loader',
+        options: {
+          context: '',
+          emitFile: true,
+          name: '[name].[hash].[ext]',
+          publicPath: 'static/assets/',
+          postTransformPublicPath: (p) => `__webpack_public_path__ + ${p}`,
+          outputPath: 'static/assets/',
+        },
+      },
+    ],
+  },
+};
+```
+
+Result when run with `NAMESPACE=prod` env variable:
+
+```bash
+# result
+https://cache.myserver.net/web/static/assets/image.somehash.png
+```
+
+Result when run with `NAMESPACE=dev` env variable:
+
+```bash
+# result
+https://cache-dev.myserver.net/web/static/assets/image.somehash.png
+```
+
 ## Contributing
 
 Please take a moment to read our contributing guidelines if you haven't yet done so.
