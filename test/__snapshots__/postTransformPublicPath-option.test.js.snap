@@ -1,0 +1,82 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`when applied with \`postTransformPublicPath\` option matches snapshot for appending to input parameter value 1`] = `
+Object {
+  "assets": Array [
+    "9c87cbf3ba33126ffd25ae7f2f6bbafb.png",
+  ],
+  "source": "module.exports = __webpack_public_path__ + \\"9c87cbf3ba33126ffd25ae7f2f6bbafb.png\\" + \\"/test\\";",
+}
+`;
+
+exports[`when applied with \`postTransformPublicPath\` option matches snapshot for returned input parameter value without modification 1`] = `
+Object {
+  "assets": Array [
+    "9c87cbf3ba33126ffd25ae7f2f6bbafb.png",
+  ],
+  "source": "module.exports = __webpack_public_path__ + \\"9c87cbf3ba33126ffd25ae7f2f6bbafb.png\\";",
+}
+`;
+
+exports[`when applied with \`publicPath\` and \`postTransformPublicPath\` option \`{Function}\` value matches snapshot for appending to input parameter value 1`] = `
+Object {
+  "assets": Array [
+    "9c87cbf3ba33126ffd25ae7f2f6bbafb.png",
+  ],
+  "source": "module.exports = \\"public_path/9c87cbf3ba33126ffd25ae7f2f6bbafb.png\\" + \\"?test=test\\";",
+}
+`;
+
+exports[`when applied with \`publicPath\` and \`postTransformPublicPath\` option \`{Function}\` value matches snapshot for prefixing with __webpack_public_path__ 1`] = `
+Object {
+  "assets": Array [
+    "9c87cbf3ba33126ffd25ae7f2f6bbafb.png",
+  ],
+  "source": "module.exports = __webpack_public_path__ + \\"public_path/9c87cbf3ba33126ffd25ae7f2f6bbafb.png\\";",
+}
+`;
+
+exports[`when applied with \`publicPath\` and \`postTransformPublicPath\` option \`{Function}\` value matches snapshot for prefixing with string 1`] = `
+Object {
+  "assets": Array [
+    "9c87cbf3ba33126ffd25ae7f2f6bbafb.png",
+  ],
+  "source": "module.exports = \\"path_prefix/\\" + \\"public_path/9c87cbf3ba33126ffd25ae7f2f6bbafb.png\\";",
+}
+`;
+
+exports[`when applied with \`publicPath\` and \`postTransformPublicPath\` option \`{Function}\` value matches snapshot for returned input parameter value without modification 1`] = `
+Object {
+  "assets": Array [
+    "9c87cbf3ba33126ffd25ae7f2f6bbafb.png",
+  ],
+  "source": "module.exports = \\"public_path/9c87cbf3ba33126ffd25ae7f2f6bbafb.png\\";",
+}
+`;
+
+exports[`when applied with \`publicPath\` and \`postTransformPublicPath\` option \`{String}\` value matches snapshot for appending to input parameter value 1`] = `
+Object {
+  "assets": Array [
+    "9c87cbf3ba33126ffd25ae7f2f6bbafb.png",
+  ],
+  "source": "module.exports = \\"public_path/9c87cbf3ba33126ffd25ae7f2f6bbafb.png\\" + \\"?test=test\\";",
+}
+`;
+
+exports[`when applied with \`publicPath\` and \`postTransformPublicPath\` option \`{String}\` value matches snapshot for prefixing with __webpack_public_path__ 1`] = `
+Object {
+  "assets": Array [
+    "9c87cbf3ba33126ffd25ae7f2f6bbafb.png",
+  ],
+  "source": "module.exports = __webpack_public_path__ + \\"public_path/9c87cbf3ba33126ffd25ae7f2f6bbafb.png\\";",
+}
+`;
+
+exports[`when applied with \`publicPath\` and \`postTransformPublicPath\` option \`{String}\` value matches snapshot for returned input parameter value without modification 1`] = `
+Object {
+  "assets": Array [
+    "9c87cbf3ba33126ffd25ae7f2f6bbafb.png",
+  ],
+  "source": "module.exports = \\"public_path/9c87cbf3ba33126ffd25ae7f2f6bbafb.png\\";",
+}
+`;

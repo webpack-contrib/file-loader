@@ -269,6 +269,32 @@ module.exports = {
 };
 ```
 
+### `postTransformPublicPath`
+
+Type: `Function`
+Default: `undefined`
+
+Specifies a custom function to post-process the generated public path. This can be used to prepend or append dynamic global variables that are only available at runtime, like `__webpack_public_path__`. This would not be possible with just `publicPath`, since it stringifies the values.
+
+**webpack.config.js**
+
+```js
+module.exports = {
+  module: {
+    rules: [
+      {
+        test: /\.(png|jpg|gif)$/,
+        loader: 'file-loader',
+        options: {
+          publicPath: '/some/path/',
+          postTransformPublicPath: (p) => `__webpack_public_path__ + ${p}`,
+        },
+      },
+    ],
+  },
+};
+```
+
 ### `context`
 
 Type: `String`
@@ -575,6 +601,74 @@ Result:
 ```bash
 # result
 path/to/file.png?e43b20c069c4a01867c31e98cbce33c9
+```
+
+### Dynamic public path depending on environment variable at run time
+
+An application might want to configure different CDN hosts depending on an environment variable that is only available when running the application. This can be an advantage, as only one build of the application is necessary, which behaves differntly depending on environment variables of the deployment environment. Since file-loader is applied when compiling the application, and not when running it, the environment variable cannot be used in the file-loader configuration. A way around this is setting the `__webpack_public_path__` to the desired CDN host depending on the environment variable at the entrypoint of the application. The option `postTransformPublicPath` can be used to configure a custom path depending on a variable like `__webpack_public_path__`.
+
+**main.js**
+
+```js
+const namespace = process.env.NAMESPACE;
+const assetPrefixForNamespace = (namespace) => {
+  switch (namespace) {
+    case 'prod':
+      return 'https://cache.myserver.net/web';
+    case 'uat':
+      return 'https://cache-uat.myserver.net/web';
+    case 'st':
+      return 'https://cache-st.myserver.net/web';
+    case 'dev':
+      return 'https://cache-dev.myserver.net/web';
+    default:
+      return '';
+  }
+};
+__webpack_public_path__ = `${assetPrefixForNamespace(namespace)}/`;
+```
+
+**file.js**
+
+```js
+import png from './image.png';
+```
+
+**webpack.config.js**
+
+```js
+module.exports = {
+  module: {
+    rules: [
+      {
+        test: /\.(png|jpg|gif)$/,
+        loader: 'file-loader',
+        options: {
+          context: '',
+          emitFile: true,
+          name: '[name].[hash].[ext]',
+          publicPath: 'static/assets/',
+          postTransformPublicPath: (p) => `__webpack_public_path__ + ${p}`,
+          outputPath: 'static/assets/',
+        },
+      },
+    ],
+  },
+};
+```
+
+Result when run with `NAMESPACE=prod` env variable:
+
+```bash
+# result
+https://cache.myserver.net/web/static/assets/image.somehash.png
+```
+
+Result when run with `NAMESPACE=dev` env variable:
+
+```bash
+# result
+https://cache-dev.myserver.net/web/static/assets/image.somehash.png
 ```
 
 ## Contributing

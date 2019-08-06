@@ -47,6 +47,10 @@ export default function loader(content) {
     publicPath = JSON.stringify(publicPath);
   }
 
+  if (options.postTransformPublicPath) {
+    publicPath = options.postTransformPublicPath(publicPath);
+  }
+
   if (typeof options.emitFile === 'undefined' || options.emitFile) {
     this.emitFile(outputPath, content);
   }
