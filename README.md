@@ -41,11 +41,10 @@ module.exports = {
   module: {
     rules: [
       {
-        test: /\.(png|jpe?g|gif)$/,
+        test: /\.(png|jpe?g|gif)$/i,
         use: [
           {
             loader: 'file-loader',
-            options: {},
           },
         ],
       },
@@ -65,7 +64,7 @@ specified to do so) and returns the public URI of the file.
 ### `name`
 
 Type: `String|Function`
-Default: `'[hash].[ext]'`
+Default: `'[contenthash].[ext]'`
 
 Specifies a custom filename template for the target file(s) using the query
 parameter `name`. For example, to emit a file from your `context` directory into
@@ -80,15 +79,11 @@ module.exports = {
   module: {
     rules: [
       {
-        test: /\.(png|jpe?g|gif)$/,
-        use: [
-          {
-            loader: 'file-loader',
-            options: {
-              name: '[path][name].[ext]',
-            },
-          },
-        ],
+        test: /\.(png|jpe?g|gif)$/i,
+        loader: 'file-loader',
+        options: {
+          name: '[path][name].[ext]',
+        },
       },
     ],
   },
@@ -104,21 +99,17 @@ module.exports = {
   module: {
     rules: [
       {
-        test: /\.(png|jpe?g|gif)$/,
-        use: [
-          {
-            loader: 'file-loader',
-            options: {
-              name(file) {
-                if (process.env.NODE_ENV === 'development') {
-                  return '[path][name].[ext]';
-                }
+        test: /\.(png|jpe?g|gif)$/i,
+        loader: 'file-loader',
+        options: {
+          name(file) {
+            if (process.env.NODE_ENV === 'development') {
+              return '[path][name].[ext]';
+            }
 
-                return '[hash].[ext]';
-              },
-            },
+            return '[contenthash].[ext]';
           },
-        ],
+        },
       },
     ],
   },
@@ -143,15 +134,11 @@ module.exports = {
   module: {
     rules: [
       {
-        test: /\.(png|jpe?g|gif)$/,
-        use: [
-          {
-            loader: 'file-loader',
-            options: {
-              outputPath: 'images',
-            },
-          },
-        ],
+        test: /\.(png|jpe?g|gif)$/i,
+        loader: 'file-loader',
+        options: {
+          outputPath: 'images',
+        },
       },
     ],
   },
@@ -167,31 +154,27 @@ module.exports = {
   module: {
     rules: [
       {
-        test: /\.(png|jpe?g|gif)$/,
-        use: [
-          {
-            loader: 'file-loader',
-            options: {
-              outputPath: (url, resourcePath, context) => {
-                // `resourcePath` is original absolute path to asset
-                // `context` is directory where stored asset (`rootContext`) or `context` option
+        test: /\.(png|jpe?g|gif)$/i,
+        loader: 'file-loader',
+        options: {
+          outputPath: (url, resourcePath, context) => {
+            // `resourcePath` is original absolute path to asset
+            // `context` is directory where stored asset (`rootContext`) or `context` option
 
-                // To get relative path you can use
-                // const relativePath = path.relative(context, resourcePath);
+            // To get relative path you can use
+            // const relativePath = path.relative(context, resourcePath);
 
-                if (/my-custom-image\.png/.test(resourcePath)) {
-                  return `other_output_path/${url}`;
-                }
+            if (/my-custom-image\.png/.test(resourcePath)) {
+              return `other_output_path/${url}`;
+            }
 
-                if (/images/.test(context)) {
-                  return `image_output_path/${url}`;
-                }
+            if (/images/.test(context)) {
+              return `image_output_path/${url}`;
+            }
 
-                return `output_path/${url}`;
-              },
-            },
+            return `output_path/${url}`;
           },
-        ],
+        },
       },
     ],
   },
@@ -214,15 +197,11 @@ module.exports = {
   module: {
     rules: [
       {
-        test: /\.(png|jpe?g|gif)$/,
-        use: [
-          {
-            loader: 'file-loader',
-            options: {
-              publicPath: 'assets',
-            },
-          },
-        ],
+        test: /\.(png|jpe?g|gif)$/i,
+        loader: 'file-loader',
+        options: {
+          publicPath: 'assets',
+        },
       },
     ],
   },
@@ -238,31 +217,27 @@ module.exports = {
   module: {
     rules: [
       {
-        test: /\.(png|jpe?g|gif)$/,
-        use: [
-          {
-            loader: 'file-loader',
-            options: {
-              publicPath: (url, resourcePath, context) => {
-                // `resourcePath` is original absolute path to asset
-                // `context` is directory where stored asset (`rootContext`) or `context` option
+        test: /\.(png|jpe?g|gif)$/i,
+        loader: 'file-loader',
+        options: {
+          publicPath: (url, resourcePath, context) => {
+            // `resourcePath` is original absolute path to asset
+            // `context` is directory where stored asset (`rootContext`) or `context` option
 
-                // To get relative path you can use
-                // const relativePath = path.relative(context, resourcePath);
+            // To get relative path you can use
+            // const relativePath = path.relative(context, resourcePath);
 
-                if (/my-custom-image\.png/.test(resourcePath)) {
-                  return `other_public_path/${url}`;
-                }
+            if (/my-custom-image\.png/.test(resourcePath)) {
+              return `other_public_path/${url}`;
+            }
 
-                if (/images/.test(context)) {
-                  return `image_output_path/${url}`;
-                }
+            if (/images/.test(context)) {
+              return `image_output_path/${url}`;
+            }
 
-                return `public_path/${url}`;
-              },
-            },
+            return `public_path/${url}`;
           },
-        ],
+        },
       },
     ],
   },
@@ -283,7 +258,7 @@ module.exports = {
   module: {
     rules: [
       {
-        test: /\.(png|jpg|gif)$/,
+        test: /\.(png|jpg|gif)$/i,
         loader: 'file-loader',
         options: {
           publicPath: '/some/path/',
@@ -307,7 +282,7 @@ module.exports = {
   module: {
     rules: [
       {
-        test: /\.(png|jpe?g|gif)$/,
+        test: /\.(png|jpe?g|gif)$/i,
         use: [
           {
             loader: 'file-loader',
@@ -345,7 +320,7 @@ module.exports = {
   module: {
     rules: [
       {
-        test: /\.css$/,
+        test: /\.css$/i,
         use: [
           {
             loader: 'file-loader',
@@ -382,12 +357,12 @@ module.exports = {
   module: {
     rules: [
       {
-        test: /\.(png|jpe?g|gif)$/,
+        test: /\.(png|jpe?g|gif)$/i,
         use: [
           {
             loader: 'file-loader',
             options: {
-              regExp: /\/([a-z0-9]+)\/[a-z0-9]+\.png$/,
+              regExp: /\/([a-z0-9]+)\/[a-z0-9]+\.png$/i,
               name: '[1]-[name].[ext]',
             },
           },
@@ -453,6 +428,13 @@ Default: `md5`
 
 Specifies the hash method to use for hashing the file content.
 
+### `[contenthash]`
+
+Type: `String`
+Default: `md5`
+
+Specifies the hash method to use for hashing the file content.
+
 ### `[<hashType>:hash:<digestType>:<length>]`
 
 Type: `String`
@@ -492,6 +474,8 @@ The n-th match obtained from matching the current file name against the `regExp`
 
 ## Examples
 
+### Names
+
 The following examples show how one might use `file-loader` and what the result would be.
 
 **file.js**
@@ -507,12 +491,12 @@ module.exports = {
   module: {
     rules: [
       {
-        test: /\.(png|jpe?g|gif)$/,
+        test: /\.(png|jpe?g|gif)$/i,
         use: [
           {
             loader: 'file-loader',
             options: {
-              name: 'dirname/[hash].[ext]',
+              name: 'dirname/[contenthash].[ext]',
             },
           },
         ],
@@ -544,7 +528,7 @@ module.exports = {
   module: {
     rules: [
       {
-        test: /\.(png|jpe?g|gif)$/,
+        test: /\.(png|jpe?g|gif)$/i,
         use: [
           {
             loader: 'file-loader',
@@ -581,12 +565,12 @@ module.exports = {
   module: {
     rules: [
       {
-        test: /\.(png|jpe?g|gif)$/,
+        test: /\.(png|jpe?g|gif)$/i,
         use: [
           {
             loader: 'file-loader',
             options: {
-              name: '[path][name].[ext]?[hash]',
+              name: '[path][name].[ext]?[contenthash]',
             },
           },
         ],
@@ -641,15 +625,13 @@ module.exports = {
   module: {
     rules: [
       {
-        test: /\.(png|jpg|gif)$/,
+        test: /\.(png|jpg|gif)$/i,
         loader: 'file-loader',
         options: {
-          context: '',
-          emitFile: true,
-          name: '[name].[hash].[ext]',
+          name: '[name].[contenthash].[ext]',
+          outputPath: 'static/assets/',
           publicPath: 'static/assets/',
           postTransformPublicPath: (p) => `__webpack_public_path__ + ${p}`,
-          outputPath: 'static/assets/',
         },
       },
     ],
