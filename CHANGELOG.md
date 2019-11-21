@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [4.3.0](https://github.com/webpack-contrib/file-loader/compare/v4.2.0...v4.3.0) (2019-11-21)
+
+
+### Features
+
+* new `esModules` option to output ES modules ([#340](https://github.com/webpack-contrib/file-loader/issues/340)) ([9b9cd8d](https://github.com/webpack-contrib/file-loader/commit/9b9cd8d22b3dbe4677be9bdd0bf5fbe07815df54))
+
 ## [4.2.0](https://github.com/webpack-contrib/file-loader/compare/v4.1.0...v4.2.0) (2019-08-07)
 
 
