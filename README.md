@@ -375,6 +375,35 @@ module.exports = {
 
 > ℹ️ If `[0]` is used, it will be replaced by the entire tested string, whereas `[1]` will contain the first capturing parenthesis of your regex and so on...
 
+### `esModules`
+
+Type: `Boolean`
+Default: `false`
+
+By default, `file-loader` generates JS modules that use the CommonJS syntax. However, there are some cases in which using ES2015 modules is beneficial, like in the case of [module concatenation](https://webpack.js.org/plugins/module-concatenation-plugin/) and [tree shaking](https://webpack.js.org/guides/tree-shaking/).
+
+**webpack.config.js**
+
+```js
+module.exports = {
+  module: {
+    rules: [
+      {
+        test: /\.css$/,
+        use: [
+          {
+            loader: 'file-loader',
+            options: {
+              esModules: true,
+            },
+          },
+        ],
+      },
+    ],
+  },
+};
+```
+
 ## Placeholders
 
 Full information about placeholders you can find [here](https://github.com/webpack/loader-utils#interpolatename).
