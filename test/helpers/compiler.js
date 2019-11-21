@@ -41,7 +41,7 @@ const output = (config) => {
 export default function(fixture, config, options) {
   // webpack Config
   config = {
-    mode: 'development',
+    mode: config.mode || 'development',
     devtool: config.devtool || 'sourcemap',
     context: path.resolve(__dirname, '..', 'fixtures'),
     entry: `./${fixture}`,
@@ -49,7 +49,8 @@ export default function(fixture, config, options) {
     module: module(config),
     plugins: plugins(config),
     optimization: {
-      runtimeChunk: true,
+      minimize: false,
+      runtimeChunk: false,
     },
   };
   // Compiler Options

@@ -78,4 +78,22 @@ describe('loader', () => {
 
     expect(source).toMatchSnapshot();
   });
+
+  it('should work with ModuleConcatenationPlugin', async () => {
+    const config = {
+      mode: 'production',
+      loader: {
+        test: /(png|jpg|svg)/,
+        options: {
+          esModules: true,
+        },
+      },
+    };
+
+    const stats = await webpack('fixture.js', config);
+
+    expect(
+      stats.compilation.assets['main.bundle.js'].source()
+    ).toMatchSnapshot();
+  });
 });
