@@ -51,3 +51,8 @@ exports[`validate options 6`] = `
     * options.regExp should be a string.
     * options.regExp should be an instance of RegExp."
 `;
+
+exports[`validate options 7`] = `
+"Invalid options object. File Loader has been initialised using an options object that does not match the API schema.
+ - options.esModules should be a boolean."
+`;

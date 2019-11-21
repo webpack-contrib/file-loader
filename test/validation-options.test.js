@@ -55,5 +55,9 @@ it('validate options', () => {
   expect(() => validate({ regExp: 'image\\.png' })).not.toThrow();
   expect(() => validate({ regExp: true })).toThrowErrorMatchingSnapshot();
 
+  expect(() => validate({ esModules: true })).not.toThrow();
+  expect(() => validate({ esModules: false })).not.toThrow();
+  expect(() => validate({ esModules: 'true' })).toThrowErrorMatchingSnapshot();
+
   expect(() => validate({ unknown: 'unknown' })).not.toThrow();
 });
