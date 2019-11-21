@@ -15,11 +15,15 @@ export default function loader(content) {
 
   const context = options.context || this.rootContext;
 
-  const url = loaderUtils.interpolateName(this, options.name, {
-    context,
-    content,
-    regExp: options.regExp,
-  });
+  const url = loaderUtils.interpolateName(
+    this,
+    options.name || '[contenthash].[ext]',
+    {
+      context,
+      content,
+      regExp: options.regExp,
+    }
+  );
 
   let outputPath = url;
 
@@ -45,6 +49,10 @@ export default function loader(content) {
     }
 
     publicPath = JSON.stringify(publicPath);
+  }
+
+  if (options.postTransformPublicPath) {
+    publicPath = options.postTransformPublicPath(publicPath);
   }
 
   if (typeof options.emitFile === 'undefined' || options.emitFile) {

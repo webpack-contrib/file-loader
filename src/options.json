@@ -34,6 +34,10 @@
         }
       ]
     },
+    "postTransformPublicPath": {
+      "description": "A custom transformation function for post-processing the publicPath (https://github.com/webpack-contrib/file-loader#posttransformpublicpath).",
+      "instanceof": "Function"
+    },
     "context": {
       "description": "A custom file context (https://github.com/webpack-contrib/file-loader#context).",
       "type": "string"

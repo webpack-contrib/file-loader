@@ -41,11 +41,10 @@ module.exports = {
   module: {
     rules: [
       {
-        test: /\.(png|jpe?g|gif)$/,
+        test: /\.(png|jpe?g|gif)$/i,
         use: [
           {
             loader: 'file-loader',
-            options: {},
           },
         ],
       },
@@ -65,7 +64,7 @@ specified to do so) and returns the public URI of the file.
 ### `name`
 
 Type: `String|Function`
-Default: `'[hash].[ext]'`
+Default: `'[contenthash].[ext]'`
 
 Specifies a custom filename template for the target file(s) using the query
 parameter `name`. For example, to emit a file from your `context` directory into
@@ -80,15 +79,11 @@ module.exports = {
   module: {
     rules: [
       {
-        test: /\.(png|jpe?g|gif)$/,
-        use: [
-          {
-            loader: 'file-loader',
-            options: {
-              name: '[path][name].[ext]',
-            },
-          },
-        ],
+        test: /\.(png|jpe?g|gif)$/i,
+        loader: 'file-loader',
+        options: {
+          name: '[path][name].[ext]',
+        },
       },
     ],
   },
@@ -104,21 +99,17 @@ module.exports = {
   module: {
     rules: [
       {
-        test: /\.(png|jpe?g|gif)$/,
-        use: [
-          {
-            loader: 'file-loader',
-            options: {
-              name(file) {
-                if (process.env.NODE_ENV === 'development') {
-                  return '[path][name].[ext]';
-                }
+        test: /\.(png|jpe?g|gif)$/i,
+        loader: 'file-loader',
+        options: {
+          name(file) {
+            if (process.env.NODE_ENV === 'development') {
+              return '[path][name].[ext]';
+            }
 
-                return '[hash].[ext]';
-              },
-            },
+            return '[contenthash].[ext]';
           },
-        ],
+        },
       },
     ],
   },
@@ -143,15 +134,11 @@ module.exports = {
   module: {
     rules: [
       {
-        test: /\.(png|jpe?g|gif)$/,
-        use: [
-          {
-            loader: 'file-loader',
-            options: {
-              outputPath: 'images',
-            },
-          },
-        ],
+        test: /\.(png|jpe?g|gif)$/i,
+        loader: 'file-loader',
+        options: {
+          outputPath: 'images',
+        },
       },
     ],
   },
@@ -167,31 +154,27 @@ module.exports = {
   module: {
     rules: [
       {
-        test: /\.(png|jpe?g|gif)$/,
-        use: [
-          {
-            loader: 'file-loader',
-            options: {
-              outputPath: (url, resourcePath, context) => {
-                // `resourcePath` is original absolute path to asset
-                // `context` is directory where stored asset (`rootContext`) or `context` option
+        test: /\.(png|jpe?g|gif)$/i,
+        loader: 'file-loader',
+        options: {
+          outputPath: (url, resourcePath, context) => {
+            // `resourcePath` is original absolute path to asset
+            // `context` is directory where stored asset (`rootContext`) or `context` option
 
-                // To get relative path you can use
-                // const relativePath = path.relative(context, resourcePath);
+            // To get relative path you can use
+            // const relativePath = path.relative(context, resourcePath);
 
-                if (/my-custom-image\.png/.test(resourcePath)) {
-                  return `other_output_path/${url}`;
-                }
+            if (/my-custom-image\.png/.test(resourcePath)) {
+              return `other_output_path/${url}`;
+            }
 
-                if (/images/.test(context)) {
-                  return `image_output_path/${url}`;
-                }
+            if (/images/.test(context)) {
+              return `image_output_path/${url}`;
+            }
 
-                return `output_path/${url}`;
-              },
-            },
+            return `output_path/${url}`;
           },
-        ],
+        },
       },
     ],
   },
@@ -214,15 +197,11 @@ module.exports = {
   module: {
     rules: [
       {
-        test: /\.(png|jpe?g|gif)$/,
-        use: [
-          {
-            loader: 'file-loader',
-            options: {
-              publicPath: 'assets',
-            },
-          },
-        ],
+        test: /\.(png|jpe?g|gif)$/i,
+        loader: 'file-loader',
+        options: {
+          publicPath: 'assets',
+        },
       },
     ],
   },
@@ -238,31 +217,53 @@ module.exports = {
   module: {
     rules: [
       {
-        test: /\.(png|jpe?g|gif)$/,
-        use: [
-          {
-            loader: 'file-loader',
-            options: {
-              publicPath: (url, resourcePath, context) => {
-                // `resourcePath` is original absolute path to asset
-                // `context` is directory where stored asset (`rootContext`) or `context` option
+        test: /\.(png|jpe?g|gif)$/i,
+        loader: 'file-loader',
+        options: {
+          publicPath: (url, resourcePath, context) => {
+            // `resourcePath` is original absolute path to asset
+            // `context` is directory where stored asset (`rootContext`) or `context` option
 
-                // To get relative path you can use
-                // const relativePath = path.relative(context, resourcePath);
+            // To get relative path you can use
+            // const relativePath = path.relative(context, resourcePath);
 
-                if (/my-custom-image\.png/.test(resourcePath)) {
-                  return `other_public_path/${url}`;
-                }
+            if (/my-custom-image\.png/.test(resourcePath)) {
+              return `other_public_path/${url}`;
+            }
 
-                if (/images/.test(context)) {
-                  return `image_output_path/${url}`;
-                }
+            if (/images/.test(context)) {
+              return `image_output_path/${url}`;
+            }
 
-                return `public_path/${url}`;
-              },
-            },
+            return `public_path/${url}`;
           },
-        ],
+        },
+      },
+    ],
+  },
+};
+```
+
+### `postTransformPublicPath`
+
+Type: `Function`
+Default: `undefined`
+
+Specifies a custom function to post-process the generated public path. This can be used to prepend or append dynamic global variables that are only available at runtime, like `__webpack_public_path__`. This would not be possible with just `publicPath`, since it stringifies the values.
+
+**webpack.config.js**
+
+```js
+module.exports = {
+  module: {
+    rules: [
+      {
+        test: /\.(png|jpg|gif)$/i,
+        loader: 'file-loader',
+        options: {
+          publicPath: '/some/path/',
+          postTransformPublicPath: (p) => `__webpack_public_path__ + ${p}`,
+        },
       },
     ],
   },
@@ -281,7 +282,7 @@ module.exports = {
   module: {
     rules: [
       {
-        test: /\.(png|jpe?g|gif)$/,
+        test: /\.(png|jpe?g|gif)$/i,
         use: [
           {
             loader: 'file-loader',
@@ -319,7 +320,7 @@ module.exports = {
   module: {
     rules: [
       {
-        test: /\.css$/,
+        test: /\.css$/i,
         use: [
           {
             loader: 'file-loader',
@@ -356,12 +357,12 @@ module.exports = {
   module: {
     rules: [
       {
-        test: /\.(png|jpe?g|gif)$/,
+        test: /\.(png|jpe?g|gif)$/i,
         use: [
           {
             loader: 'file-loader',
             options: {
-              regExp: /\/([a-z0-9]+)\/[a-z0-9]+\.png$/,
+              regExp: /\/([a-z0-9]+)\/[a-z0-9]+\.png$/i,
               name: '[1]-[name].[ext]',
             },
           },
@@ -456,6 +457,13 @@ Default: `md5`
 
 Specifies the hash method to use for hashing the file content.
 
+### `[contenthash]`
+
+Type: `String`
+Default: `md5`
+
+Specifies the hash method to use for hashing the file content.
+
 ### `[<hashType>:hash:<digestType>:<length>]`
 
 Type: `String`
@@ -495,6 +503,8 @@ The n-th match obtained from matching the current file name against the `regExp`
 
 ## Examples
 
+### Names
+
 The following examples show how one might use `file-loader` and what the result would be.
 
 **file.js**
@@ -510,12 +520,12 @@ module.exports = {
   module: {
     rules: [
       {
-        test: /\.(png|jpe?g|gif)$/,
+        test: /\.(png|jpe?g|gif)$/i,
         use: [
           {
             loader: 'file-loader',
             options: {
-              name: 'dirname/[hash].[ext]',
+              name: 'dirname/[contenthash].[ext]',
             },
           },
         ],
@@ -547,7 +557,7 @@ module.exports = {
   module: {
     rules: [
       {
-        test: /\.(png|jpe?g|gif)$/,
+        test: /\.(png|jpe?g|gif)$/i,
         use: [
           {
             loader: 'file-loader',
@@ -584,12 +594,12 @@ module.exports = {
   module: {
     rules: [
       {
-        test: /\.(png|jpe?g|gif)$/,
+        test: /\.(png|jpe?g|gif)$/i,
         use: [
           {
             loader: 'file-loader',
             options: {
-              name: '[path][name].[ext]?[hash]',
+              name: '[path][name].[ext]?[contenthash]',
             },
           },
         ],
@@ -604,6 +614,72 @@ Result:
 ```bash
 # result
 path/to/file.png?e43b20c069c4a01867c31e98cbce33c9
+```
+
+### Dynamic public path depending on environment variable at run time
+
+An application might want to configure different CDN hosts depending on an environment variable that is only available when running the application. This can be an advantage, as only one build of the application is necessary, which behaves differntly depending on environment variables of the deployment environment. Since file-loader is applied when compiling the application, and not when running it, the environment variable cannot be used in the file-loader configuration. A way around this is setting the `__webpack_public_path__` to the desired CDN host depending on the environment variable at the entrypoint of the application. The option `postTransformPublicPath` can be used to configure a custom path depending on a variable like `__webpack_public_path__`.
+
+**main.js**
+
+```js
+const namespace = process.env.NAMESPACE;
+const assetPrefixForNamespace = (namespace) => {
+  switch (namespace) {
+    case 'prod':
+      return 'https://cache.myserver.net/web';
+    case 'uat':
+      return 'https://cache-uat.myserver.net/web';
+    case 'st':
+      return 'https://cache-st.myserver.net/web';
+    case 'dev':
+      return 'https://cache-dev.myserver.net/web';
+    default:
+      return '';
+  }
+};
+__webpack_public_path__ = `${assetPrefixForNamespace(namespace)}/`;
+```
+
+**file.js**
+
+```js
+import png from './image.png';
+```
+
+**webpack.config.js**
+
+```js
+module.exports = {
+  module: {
+    rules: [
+      {
+        test: /\.(png|jpg|gif)$/i,
+        loader: 'file-loader',
+        options: {
+          name: '[name].[contenthash].[ext]',
+          outputPath: 'static/assets/',
+          publicPath: 'static/assets/',
+          postTransformPublicPath: (p) => `__webpack_public_path__ + ${p}`,
+        },
+      },
+    ],
+  },
+};
+```
+
+Result when run with `NAMESPACE=prod` env variable:
+
+```bash
+# result
+https://cache.myserver.net/web/static/assets/image.somehash.png
+```
+
+Result when run with `NAMESPACE=dev` env variable:
+
+```bash
+# result
+https://cache-dev.myserver.net/web/static/assets/image.somehash.png
 ```
 
 ## Contributing

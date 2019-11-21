@@ -2,6 +2,15 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [4.2.0](https://github.com/webpack-contrib/file-loader/compare/v4.1.0...v4.2.0) (2019-08-07)
+
+
+### Features
+
+* `postTransformPublicPath` option ([#334](https://github.com/webpack-contrib/file-loader/issues/334)) ([c136f44](https://github.com/webpack-contrib/file-loader/commit/c136f44))
+
+
+
 ## [4.1.0](https://github.com/webpack-contrib/file-loader/compare/v4.0.0...v4.1.0) (2019-07-18)
 
 
