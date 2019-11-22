@@ -1,3 +1,39 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`when applied with \`emitFile\` option matches snapshot for \`true\` (\`{Boolean}\`) (default) 1`] = `"64eababb117f90535085779cc0325003.svg"`;
+exports[`"emitFile" option should work with "Boolean" value equal "false": assets 1`] = `
+Array [
+  "main.bundle.js",
+]
+`;
+
+exports[`"emitFile" option should work with "Boolean" value equal "false": errors 1`] = `Array []`;
+
+exports[`"emitFile" option should work with "Boolean" value equal "false": result 1`] = `"9c87cbf3ba33126ffd25ae7f2f6bbafb.png"`;
+
+exports[`"emitFile" option should work with "Boolean" value equal "false": warnings 1`] = `Array []`;
+
+exports[`"emitFile" option should work with "Boolean" value equal "true": assets 1`] = `
+Array [
+  "9c87cbf3ba33126ffd25ae7f2f6bbafb.png",
+  "main.bundle.js",
+]
+`;
+
+exports[`"emitFile" option should work with "Boolean" value equal "true": errors 1`] = `Array []`;
+
+exports[`"emitFile" option should work with "Boolean" value equal "true": result 1`] = `"9c87cbf3ba33126ffd25ae7f2f6bbafb.png"`;
+
+exports[`"emitFile" option should work with "Boolean" value equal "true": warnings 1`] = `Array []`;
+
+exports[`"emitFile" option should work without value: assets 1`] = `
+Array [
+  "9c87cbf3ba33126ffd25ae7f2f6bbafb.png",
+  "main.bundle.js",
+]
+`;
+
+exports[`"emitFile" option should work without value: errors 1`] = `Array []`;
+
+exports[`"emitFile" option should work without value: result 1`] = `"9c87cbf3ba33126ffd25ae7f2f6bbafb.png"`;
+
+exports[`"emitFile" option should work without value: warnings 1`] = `Array []`;

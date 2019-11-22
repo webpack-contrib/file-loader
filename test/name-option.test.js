@@ -1,39 +1,54 @@
-import webpack from './helpers/compiler';
+import {
+  compile,
+  execute,
+  getCompiler,
+  normalizeErrors,
+  readAsset,
+} from './helpers';
 
-describe('when applied with `name` option', () => {
-  it('matches snapshot for `{String}` value', async () => {
-    const config = {
-      loader: {
-        test: /(png|jpg|svg)/,
-        options: {
-          name: '[hash].[ext]',
-        },
-      },
-    };
+describe('"name" option', () => {
+  it('should work without value', async () => {
+    const compiler = getCompiler('simple.js');
+    const stats = await compile(compiler);
 
-    const stats = await webpack('fixture.js', config);
-    const [module] = stats.toJson().modules;
-    const { source } = module;
-
-    expect(source).toMatchSnapshot();
+    expect(
+      execute(readAsset('main.bundle.js', compiler, stats))
+    ).toMatchSnapshot('result');
+    expect(normalizeErrors(stats.compilation.warnings)).toMatchSnapshot(
+      'warnings'
+    );
+    expect(normalizeErrors(stats.compilation.errors)).toMatchSnapshot('errors');
   });
 
-  it('matches snapshot for `{Function}` value', async () => {
-    const config = {
-      loader: {
-        test: /(png|jpg|svg)/,
-        options: {
-          name() {
-            return '[hash].[ext]';
-          },
-        },
+  it('should work with "String" value', async () => {
+    const compiler = getCompiler('simple.js', {
+      name: '[hash].string.[ext]',
+    });
+    const stats = await compile(compiler);
+
+    expect(
+      execute(readAsset('main.bundle.js', compiler, stats))
+    ).toMatchSnapshot('result');
+    expect(normalizeErrors(stats.compilation.warnings)).toMatchSnapshot(
+      'warnings'
+    );
+    expect(normalizeErrors(stats.compilation.errors)).toMatchSnapshot('errors');
+  });
+
+  it('should work with "Function" value', async () => {
+    const compiler = getCompiler('simple.js', {
+      name() {
+        return '[hash].function.[ext]';
       },
-    };
+    });
+    const stats = await compile(compiler);
 
-    const stats = await webpack('fixture.js', config);
-    const [module] = stats.toJson().modules;
-    const { source } = module;
-
-    expect(source).toMatchSnapshot();
+    expect(
+      execute(readAsset('main.bundle.js', compiler, stats))
+    ).toMatchSnapshot('result');
+    expect(normalizeErrors(stats.compilation.warnings)).toMatchSnapshot(
+      'warnings'
+    );
+    expect(normalizeErrors(stats.compilation.errors)).toMatchSnapshot('errors');
   });
 });

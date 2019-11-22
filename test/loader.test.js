@@ -1,99 +1,120 @@
-import webpack from './helpers/compiler';
+import {
+  compile,
+  execute,
+  getCompiler,
+  normalizeErrors,
+  readAsset,
+} from './helpers';
 
 describe('loader', () => {
   it('should works without options', async () => {
-    const config = {
-      loader: {
-        test: /(png|jpg|svg)/,
-        options: {},
-      },
-    };
-
-    const stats = await webpack('fixture.js', config);
-    const jsonStats = stats.toJson();
-    const { modules, assets } = jsonStats;
-    const [{ source }] = modules;
-
-    // eslint-disable-next-line no-new-func
-    const assetName = new Function(
-      'exports',
-      'require',
-      'module',
-      '__filename',
-      '__dirname',
-      `'use strict'\nvar __webpack_public_path__ = '';\nreturn ${source}`
-    )(exports, require, module, __filename, __dirname);
-    const hasModuleAsAsset = Boolean(
-      assets.find((asset) => asset.name === assetName)
-    );
-
-    expect(hasModuleAsAsset).toBe(true);
-    expect(source).toMatchSnapshot();
-  });
-
-  it('should works with `url-loader` when limit is less', async () => {
-    const config = {
-      rules: [
-        {
-          test: /\.(png|jpg|gif)$/i,
-          use: [
-            {
-              loader: 'url-loader',
-              options: {
-                limit: 1,
-              },
-            },
-          ],
-        },
-      ],
-    };
-
-    const stats = await webpack('fixture.js', config);
-    const [module] = stats.toJson().modules;
-    const { source } = module;
-
-    expect(source).toMatchSnapshot();
-  });
-
-  it('should works with `url-loader` when limit is more', async () => {
-    const config = {
-      rules: [
-        {
-          test: /\.(png|jpg|gif)$/i,
-          use: [
-            {
-              loader: 'url-loader',
-              options: {
-                limit: 8192,
-              },
-            },
-          ],
-        },
-      ],
-    };
-
-    const stats = await webpack('fixture.js', config);
-    const [module] = stats.toJson().modules;
-    const { source } = module;
-
-    expect(source).toMatchSnapshot();
-  });
-
-  it('should work with ModuleConcatenationPlugin', async () => {
-    const config = {
-      mode: 'production',
-      loader: {
-        test: /(png|jpg|svg)/,
-        options: {
-          esModules: true,
-        },
-      },
-    };
-
-    const stats = await webpack('fixture.js', config);
+    const compiler = getCompiler('simple.js');
+    const stats = await compile(compiler);
 
     expect(
-      stats.compilation.assets['main.bundle.js'].source()
-    ).toMatchSnapshot();
+      execute(readAsset('main.bundle.js', compiler, stats))
+    ).toMatchSnapshot('result');
+    expect(Object.keys(stats.compilation.assets)).toMatchSnapshot('assets');
+    expect(normalizeErrors(stats.compilation.warnings)).toMatchSnapshot(
+      'warnings'
+    );
+    expect(normalizeErrors(stats.compilation.errors)).toMatchSnapshot('errors');
+  });
+
+  it('should work with "url-loader" when limit is less', async () => {
+    const compiler = getCompiler(
+      'simple.js',
+      {},
+      {
+        module: {
+          rules: [
+            {
+              test: /(png|jpg|svg)/i,
+              rules: [
+                {
+                  loader: 'url-loader',
+                  options: {
+                    limit: 1,
+                  },
+                },
+              ],
+            },
+          ],
+        },
+      }
+    );
+    const stats = await compile(compiler);
+
+    expect(
+      execute(readAsset('main.bundle.js', compiler, stats))
+    ).toMatchSnapshot('result');
+    expect(Object.keys(stats.compilation.assets)).toMatchSnapshot('assets');
+    expect(normalizeErrors(stats.compilation.warnings)).toMatchSnapshot(
+      'warnings'
+    );
+    expect(normalizeErrors(stats.compilation.errors)).toMatchSnapshot('errors');
+  });
+
+  it('should works with "url-loader" when limit is more', async () => {
+    const compiler = getCompiler(
+      'simple.js',
+      {},
+      {
+        module: {
+          rules: [
+            {
+              test: /(png|jpg|svg)/i,
+              rules: [
+                {
+                  loader: 'url-loader',
+                  options: {
+                    limit: 8192,
+                  },
+                },
+              ],
+            },
+          ],
+        },
+      }
+    );
+    const stats = await compile(compiler);
+
+    expect(
+      execute(readAsset('main.bundle.js', compiler, stats))
+    ).toMatchSnapshot('result');
+    expect(Object.keys(stats.compilation.assets)).toMatchSnapshot('assets');
+    expect(normalizeErrors(stats.compilation.warnings)).toMatchSnapshot(
+      'warnings'
+    );
+    expect(normalizeErrors(stats.compilation.errors)).toMatchSnapshot('errors');
+  });
+
+  it('should work with "ModuleConcatenationPlugin" plugin', async () => {
+    const compiler = getCompiler(
+      'simple.js',
+      {},
+      {
+        mode: 'production',
+        optimization: {
+          minimize: false,
+        },
+      }
+    );
+    const stats = await compile(compiler);
+
+    expect(
+      execute(readAsset('main.bundle.js', compiler, stats))
+    ).toMatchSnapshot('result');
+    expect(Object.keys(stats.compilation.assets)).toMatchSnapshot('assets');
+    expect(normalizeErrors(stats.compilation.warnings)).toMatchSnapshot(
+      'warnings'
+    );
+    expect(normalizeErrors(stats.compilation.errors)).toMatchSnapshot('errors');
+
+    if (stats.compilation.modules.size) {
+      expect(stats.compilation.modules.size).toBe(2);
+    } else {
+      expect(stats.compilation.modules.length).toBe(1);
+    }
   });
 });

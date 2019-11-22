@@ -1,5 +1,19 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`when applied with \`name\` option matches snapshot for \`{Function}\` value 1`] = `"module.exports = __webpack_public_path__ + \\"9c87cbf3ba33126ffd25ae7f2f6bbafb.png\\";"`;
+exports[`"name" option should work with "Function" value: errors 1`] = `Array []`;
 
-exports[`when applied with \`name\` option matches snapshot for \`{String}\` value 1`] = `"module.exports = __webpack_public_path__ + \\"9c87cbf3ba33126ffd25ae7f2f6bbafb.png\\";"`;
+exports[`"name" option should work with "Function" value: result 1`] = `"9c87cbf3ba33126ffd25ae7f2f6bbafb.function.png"`;
+
+exports[`"name" option should work with "Function" value: warnings 1`] = `Array []`;
+
+exports[`"name" option should work with "String" value: errors 1`] = `Array []`;
+
+exports[`"name" option should work with "String" value: result 1`] = `"9c87cbf3ba33126ffd25ae7f2f6bbafb.string.png"`;
+
+exports[`"name" option should work with "String" value: warnings 1`] = `Array []`;
+
+exports[`"name" option should work without value: errors 1`] = `Array []`;
+
+exports[`"name" option should work without value: result 1`] = `"9c87cbf3ba33126ffd25ae7f2f6bbafb.png"`;
+
+exports[`"name" option should work without value: warnings 1`] = `Array []`;

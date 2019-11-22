@@ -2,6 +2,16 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [5.0.0](https://github.com/webpack-contrib/file-loader/compare/v4.2.0...v5.0.0) (2019-11-22)
+
+
+### BREAKING CHANGES
+
+* minimum required nodejs version is `10.13.0`
+* switch to ES modules by default (option `esModules` now is `true` by default)
+
+
+
 ## [4.3.0](https://github.com/webpack-contrib/file-loader/compare/v4.2.0...v4.3.0) (2019-11-21)
 
 

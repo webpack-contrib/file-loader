@@ -1,20 +1,43 @@
-import webpack from './helpers/compiler';
+import path from 'path';
 
-describe('when applied with `context` option', () => {
-  it('matches snapshot for `{String}` value', async () => {
-    const config = {
-      loader: {
-        test: /(png|jpg|svg)/,
-        options: {
-          context: `${__dirname}`,
-        },
-      },
-    };
+import {
+  compile,
+  execute,
+  getCompiler,
+  normalizeErrors,
+  readAsset,
+} from './helpers';
 
-    const stats = await webpack('fixture.js', config);
-    const [module] = stats.toJson().modules;
-    const { source } = module;
+describe('"context" option', () => {
+  it('should work without value', async () => {
+    const compiler = getCompiler('simple.js', {
+      name: '[path][name].[ext]',
+      context: __dirname,
+    });
+    const stats = await compile(compiler);
 
-    expect(source).toMatchSnapshot();
+    expect(
+      execute(readAsset('main.bundle.js', compiler, stats))
+    ).toMatchSnapshot('result');
+    expect(normalizeErrors(stats.compilation.warnings)).toMatchSnapshot(
+      'warnings'
+    );
+    expect(normalizeErrors(stats.compilation.errors)).toMatchSnapshot('errors');
+  });
+
+  it('should work with "String" value', async () => {
+    const compiler = getCompiler('simple.js', {
+      name: '[path][name].[ext]',
+      context: path.resolve(__dirname, '../'),
+    });
+    const stats = await compile(compiler);
+
+    expect(
+      execute(readAsset('main.bundle.js', compiler, stats))
+    ).toMatchSnapshot('result');
+    expect(normalizeErrors(stats.compilation.warnings)).toMatchSnapshot(
+      'warnings'
+    );
+    expect(normalizeErrors(stats.compilation.errors)).toMatchSnapshot('errors');
   });
 });

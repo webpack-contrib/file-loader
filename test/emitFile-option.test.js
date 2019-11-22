@@ -1,38 +1,55 @@
-import webpack from './helpers/compiler';
+import {
+  compile,
+  execute,
+  getCompiler,
+  normalizeErrors,
+  readAsset,
+} from './helpers';
 
-describe('when applied with `emitFile` option', () => {
-  it('matches snapshot for `true` (`{Boolean}`) (default)', async () => {
-    const config = {
-      loader: {
-        test: /(png|jpg|svg)/,
-        options: {
-          emitFile: true,
-        },
-      },
-    };
+describe('"emitFile" option', () => {
+  it('should work without value', async () => {
+    const compiler = getCompiler('simple.js');
+    const stats = await compile(compiler);
 
-    const stats = await webpack('emitFile/fixture.js', config);
-    const [, module] = stats.toJson().modules;
-    const { assets } = module;
-
-    expect(assets[0]).toMatchSnapshot();
+    expect(
+      execute(readAsset('main.bundle.js', compiler, stats))
+    ).toMatchSnapshot('result');
+    expect(Object.keys(stats.compilation.assets)).toMatchSnapshot('assets');
+    expect(normalizeErrors(stats.compilation.warnings)).toMatchSnapshot(
+      'warnings'
+    );
+    expect(normalizeErrors(stats.compilation.errors)).toMatchSnapshot('errors');
   });
 
-  it('matches snapshot for `false` value  (`{Boolean}`)', async () => {
-    const config = {
-      loader: {
-        test: /(png|jpg|svg)/,
-        options: {
-          emitFile: false,
-        },
-      },
-    };
+  it('should work with "Boolean" value equal "true"', async () => {
+    const compiler = getCompiler('simple.js', {
+      emitFile: true,
+    });
+    const stats = await compile(compiler);
 
-    const stats = await webpack('emitFile/fixture.js', config);
-    const [module] = stats.toJson().modules;
-    const { assets } = module;
+    expect(
+      execute(readAsset('main.bundle.js', compiler, stats))
+    ).toMatchSnapshot('result');
+    expect(Object.keys(stats.compilation.assets)).toMatchSnapshot('assets');
+    expect(normalizeErrors(stats.compilation.warnings)).toMatchSnapshot(
+      'warnings'
+    );
+    expect(normalizeErrors(stats.compilation.errors)).toMatchSnapshot('errors');
+  });
 
-    // eslint-disable-next-line no-undefined
-    expect(assets[0]).toBe(undefined);
+  it('should work with "Boolean" value equal "false"', async () => {
+    const compiler = getCompiler('simple.js', {
+      emitFile: false,
+    });
+    const stats = await compile(compiler);
+
+    expect(
+      execute(readAsset('main.bundle.js', compiler, stats))
+    ).toMatchSnapshot('result');
+    expect(Object.keys(stats.compilation.assets)).toMatchSnapshot('assets');
+    expect(normalizeErrors(stats.compilation.warnings)).toMatchSnapshot(
+      'warnings'
+    );
+    expect(normalizeErrors(stats.compilation.errors)).toMatchSnapshot('errors');
   });
 });
