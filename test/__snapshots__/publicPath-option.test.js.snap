@@ -1,64 +1,31 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`when applied with \`publicPath\` option matches snapshot for \`{Function}\` value 1`] = `
-Object {
-  "assets": Array [
-    "9c87cbf3ba33126ffd25ae7f2f6bbafb.png",
-  ],
-  "source": "module.exports = \\"public_path/9c87cbf3ba33126ffd25ae7f2f6bbafb.png\\";",
-}
-`;
+exports[`"publicPath" option should work with "Function" value and pass "url", "resourcePath" and "context" as arguments: errors 1`] = `Array []`;
 
-exports[`when applied with \`publicPath\` option matches snapshot for \`{Function}\` value and pass \`context\` 1`] = `
-Object {
-  "assets": Array [
-    "9c87cbf3ba33126ffd25ae7f2f6bbafb.png",
-  ],
-  "source": "module.exports = \\"public_path/9c87cbf3ba33126ffd25ae7f2f6bbafb.png\\";",
-}
-`;
+exports[`"publicPath" option should work with "Function" value and pass "url", "resourcePath" and "context" as arguments: result 1`] = `"public_path/9c87cbf3ba33126ffd25ae7f2f6bbafb.png"`;
 
-exports[`when applied with \`publicPath\` option matches snapshot for \`{Function}\` value and pass \`resourcePath\` 1`] = `
-Object {
-  "assets": Array [
-    "9c87cbf3ba33126ffd25ae7f2f6bbafb.png",
-  ],
-  "source": "module.exports = \\"public_path/9c87cbf3ba33126ffd25ae7f2f6bbafb.png\\";",
-}
-`;
+exports[`"publicPath" option should work with "Function" value and pass "url", "resourcePath" and "context" as arguments: warnings 1`] = `Array []`;
 
-exports[`when applied with \`publicPath\` option matches snapshot for \`{String}\` value 1`] = `
-Object {
-  "assets": Array [
-    "9c87cbf3ba33126ffd25ae7f2f6bbafb.png",
-  ],
-  "source": "module.exports = \\"public_path/9c87cbf3ba33126ffd25ae7f2f6bbafb.png\\";",
-}
-`;
+exports[`"publicPath" option should work with "String" value equal an URL: errors 1`] = `Array []`;
 
-exports[`when applied with \`publicPath\` option matches snapshot for \`{String}\` value as URL 1`] = `
-Object {
-  "assets": Array [
-    "9c87cbf3ba33126ffd25ae7f2f6bbafb.png",
-  ],
-  "source": "module.exports = \\"https://cdn.com/9c87cbf3ba33126ffd25ae7f2f6bbafb.png\\";",
-}
-`;
+exports[`"publicPath" option should work with "String" value equal an URL: result 1`] = `"https://cdn.com/9c87cbf3ba33126ffd25ae7f2f6bbafb.png"`;
 
-exports[`when applied with \`publicPath\` option matches snapshot for \`{String}\` value without trailing slash 1`] = `
-Object {
-  "assets": Array [
-    "9c87cbf3ba33126ffd25ae7f2f6bbafb.png",
-  ],
-  "source": "module.exports = \\"public_path/9c87cbf3ba33126ffd25ae7f2f6bbafb.png\\";",
-}
-`;
+exports[`"publicPath" option should work with "String" value equal an URL: warnings 1`] = `Array []`;
 
-exports[`when applied with \`publicPath\` option matches snapshot without value 1`] = `
-Object {
-  "assets": Array [
-    "9c87cbf3ba33126ffd25ae7f2f6bbafb.png",
-  ],
-  "source": "module.exports = __webpack_public_path__ + \\"9c87cbf3ba33126ffd25ae7f2f6bbafb.png\\";",
-}
-`;
+exports[`"publicPath" option should work with "String" value without trailing slash: errors 1`] = `Array []`;
+
+exports[`"publicPath" option should work with "String" value without trailing slash: result 1`] = `"public_path/9c87cbf3ba33126ffd25ae7f2f6bbafb.png"`;
+
+exports[`"publicPath" option should work with "String" value without trailing slash: warnings 1`] = `Array []`;
+
+exports[`"publicPath" option should work with "String" value: errors 1`] = `Array []`;
+
+exports[`"publicPath" option should work with "String" value: result 1`] = `"public_path/9c87cbf3ba33126ffd25ae7f2f6bbafb.png"`;
+
+exports[`"publicPath" option should work with "String" value: warnings 1`] = `Array []`;
+
+exports[`"publicPath" option should work without value: errors 1`] = `Array []`;
+
+exports[`"publicPath" option should work without value: result 1`] = `"9c87cbf3ba33126ffd25ae7f2f6bbafb.png"`;
+
+exports[`"publicPath" option should work without value: warnings 1`] = `Array []`;

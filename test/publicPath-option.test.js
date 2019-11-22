@@ -1,129 +1,90 @@
-import webpack from './helpers/compiler';
+import {
+  compile,
+  execute,
+  getCompiler,
+  normalizeErrors,
+  readAsset,
+} from './helpers';
 
-describe('when applied with `publicPath` option', () => {
-  it('matches snapshot without value', async () => {
-    const config = {
-      loader: {
-        test: /(png|jpg|svg)/,
-      },
-    };
+describe('"publicPath" option', () => {
+  it('should work without value', async () => {
+    const compiler = getCompiler('simple.js');
+    const stats = await compile(compiler);
 
-    const stats = await webpack('fixture.js', config);
-    const [module] = stats.toJson().modules;
-    const { assets, source } = module;
-
-    expect({ assets, source }).toMatchSnapshot();
+    expect(
+      execute(readAsset('main.bundle.js', compiler, stats))
+    ).toMatchSnapshot('result');
+    expect(normalizeErrors(stats.compilation.warnings)).toMatchSnapshot(
+      'warnings'
+    );
+    expect(normalizeErrors(stats.compilation.errors)).toMatchSnapshot('errors');
   });
 
-  it('matches snapshot for `{String}` value', async () => {
-    const config = {
-      loader: {
-        test: /(png|jpg|svg)/,
-        options: {
-          publicPath: 'public_path/',
-        },
-      },
-    };
+  it('should work with "String" value', async () => {
+    const compiler = getCompiler('simple.js', {
+      publicPath: 'public_path/',
+    });
+    const stats = await compile(compiler);
 
-    const stats = await webpack('fixture.js', config);
-    const [module] = stats.toJson().modules;
-    const { assets, source } = module;
-
-    expect({ assets, source }).toMatchSnapshot();
+    expect(
+      execute(readAsset('main.bundle.js', compiler, stats))
+    ).toMatchSnapshot('result');
+    expect(normalizeErrors(stats.compilation.warnings)).toMatchSnapshot(
+      'warnings'
+    );
+    expect(normalizeErrors(stats.compilation.errors)).toMatchSnapshot('errors');
   });
 
-  it('matches snapshot for `{String}` value without trailing slash', async () => {
-    const config = {
-      loader: {
-        test: /(png|jpg|svg)/,
-        options: {
-          publicPath: 'public_path',
-        },
-      },
-    };
+  it('should work with "String" value without trailing slash', async () => {
+    const compiler = getCompiler('simple.js', {
+      publicPath: 'public_path',
+    });
+    const stats = await compile(compiler);
 
-    const stats = await webpack('fixture.js', config);
-    const [module] = stats.toJson().modules;
-    const { assets, source } = module;
-
-    expect({ assets, source }).toMatchSnapshot();
+    expect(
+      execute(readAsset('main.bundle.js', compiler, stats))
+    ).toMatchSnapshot('result');
+    expect(normalizeErrors(stats.compilation.warnings)).toMatchSnapshot(
+      'warnings'
+    );
+    expect(normalizeErrors(stats.compilation.errors)).toMatchSnapshot('errors');
   });
 
-  it('matches snapshot for `{String}` value as URL', async () => {
-    const config = {
-      loader: {
-        test: /(png|jpg|svg)/,
-        options: {
-          publicPath: 'https://cdn.com/',
-        },
-      },
-    };
+  it('should work with "String" value equal an URL', async () => {
+    const compiler = getCompiler('simple.js', {
+      publicPath: 'https://cdn.com/',
+    });
+    const stats = await compile(compiler);
 
-    const stats = await webpack('fixture.js', config);
-    const [module] = stats.toJson().modules;
-    const { assets, source } = module;
-
-    expect({ assets, source }).toMatchSnapshot();
+    expect(
+      execute(readAsset('main.bundle.js', compiler, stats))
+    ).toMatchSnapshot('result');
+    expect(normalizeErrors(stats.compilation.warnings)).toMatchSnapshot(
+      'warnings'
+    );
+    expect(normalizeErrors(stats.compilation.errors)).toMatchSnapshot('errors');
   });
 
-  it('matches snapshot for `{Function}` value', async () => {
-    const config = {
-      loader: {
-        test: /(png|jpg|svg)/,
-        options: {
-          publicPath(url) {
-            return `public_path/${url}`;
-          },
-        },
+  it('should work with "Function" value and pass "url", "resourcePath" and "context" as arguments', async () => {
+    expect.assertions(6);
+
+    const compiler = getCompiler('simple.js', {
+      publicPath(url, resourcePath, context) {
+        expect(url).toMatch('9c87cbf3ba33126ffd25ae7f2f6bbafb.png');
+        expect(resourcePath).toMatch('file.png');
+        expect(context).toMatch('fixtures');
+
+        return `public_path/${url}`;
       },
-    };
+    });
+    const stats = await compile(compiler);
 
-    const stats = await webpack('fixture.js', config);
-    const [module] = stats.toJson().modules;
-    const { assets, source } = module;
-
-    expect({ assets, source }).toMatchSnapshot();
-  });
-
-  it('matches snapshot for `{Function}` value and pass `resourcePath`', async () => {
-    const config = {
-      loader: {
-        test: /(png|jpg|svg)/,
-        options: {
-          publicPath(url, resourcePath) {
-            expect(resourcePath).toMatch('file.png');
-
-            return `public_path/${url}`;
-          },
-        },
-      },
-    };
-
-    const stats = await webpack('fixture.js', config);
-    const [module] = stats.toJson().modules;
-    const { assets, source } = module;
-
-    expect({ assets, source }).toMatchSnapshot();
-  });
-
-  it('matches snapshot for `{Function}` value and pass `context`', async () => {
-    const config = {
-      loader: {
-        test: /(png|jpg|svg)/,
-        options: {
-          publicPath(url, resourcePath, context) {
-            expect(context).toMatch('fixtures');
-
-            return `public_path/${url}`;
-          },
-        },
-      },
-    };
-
-    const stats = await webpack('fixture.js', config);
-    const [module] = stats.toJson().modules;
-    const { assets, source } = module;
-
-    expect({ assets, source }).toMatchSnapshot();
+    expect(
+      execute(readAsset('main.bundle.js', compiler, stats))
+    ).toMatchSnapshot('result');
+    expect(normalizeErrors(stats.compilation.warnings)).toMatchSnapshot(
+      'warnings'
+    );
+    expect(normalizeErrors(stats.compilation.errors)).toMatchSnapshot('errors');
   });
 });

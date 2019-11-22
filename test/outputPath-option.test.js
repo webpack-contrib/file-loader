@@ -1,248 +1,207 @@
-import webpack from './helpers/compiler';
+import {
+  compile,
+  execute,
+  getCompiler,
+  normalizeErrors,
+  readAsset,
+} from './helpers';
 
-describe('when applied with `outputPath` option', () => {
-  it('matches snapshot without value', async () => {
-    const config = {
-      loader: {
-        test: /(png|jpg|svg)/,
-      },
-    };
+describe('"outputPath" option', () => {
+  it('should work without value', async () => {
+    const compiler = getCompiler('simple.js');
+    const stats = await compile(compiler);
 
-    const stats = await webpack('fixture.js', config);
-    const [module] = stats.toJson().modules;
-    const { assets, source } = module;
-
-    expect({ assets, source }).toMatchSnapshot();
+    expect(
+      execute(readAsset('main.bundle.js', compiler, stats))
+    ).toMatchSnapshot('result');
+    expect(Object.keys(stats.compilation.assets)).toMatchSnapshot('assets');
+    expect(normalizeErrors(stats.compilation.warnings)).toMatchSnapshot(
+      'warnings'
+    );
+    expect(normalizeErrors(stats.compilation.errors)).toMatchSnapshot('errors');
   });
 
-  it('matches snapshot for `{String}` value', async () => {
-    const config = {
-      loader: {
-        test: /(png|jpg|svg)/,
-        options: {
-          outputPath: 'output_path/',
-        },
-      },
-    };
+  it('should work with "String" value', async () => {
+    const compiler = getCompiler('simple.js', {
+      outputPath: 'output_path/',
+    });
+    const stats = await compile(compiler);
 
-    const stats = await webpack('fixture.js', config);
-    const [module] = stats.toJson().modules;
-    const { assets, source } = module;
-
-    expect({ assets, source }).toMatchSnapshot();
+    expect(
+      execute(readAsset('main.bundle.js', compiler, stats))
+    ).toMatchSnapshot('result');
+    expect(Object.keys(stats.compilation.assets)).toMatchSnapshot('assets');
+    expect(normalizeErrors(stats.compilation.warnings)).toMatchSnapshot(
+      'warnings'
+    );
+    expect(normalizeErrors(stats.compilation.errors)).toMatchSnapshot('errors');
   });
 
-  it('matches snapshot for `{String}` value without trailing slash', async () => {
-    const config = {
-      loader: {
-        test: /(png|jpg|svg)/,
-        options: {
-          outputPath: 'output_path',
-        },
-      },
-    };
+  it('should work with "String" value without trailing slash', async () => {
+    const compiler = getCompiler('simple.js', {
+      outputPath: 'output_path',
+    });
+    const stats = await compile(compiler);
 
-    const stats = await webpack('fixture.js', config);
-    const [module] = stats.toJson().modules;
-    const { assets, source } = module;
-
-    expect({ assets, source }).toMatchSnapshot();
+    expect(
+      execute(readAsset('main.bundle.js', compiler, stats))
+    ).toMatchSnapshot('result');
+    expect(Object.keys(stats.compilation.assets)).toMatchSnapshot('assets');
+    expect(normalizeErrors(stats.compilation.warnings)).toMatchSnapshot(
+      'warnings'
+    );
+    expect(normalizeErrors(stats.compilation.errors)).toMatchSnapshot('errors');
   });
 
-  it('matches snapshot for `{String}` with `name` option', async () => {
-    const config = {
-      loader: {
-        test: /(png|jpg|svg)/,
-        options: {
-          name: '[path][name].[ext]',
-          outputPath: 'output_path/',
-        },
-      },
-    };
+  it('should work with "String" value and with "name" option', async () => {
+    const compiler = getCompiler('simple.js', {
+      name: '[path][name].[ext]',
+      outputPath: 'output_path/',
+    });
+    const stats = await compile(compiler);
 
-    const stats = await webpack('fixture.js', config);
-    const [module] = stats.toJson().modules;
-    const { assets, source } = module;
-
-    expect({ assets, source }).toMatchSnapshot();
+    expect(
+      execute(readAsset('main.bundle.js', compiler, stats))
+    ).toMatchSnapshot('result');
+    expect(Object.keys(stats.compilation.assets)).toMatchSnapshot('assets');
+    expect(normalizeErrors(stats.compilation.warnings)).toMatchSnapshot(
+      'warnings'
+    );
+    expect(normalizeErrors(stats.compilation.errors)).toMatchSnapshot('errors');
   });
 
-  it('matches snapshot for `{Function}` value', async () => {
-    const config = {
-      loader: {
-        test: /(png|jpg|svg)/,
-        options: {
-          outputPath(url) {
-            return `output_path_func/${url}`;
-          },
-        },
+  it('should work with "Function" value', async () => {
+    // TODO
+    const compiler = getCompiler('simple.js', {
+      outputPath(url, resourcePath, context) {
+        expect(url).toBe('9c87cbf3ba33126ffd25ae7f2f6bbafb.png');
+        expect(resourcePath).toMatch('file.png');
+        expect(context).toMatch('fixtures');
+
+        return `output_path_func/${url}`;
       },
-    };
+    });
+    const stats = await compile(compiler);
 
-    const stats = await webpack('fixture.js', config);
-    const [module] = stats.toJson().modules;
-    const { assets, source } = module;
-
-    expect({ assets, source }).toMatchSnapshot();
+    expect(
+      execute(readAsset('main.bundle.js', compiler, stats))
+    ).toMatchSnapshot('result');
+    expect(Object.keys(stats.compilation.assets)).toMatchSnapshot('assets');
+    expect(normalizeErrors(stats.compilation.warnings)).toMatchSnapshot(
+      'warnings'
+    );
+    expect(normalizeErrors(stats.compilation.errors)).toMatchSnapshot('errors');
   });
 
-  it('matches snapshot for `{Function}` value with `options.name`', async () => {
-    const config = {
-      loader: {
-        test: /(png|jpg|svg)/,
-        options: {
-          name: '[name].[ext]',
-          outputPath(url) {
-            return `output_path_func/${url}`;
-          },
-        },
+  it('should work with "Function" value and with "name" option', async () => {
+    const compiler = getCompiler('simple.js', {
+      name: '[name].[ext]',
+      outputPath(url) {
+        return `output_path_func/${url}`;
       },
-    };
+    });
+    const stats = await compile(compiler);
 
-    const stats = await webpack('fixture.js', config);
-    const [module] = stats.toJson().modules;
-    const { assets, source } = module;
-
-    expect({ assets, source }).toMatchSnapshot();
+    expect(
+      execute(readAsset('main.bundle.js', compiler, stats))
+    ).toMatchSnapshot('result');
+    expect(Object.keys(stats.compilation.assets)).toMatchSnapshot('assets');
+    expect(normalizeErrors(stats.compilation.warnings)).toMatchSnapshot(
+      'warnings'
+    );
+    expect(normalizeErrors(stats.compilation.errors)).toMatchSnapshot('errors');
   });
 
-  it('matches snapshot for `{String}` value with `publicPath` (`{String}`)', async () => {
-    const config = {
-      loader: {
-        test: /(png|jpg|svg)/,
-        options: {
-          outputPath: 'output_path/',
-          publicPath: 'public_path/',
-        },
-      },
-    };
+  it('should work with "String" value and with "publicPath" option', async () => {
+    const compiler = getCompiler('simple.js', {
+      outputPath: 'output_path/',
+      publicPath: 'public_path/',
+    });
+    const stats = await compile(compiler);
 
-    const stats = await webpack('nested/fixture.js', config);
-    const [module] = stats.toJson().modules;
-    const { assets, source } = module;
-
-    expect({ assets, source }).toMatchSnapshot();
+    expect(
+      execute(readAsset('main.bundle.js', compiler, stats))
+    ).toMatchSnapshot('result');
+    expect(Object.keys(stats.compilation.assets)).toMatchSnapshot('assets');
+    expect(normalizeErrors(stats.compilation.warnings)).toMatchSnapshot(
+      'warnings'
+    );
+    expect(normalizeErrors(stats.compilation.errors)).toMatchSnapshot('errors');
   });
 
-  it('matches snapshot for `{String}` value with `publicPath` (`{String}`) without trailing slash', async () => {
-    const config = {
-      loader: {
-        test: /(png|jpg|svg)/,
-        options: {
-          outputPath: 'output_path',
-          publicPath: 'public_path',
-        },
-      },
-    };
+  it('should work with "String" value and with "publicPath" option and without trailing slash', async () => {
+    const compiler = getCompiler('simple.js', {
+      outputPath: 'output_path',
+      publicPath: 'public_path',
+    });
+    const stats = await compile(compiler);
 
-    const stats = await webpack('fixture.js', config);
-    const [module] = stats.toJson().modules;
-    const { assets, source } = module;
-
-    expect({ assets, source }).toMatchSnapshot();
+    expect(
+      execute(readAsset('main.bundle.js', compiler, stats))
+    ).toMatchSnapshot('result');
+    expect(Object.keys(stats.compilation.assets)).toMatchSnapshot('assets');
+    expect(normalizeErrors(stats.compilation.warnings)).toMatchSnapshot(
+      'warnings'
+    );
+    expect(normalizeErrors(stats.compilation.errors)).toMatchSnapshot('errors');
   });
 
-  it('matches snapshot for `{Function}` value with `publicPath` (`{String}`)', async () => {
-    const config = {
-      loader: {
-        test: /(png|jpg|svg)/,
-        options: {
-          publicPath: 'public_path/',
-          outputPath(url) {
-            return `output_path_func/${url}`;
-          },
-        },
+  it('should work with "Function" value and with "publicPath" as "String"', async () => {
+    const compiler = getCompiler('simple.js', {
+      publicPath: 'public_path/',
+      outputPath(url) {
+        return `output_path_func/${url}`;
       },
-    };
+    });
+    const stats = await compile(compiler);
 
-    const stats = await webpack('fixture.js', config);
-    const [module] = stats.toJson().modules;
-    const { assets, source } = module;
-
-    expect({ assets, source }).toMatchSnapshot();
+    expect(
+      execute(readAsset('main.bundle.js', compiler, stats))
+    ).toMatchSnapshot('result');
+    expect(Object.keys(stats.compilation.assets)).toMatchSnapshot('assets');
+    expect(normalizeErrors(stats.compilation.warnings)).toMatchSnapshot(
+      'warnings'
+    );
+    expect(normalizeErrors(stats.compilation.errors)).toMatchSnapshot('errors');
   });
 
-  it('matches snapshot for `{String}` value with `publicPath` (`{Function}`)', async () => {
-    const config = {
-      loader: {
-        test: /(png|jpg|svg)/,
-        options: {
-          outputPath: 'output_path/',
-          publicPath(url) {
-            return `public_path_func/${url}`;
-          },
-        },
+  it('should work with "String" value and with "publicPath" as "Function"', async () => {
+    const compiler = getCompiler('simple.js', {
+      publicPath(url) {
+        return `public_path_func/${url}`;
       },
-    };
+      outputPath: 'output_path/',
+    });
+    const stats = await compile(compiler);
 
-    const stats = await webpack('fixture.js', config);
-    const [module] = stats.toJson().modules;
-    const { assets, source } = module;
-
-    expect({ assets, source }).toMatchSnapshot();
+    expect(
+      execute(readAsset('main.bundle.js', compiler, stats))
+    ).toMatchSnapshot('result');
+    expect(Object.keys(stats.compilation.assets)).toMatchSnapshot('assets');
+    expect(normalizeErrors(stats.compilation.warnings)).toMatchSnapshot(
+      'warnings'
+    );
+    expect(normalizeErrors(stats.compilation.errors)).toMatchSnapshot('errors');
   });
 
-  it('matches snapshot for `{Function}` value with `publicPath` (`{Function}`)', async () => {
-    const config = {
-      loader: {
-        test: /(png|jpg|svg)/,
-        options: {
-          outputPath(url) {
-            return `output_path_func/${url}`;
-          },
-          publicPath(url) {
-            return `public_path_func/${url}`;
-          },
-        },
+  it('should work with "Function" value and with "publicPath" as "Function"', async () => {
+    const compiler = getCompiler('simple.js', {
+      outputPath(url) {
+        return `output_path_func/${url}`;
       },
-    };
-
-    const stats = await webpack('fixture.js', config);
-    const [module] = stats.toJson().modules;
-    const { assets, source } = module;
-
-    expect({ assets, source }).toMatchSnapshot();
-  });
-
-  it('matches snapshot for `{Function}` value and pass `resourcePath`', async () => {
-    const config = {
-      loader: {
-        test: /(png|jpg|svg)/,
-        options: {
-          outputPath(url, resourcePath) {
-            expect(resourcePath).toMatch('file.png');
-
-            return `output_path_func/${url}`;
-          },
-        },
+      publicPath(url) {
+        return `public_path_func/${url}`;
       },
-    };
+    });
+    const stats = await compile(compiler);
 
-    const stats = await webpack('fixture.js', config);
-    const [module] = stats.toJson().modules;
-    const { assets, source } = module;
-
-    expect({ assets, source }).toMatchSnapshot();
-  });
-
-  it('matches snapshot for `{Function}` value and pass `context`', async () => {
-    const config = {
-      loader: {
-        test: /(png|jpg|svg)/,
-        options: {
-          outputPath(url, resourcePath, context) {
-            expect(context).toMatch('fixtures');
-
-            return `output_path_func/${url}`;
-          },
-        },
-      },
-    };
-
-    const stats = await webpack('fixture.js', config);
-    const [module] = stats.toJson().modules;
-    const { assets, source } = module;
-
-    expect({ assets, source }).toMatchSnapshot();
+    expect(
+      execute(readAsset('main.bundle.js', compiler, stats))
+    ).toMatchSnapshot('result');
+    expect(Object.keys(stats.compilation.assets)).toMatchSnapshot('assets');
+    expect(normalizeErrors(stats.compilation.warnings)).toMatchSnapshot(
+      'warnings'
+    );
+    expect(normalizeErrors(stats.compilation.errors)).toMatchSnapshot('errors');
   });
 });

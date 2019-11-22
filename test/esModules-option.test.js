@@ -1,51 +1,52 @@
-import webpack from './helpers/compiler';
+import {
+  compile,
+  execute,
+  getCompiler,
+  normalizeErrors,
+  readAsset,
+} from './helpers';
 
-describe('when applied with `esModules` option', () => {
-  it('matches snapshot without value', async () => {
-    const config = {
-      loader: {
-        test: /(png|jpg|svg)/,
-      },
-    };
+describe('"esModules" option', () => {
+  it('should work without value', async () => {
+    const compiler = getCompiler('simple.js');
+    const stats = await compile(compiler);
 
-    const stats = await webpack('fixture.js', config);
-    const [module] = stats.toJson().modules;
-    const { assets, source } = module;
-
-    expect({ assets, source }).toMatchSnapshot();
+    expect(
+      execute(readAsset('main.bundle.js', compiler, stats))
+    ).toMatchSnapshot('result');
+    expect(normalizeErrors(stats.compilation.warnings)).toMatchSnapshot(
+      'warnings'
+    );
+    expect(normalizeErrors(stats.compilation.errors)).toMatchSnapshot('errors');
   });
 
-  it('matches snapshot for `true` value', async () => {
-    const config = {
-      loader: {
-        test: /(png|jpg|svg)/,
-        options: {
-          esModules: true,
-        },
-      },
-    };
+  it('should work with "Boolean" value equal "true"', async () => {
+    const compiler = getCompiler('simple.js', {
+      esModules: true,
+    });
+    const stats = await compile(compiler);
 
-    const stats = await webpack('fixture.js', config);
-    const [module] = stats.toJson().modules;
-    const { assets, source } = module;
-
-    expect({ assets, source }).toMatchSnapshot();
+    expect(
+      execute(readAsset('main.bundle.js', compiler, stats))
+    ).toMatchSnapshot('result');
+    expect(normalizeErrors(stats.compilation.warnings)).toMatchSnapshot(
+      'warnings'
+    );
+    expect(normalizeErrors(stats.compilation.errors)).toMatchSnapshot('errors');
   });
 
-  it('matches snapshot for `false` value', async () => {
-    const config = {
-      loader: {
-        test: /(png|jpg|svg)/,
-        options: {
-          esModules: false,
-        },
-      },
-    };
+  it('should work with "Boolean" value equal "false"', async () => {
+    const compiler = getCompiler('simple.js', {
+      esModules: false,
+    });
+    const stats = await compile(compiler);
 
-    const stats = await webpack('fixture.js', config);
-    const [module] = stats.toJson().modules;
-    const { assets, source } = module;
-
-    expect({ assets, source }).toMatchSnapshot();
+    expect(
+      execute(readAsset('main.bundle.js', compiler, stats))
+    ).toMatchSnapshot('result');
+    expect(normalizeErrors(stats.compilation.warnings)).toMatchSnapshot(
+      'warnings'
+    );
+    expect(normalizeErrors(stats.compilation.errors)).toMatchSnapshot('errors');
   });
 });
