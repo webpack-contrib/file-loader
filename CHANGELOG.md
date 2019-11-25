@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [5.0.1](https://github.com/webpack-contrib/file-loader/compare/v5.0.0...v5.0.1) (2019-11-25)
+
+
+### Bug Fixes
+
+* name of `esModule` option in source code ([#346](https://github.com/webpack-contrib/file-loader/issues/346)) ([31d6589](https://github.com/webpack-contrib/file-loader/commit/31d6589b71b471f83908e80380dff9b9eada2d06))
+
 ## [5.0.0](https://github.com/webpack-contrib/file-loader/compare/v4.2.0...v5.0.0) (2019-11-22)
 
 
