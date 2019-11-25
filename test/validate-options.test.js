@@ -26,7 +26,7 @@ describe('validate options', () => {
       success: [/image\.png/, 'image.png'],
       failure: [true],
     },
-    esModules: {
+    esModule: {
       success: [true, false],
       failure: ['true'],
     },
