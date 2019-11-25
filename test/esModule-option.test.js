@@ -6,7 +6,7 @@ import {
   readAsset,
 } from './helpers';
 
-describe('"esModules" option', () => {
+describe('"esModule" option', () => {
   it('should work without value', async () => {
     const compiler = getCompiler('simple.js');
     const stats = await compile(compiler);
@@ -22,7 +22,7 @@ describe('"esModules" option', () => {
 
   it('should work with "Boolean" value equal "true"', async () => {
     const compiler = getCompiler('simple.js', {
-      esModules: true,
+      esModule: true,
     });
     const stats = await compile(compiler);
 
@@ -37,7 +37,7 @@ describe('"esModules" option', () => {
 
   it('should work with "Boolean" value equal "false"', async () => {
     const compiler = getCompiler('simple.js', {
-      esModules: false,
+      esModule: false,
     });
     const stats = await compile(compiler);
 

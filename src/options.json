@@ -57,7 +57,7 @@
         }
       ]
     },
-    "esModules": {
+    "esModule": {
       "type": "boolean"
     }
   },

@@ -8,7 +8,8 @@ All notable changes to this project will be documented in this file. See [standa
 ### BREAKING CHANGES
 
 * minimum required nodejs version is `10.13.0`
-* switch to ES modules by default (option `esModules` now is `true` by default)
+* rename the `esModules` option to `esModule`
+* switch to ES modules by default (the option `esModule` is `true` by default)
 
 
 
