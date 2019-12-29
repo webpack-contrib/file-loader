@@ -58,6 +58,7 @@
       ]
     },
     "esModule": {
+      "description": "By default, file-loader generates JS modules that use the ES modules syntax.",
       "type": "boolean"
     }
   },
