@@ -14,7 +14,8 @@ exports[`validate options should throw an error on the "emitFile" option with "t
 
 exports[`validate options should throw an error on the "esModule" option with "true" value 1`] = `
 "Invalid options object. File Loader has been initialised using an options object that does not match the API schema.
- - options.esModule should be a boolean."
+ - options.esModule should be a boolean.
+   -> By default, file-loader generates JS modules that use the ES modules syntax."
 `;
 
 exports[`validate options should throw an error on the "name" option with "true" value 1`] = `
