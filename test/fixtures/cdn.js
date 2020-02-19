@@ -1,5 +1,5 @@
 /* eslint-disable */
-import png from './file.png?foo=bar';
+import png from './nested/file.png?foo=bar#hash';
 
 __export__ = png;
 

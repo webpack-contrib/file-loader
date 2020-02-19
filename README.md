@@ -102,7 +102,10 @@ module.exports = {
         test: /\.(png|jpe?g|gif)$/i,
         loader: 'file-loader',
         options: {
-          name(file) {
+          name(resourcePath, resourceQuery) {
+            // `resourcePath` - `/absolute/path/to/file.js`
+            // `resourceQuery` - `?foo=bar`
+
             if (process.env.NODE_ENV === 'development') {
               return '[path][name].[ext]';
             }
@@ -439,6 +442,13 @@ Default: `file.folder`
 
 The folder of the resource is in.
 
+### `[query]`
+
+Type: `String`
+Default: `file.query`
+
+The query of the resource, i.e. `?foo=bar`.
+
 ### `[emoji]`
 
 Type: `String`
@@ -619,6 +629,48 @@ Result:
 path/to/file.png?e43b20c069c4a01867c31e98cbce33c9
 ```
 
+### CDN
+
+The following examples show how to use `file-loader` for CDN uses query params.
+
+**file.js**
+
+```js
+import png from './directory/image.png?width=300&height=300';
+```
+
+**webpack.config.js**
+
+```js
+module.exports = {
+  output: {
+    publicPath: 'https://cdn.example.com/',
+  },
+  module: {
+    rules: [
+      {
+        test: /\.(png|jpe?g|gif)$/i,
+        use: [
+          {
+            loader: 'file-loader',
+            options: {
+              name: '[path][name].[ext][query]',
+            },
+          },
+        ],
+      },
+    ],
+  },
+};
+```
+
+Result:
+
+```bash
+# result
+https://cdn.example.com/directory/image.png?width=300&height=300
+```
+
 ### Dynamic public path depending on environment variable at run time
 
 An application might want to configure different CDN hosts depending on an environment variable that is only available when running the application. This can be an advantage, as only one build of the application is necessary, which behaves differntly depending on environment variables of the deployment environment. Since file-loader is applied when compiling the application, and not when running it, the environment variable cannot be used in the file-loader configuration. A way around this is setting the `__webpack_public_path__` to the desired CDN host depending on the environment variable at the entrypoint of the application. The option `postTransformPublicPath` can be used to configure a custom path depending on a variable like `__webpack_public_path__`.
@@ -626,7 +678,6 @@ An application might want to configure different CDN hosts depending on an envir
 **main.js**
 
 ```js
-const namespace = process.env.NAMESPACE;
 const assetPrefixForNamespace = (namespace) => {
   switch (namespace) {
     case 'prod':
@@ -641,6 +692,8 @@ const assetPrefixForNamespace = (namespace) => {
       return '';
   }
 };
+const namespace = process.env.NAMESPACE;
+
 __webpack_public_path__ = `${assetPrefixForNamespace(namespace)}/`;
 ```
 
