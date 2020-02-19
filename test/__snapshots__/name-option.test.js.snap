@@ -1,14 +1,20 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
+exports[`"name" option should work for CDN support query params: errors 1`] = `Array []`;
+
+exports[`"name" option should work for CDN support query params: result 1`] = `"https://cdn.example.com/nested/file.png?foo=bar"`;
+
+exports[`"name" option should work for CDN support query params: warnings 1`] = `Array []`;
+
 exports[`"name" option should work with "Function" value: errors 1`] = `Array []`;
 
-exports[`"name" option should work with "Function" value: result 1`] = `"9c87cbf3ba33126ffd25ae7f2f6bbafb.function.png"`;
+exports[`"name" option should work with "Function" value: result 1`] = `"9c87cbf3ba33126ffd25ae7f2f6bbafb.function.png?foo=bar"`;
 
 exports[`"name" option should work with "Function" value: warnings 1`] = `Array []`;
 
 exports[`"name" option should work with "String" value: errors 1`] = `Array []`;
 
-exports[`"name" option should work with "String" value: result 1`] = `"9c87cbf3ba33126ffd25ae7f2f6bbafb.string.png"`;
+exports[`"name" option should work with "String" value: result 1`] = `"9c87cbf3ba33126ffd25ae7f2f6bbafb.string.png?foo=bar"`;
 
 exports[`"name" option should work with "String" value: warnings 1`] = `Array []`;
 
