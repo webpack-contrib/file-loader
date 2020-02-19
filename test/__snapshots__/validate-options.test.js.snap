@@ -1,25 +1,25 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`validate options should throw an error on the "context" option with "true" value 1`] = `
-"Invalid options object. File Loader has been initialised using an options object that does not match the API schema.
+"Invalid options object. File Loader has been initialized using an options object that does not match the API schema.
  - options.context should be a string.
    -> A custom file context (https://github.com/webpack-contrib/file-loader#context)."
 `;
 
 exports[`validate options should throw an error on the "emitFile" option with "true" value 1`] = `
-"Invalid options object. File Loader has been initialised using an options object that does not match the API schema.
+"Invalid options object. File Loader has been initialized using an options object that does not match the API schema.
  - options.emitFile should be a boolean.
    -> Enables/Disables emit files (https://github.com/webpack-contrib/file-loader#emitfile)."
 `;
 
 exports[`validate options should throw an error on the "esModule" option with "true" value 1`] = `
-"Invalid options object. File Loader has been initialised using an options object that does not match the API schema.
+"Invalid options object. File Loader has been initialized using an options object that does not match the API schema.
  - options.esModule should be a boolean.
    -> By default, file-loader generates JS modules that use the ES modules syntax."
 `;
 
 exports[`validate options should throw an error on the "name" option with "true" value 1`] = `
-"Invalid options object. File Loader has been initialised using an options object that does not match the API schema.
+"Invalid options object. File Loader has been initialized using an options object that does not match the API schema.
  - options.name should be one of these:
    string | function
    -> The filename template for the target file(s) (https://github.com/webpack-contrib/file-loader#name).
@@ -29,7 +29,7 @@ exports[`validate options should throw an error on the "name" option with "true"
 `;
 
 exports[`validate options should throw an error on the "outputPath" option with "true" value 1`] = `
-"Invalid options object. File Loader has been initialised using an options object that does not match the API schema.
+"Invalid options object. File Loader has been initialized using an options object that does not match the API schema.
  - options.outputPath should be one of these:
    string | function
    -> A filesystem path where the target file(s) will be placed (https://github.com/webpack-contrib/file-loader#outputpath).
@@ -39,7 +39,7 @@ exports[`validate options should throw an error on the "outputPath" option with 
 `;
 
 exports[`validate options should throw an error on the "publicPath" option with "true" value 1`] = `
-"Invalid options object. File Loader has been initialised using an options object that does not match the API schema.
+"Invalid options object. File Loader has been initialized using an options object that does not match the API schema.
  - options.publicPath should be one of these:
    string | function
    -> A custom public path for the target file(s) (https://github.com/webpack-contrib/file-loader#publicpath).
@@ -49,7 +49,7 @@ exports[`validate options should throw an error on the "publicPath" option with 
 `;
 
 exports[`validate options should throw an error on the "regExp" option with "true" value 1`] = `
-"Invalid options object. File Loader has been initialised using an options object that does not match the API schema.
+"Invalid options object. File Loader has been initialized using an options object that does not match the API schema.
  - options.regExp should be one of these:
    string | RegExp
    -> A Regular Expression to one or many parts of the target file path. The capture groups can be reused in the name property using [N] placeholder (https://github.com/webpack-contrib/file-loader#regexp).
