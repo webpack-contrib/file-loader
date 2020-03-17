@@ -187,7 +187,7 @@ module.exports = {
 ### `publicPath`
 
 Type: `String|Function`
-Default: [`__webpack_public_path__`](https://webpack.js.org/api/module-variables/#__webpack_public_path__-webpack-specific-)
+Default: [`__webpack_public_path__`](https://webpack.js.org/api/module-variables/#__webpack_public_path__-webpack-specific-)+outputPath
 
 Specifies a custom public path for the target file(s).
 
