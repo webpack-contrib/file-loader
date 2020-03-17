@@ -71,12 +71,13 @@ describe('"outputPath" option', () => {
   });
 
   it('should work with "Function" value', async () => {
-    // TODO
+    expect.assertions(7);
+
     const compiler = getCompiler('simple.js', {
       outputPath(url, resourcePath, context) {
-        expect(url).toBe('9c87cbf3ba33126ffd25ae7f2f6bbafb.png');
-        expect(resourcePath).toMatch('file.png');
-        expect(context).toMatch('fixtures');
+        expect(typeof url).toBe('string');
+        expect(typeof resourcePath).toBe('string');
+        expect(typeof context).toBe('string');
 
         return `output_path_func/${url}`;
       },

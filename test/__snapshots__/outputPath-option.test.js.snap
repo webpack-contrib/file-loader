@@ -15,40 +15,40 @@ exports[`"outputPath" option should work with "Function" value and with "name" o
 
 exports[`"outputPath" option should work with "Function" value and with "publicPath" as "Function": assets 1`] = `
 Array [
-  "output_path_func/9c87cbf3ba33126ffd25ae7f2f6bbafb.png",
+  "output_path_func/39f5c21c1aee6ff21844c6e1d8251d97.png",
   "main.bundle.js",
 ]
 `;
 
 exports[`"outputPath" option should work with "Function" value and with "publicPath" as "Function": errors 1`] = `Array []`;
 
-exports[`"outputPath" option should work with "Function" value and with "publicPath" as "Function": result 1`] = `"public_path_func/9c87cbf3ba33126ffd25ae7f2f6bbafb.png"`;
+exports[`"outputPath" option should work with "Function" value and with "publicPath" as "Function": result 1`] = `"public_path_func/39f5c21c1aee6ff21844c6e1d8251d97.png"`;
 
 exports[`"outputPath" option should work with "Function" value and with "publicPath" as "Function": warnings 1`] = `Array []`;
 
 exports[`"outputPath" option should work with "Function" value and with "publicPath" as "String": assets 1`] = `
 Array [
-  "output_path_func/9c87cbf3ba33126ffd25ae7f2f6bbafb.png",
+  "output_path_func/39f5c21c1aee6ff21844c6e1d8251d97.png",
   "main.bundle.js",
 ]
 `;
 
 exports[`"outputPath" option should work with "Function" value and with "publicPath" as "String": errors 1`] = `Array []`;
 
-exports[`"outputPath" option should work with "Function" value and with "publicPath" as "String": result 1`] = `"public_path/9c87cbf3ba33126ffd25ae7f2f6bbafb.png"`;
+exports[`"outputPath" option should work with "Function" value and with "publicPath" as "String": result 1`] = `"public_path/39f5c21c1aee6ff21844c6e1d8251d97.png"`;
 
 exports[`"outputPath" option should work with "Function" value and with "publicPath" as "String": warnings 1`] = `Array []`;
 
 exports[`"outputPath" option should work with "Function" value: assets 1`] = `
 Array [
-  "output_path_func/9c87cbf3ba33126ffd25ae7f2f6bbafb.png",
+  "output_path_func/39f5c21c1aee6ff21844c6e1d8251d97.png",
   "main.bundle.js",
 ]
 `;
 
 exports[`"outputPath" option should work with "Function" value: errors 1`] = `Array []`;
 
-exports[`"outputPath" option should work with "Function" value: result 1`] = `"output_path_func/9c87cbf3ba33126ffd25ae7f2f6bbafb.png"`;
+exports[`"outputPath" option should work with "Function" value: result 1`] = `"output_path_func/39f5c21c1aee6ff21844c6e1d8251d97.png"`;
 
 exports[`"outputPath" option should work with "Function" value: warnings 1`] = `Array []`;
 
@@ -67,78 +67,78 @@ exports[`"outputPath" option should work with "String" value and with "name" opt
 
 exports[`"outputPath" option should work with "String" value and with "publicPath" as "Function": assets 1`] = `
 Array [
-  "output_path/9c87cbf3ba33126ffd25ae7f2f6bbafb.png",
+  "output_path/39f5c21c1aee6ff21844c6e1d8251d97.png",
   "main.bundle.js",
 ]
 `;
 
 exports[`"outputPath" option should work with "String" value and with "publicPath" as "Function": errors 1`] = `Array []`;
 
-exports[`"outputPath" option should work with "String" value and with "publicPath" as "Function": result 1`] = `"public_path_func/9c87cbf3ba33126ffd25ae7f2f6bbafb.png"`;
+exports[`"outputPath" option should work with "String" value and with "publicPath" as "Function": result 1`] = `"public_path_func/39f5c21c1aee6ff21844c6e1d8251d97.png"`;
 
 exports[`"outputPath" option should work with "String" value and with "publicPath" as "Function": warnings 1`] = `Array []`;
 
 exports[`"outputPath" option should work with "String" value and with "publicPath" option and without trailing slash: assets 1`] = `
 Array [
-  "output_path/9c87cbf3ba33126ffd25ae7f2f6bbafb.png",
+  "output_path/39f5c21c1aee6ff21844c6e1d8251d97.png",
   "main.bundle.js",
 ]
 `;
 
 exports[`"outputPath" option should work with "String" value and with "publicPath" option and without trailing slash: errors 1`] = `Array []`;
 
-exports[`"outputPath" option should work with "String" value and with "publicPath" option and without trailing slash: result 1`] = `"public_path/9c87cbf3ba33126ffd25ae7f2f6bbafb.png"`;
+exports[`"outputPath" option should work with "String" value and with "publicPath" option and without trailing slash: result 1`] = `"public_path/39f5c21c1aee6ff21844c6e1d8251d97.png"`;
 
 exports[`"outputPath" option should work with "String" value and with "publicPath" option and without trailing slash: warnings 1`] = `Array []`;
 
 exports[`"outputPath" option should work with "String" value and with "publicPath" option: assets 1`] = `
 Array [
-  "output_path/9c87cbf3ba33126ffd25ae7f2f6bbafb.png",
+  "output_path/39f5c21c1aee6ff21844c6e1d8251d97.png",
   "main.bundle.js",
 ]
 `;
 
 exports[`"outputPath" option should work with "String" value and with "publicPath" option: errors 1`] = `Array []`;
 
-exports[`"outputPath" option should work with "String" value and with "publicPath" option: result 1`] = `"public_path/9c87cbf3ba33126ffd25ae7f2f6bbafb.png"`;
+exports[`"outputPath" option should work with "String" value and with "publicPath" option: result 1`] = `"public_path/39f5c21c1aee6ff21844c6e1d8251d97.png"`;
 
 exports[`"outputPath" option should work with "String" value and with "publicPath" option: warnings 1`] = `Array []`;
 
 exports[`"outputPath" option should work with "String" value without trailing slash: assets 1`] = `
 Array [
-  "output_path/9c87cbf3ba33126ffd25ae7f2f6bbafb.png",
+  "output_path/39f5c21c1aee6ff21844c6e1d8251d97.png",
   "main.bundle.js",
 ]
 `;
 
 exports[`"outputPath" option should work with "String" value without trailing slash: errors 1`] = `Array []`;
 
-exports[`"outputPath" option should work with "String" value without trailing slash: result 1`] = `"output_path/9c87cbf3ba33126ffd25ae7f2f6bbafb.png"`;
+exports[`"outputPath" option should work with "String" value without trailing slash: result 1`] = `"output_path/39f5c21c1aee6ff21844c6e1d8251d97.png"`;
 
 exports[`"outputPath" option should work with "String" value without trailing slash: warnings 1`] = `Array []`;
 
 exports[`"outputPath" option should work with "String" value: assets 1`] = `
 Array [
-  "output_path/9c87cbf3ba33126ffd25ae7f2f6bbafb.png",
+  "output_path/39f5c21c1aee6ff21844c6e1d8251d97.png",
   "main.bundle.js",
 ]
 `;
 
 exports[`"outputPath" option should work with "String" value: errors 1`] = `Array []`;
 
-exports[`"outputPath" option should work with "String" value: result 1`] = `"output_path/9c87cbf3ba33126ffd25ae7f2f6bbafb.png"`;
+exports[`"outputPath" option should work with "String" value: result 1`] = `"output_path/39f5c21c1aee6ff21844c6e1d8251d97.png"`;
 
 exports[`"outputPath" option should work with "String" value: warnings 1`] = `Array []`;
 
 exports[`"outputPath" option should work without value: assets 1`] = `
 Array [
-  "9c87cbf3ba33126ffd25ae7f2f6bbafb.png",
+  "39f5c21c1aee6ff21844c6e1d8251d97.png",
   "main.bundle.js",
 ]
 `;
 
 exports[`"outputPath" option should work without value: errors 1`] = `Array []`;
 
-exports[`"outputPath" option should work without value: result 1`] = `"9c87cbf3ba33126ffd25ae7f2f6bbafb.png"`;
+exports[`"outputPath" option should work without value: result 1`] = `"39f5c21c1aee6ff21844c6e1d8251d97.png"`;
 
 exports[`"outputPath" option should work without value: warnings 1`] = `Array []`;
