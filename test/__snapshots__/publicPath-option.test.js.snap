@@ -2,30 +2,30 @@
 
 exports[`"publicPath" option should work with "Function" value and pass "url", "resourcePath" and "context" as arguments: errors 1`] = `Array []`;
 
-exports[`"publicPath" option should work with "Function" value and pass "url", "resourcePath" and "context" as arguments: result 1`] = `"public_path/9c87cbf3ba33126ffd25ae7f2f6bbafb.png"`;
+exports[`"publicPath" option should work with "Function" value and pass "url", "resourcePath" and "context" as arguments: result 1`] = `"public_path/39f5c21c1aee6ff21844c6e1d8251d97.png"`;
 
 exports[`"publicPath" option should work with "Function" value and pass "url", "resourcePath" and "context" as arguments: warnings 1`] = `Array []`;
 
 exports[`"publicPath" option should work with "String" value equal an URL: errors 1`] = `Array []`;
 
-exports[`"publicPath" option should work with "String" value equal an URL: result 1`] = `"https://cdn.com/9c87cbf3ba33126ffd25ae7f2f6bbafb.png"`;
+exports[`"publicPath" option should work with "String" value equal an URL: result 1`] = `"https://cdn.com/39f5c21c1aee6ff21844c6e1d8251d97.png"`;
 
 exports[`"publicPath" option should work with "String" value equal an URL: warnings 1`] = `Array []`;
 
 exports[`"publicPath" option should work with "String" value without trailing slash: errors 1`] = `Array []`;
 
-exports[`"publicPath" option should work with "String" value without trailing slash: result 1`] = `"public_path/9c87cbf3ba33126ffd25ae7f2f6bbafb.png"`;
+exports[`"publicPath" option should work with "String" value without trailing slash: result 1`] = `"public_path/39f5c21c1aee6ff21844c6e1d8251d97.png"`;
 
 exports[`"publicPath" option should work with "String" value without trailing slash: warnings 1`] = `Array []`;
 
 exports[`"publicPath" option should work with "String" value: errors 1`] = `Array []`;
 
-exports[`"publicPath" option should work with "String" value: result 1`] = `"public_path/9c87cbf3ba33126ffd25ae7f2f6bbafb.png"`;
+exports[`"publicPath" option should work with "String" value: result 1`] = `"public_path/39f5c21c1aee6ff21844c6e1d8251d97.png"`;
 
 exports[`"publicPath" option should work with "String" value: warnings 1`] = `Array []`;
 
 exports[`"publicPath" option should work without value: errors 1`] = `Array []`;
 
-exports[`"publicPath" option should work without value: result 1`] = `"9c87cbf3ba33126ffd25ae7f2f6bbafb.png"`;
+exports[`"publicPath" option should work without value: result 1`] = `"39f5c21c1aee6ff21844c6e1d8251d97.png"`;
 
 exports[`"publicPath" option should work without value: warnings 1`] = `Array []`;

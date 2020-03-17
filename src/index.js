@@ -6,7 +6,7 @@ import validateOptions from 'schema-utils';
 import schema from './options.json';
 
 export default function loader(content) {
-  const options = loaderUtils.getOptions(this) || {};
+  const options = loaderUtils.getOptions(this);
 
   validateOptions(schema, options, {
     name: 'File Loader',
