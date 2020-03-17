@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [6.0.0](https://github.com/webpack-contrib/file-loader/compare/v5.1.0...v6.0.0) (2020-03-17)
+
+
+### ⚠ BREAKING CHANGES
+
+* use `md4` by default for hashing ([#369](https://github.com/webpack-contrib/file-loader/issues/369)) ([ad39022](https://github.com/webpack-contrib/file-loader/commit/ad3902284d28adeddf667212a39faa4c6bfb2964))
+
 ## [5.1.0](https://github.com/webpack-contrib/file-loader/compare/v5.0.2...v5.1.0) (2020-02-19)
 
 
