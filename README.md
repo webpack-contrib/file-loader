@@ -753,8 +753,8 @@ Please take a moment to read our contributing guidelines if you haven't yet done
 [node-url]: https://nodejs.org
 [deps]: https://david-dm.org/webpack-contrib/file-loader.svg
 [deps-url]: https://david-dm.org/webpack-contrib/file-loader
-[tests]: https://dev.azure.com/webpack-contrib/file-loader/_apis/build/status/webpack-contrib.file-loader?branchName=master
-[tests-url]: https://dev.azure.com/webpack-contrib/file-loader/_build/latest?definitionId=2&branchName=master
+[tests]: https://github.com/webpack-contrib/file-loader/workflows/file-loader/badge.svg
+[tests-url]: https://github.com/webpack-contrib/file-loader/actions
 [cover]: https://codecov.io/gh/webpack-contrib/file-loader/branch/master/graph/badge.svg
 [cover-url]: https://codecov.io/gh/webpack-contrib/file-loader
 [chat]: https://img.shields.io/badge/gitter-webpack%2Fwebpack-brightgreen.svg
