@@ -60,6 +60,10 @@
     "esModule": {
       "description": "By default, file-loader generates JS modules that use the ES modules syntax.",
       "type": "boolean"
+    },
+    "useInChromeExtensionContentScript": {
+      "description": "Add `chrome.runtime.getURL` call for chrome extension content scripts.",
+      "type": "boolean"
     }
   },
   "type": "object"

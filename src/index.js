@@ -62,6 +62,10 @@ export default function loader(content) {
   const esModule =
     typeof options.esModule !== 'undefined' ? options.esModule : true;
 
+  if (options.useInChromeExtensionContentScript === true) {
+    publicPath = `chrome.runtime.getURL(${publicPath});`;
+  }
+
   return `${esModule ? 'export default' : 'module.exports ='} ${publicPath};`;
 }
 
