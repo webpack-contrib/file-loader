@@ -14,16 +14,14 @@ export default function loader(content) {
   });
 
   const context = options.context || this.rootContext;
+  const name = options.name || '[contenthash].[ext]';
+  const immutable = /\[([^:\]]+:)?(hash|contenthash)(:[^\]]+)?\]/gi.test(name);
 
-  const url = loaderUtils.interpolateName(
-    this,
-    options.name || '[contenthash].[ext]',
-    {
-      context,
-      content,
-      regExp: options.regExp,
-    }
-  );
+  const url = loaderUtils.interpolateName(this, name, {
+    context,
+    content,
+    regExp: options.regExp,
+  });
 
   let outputPath = url;
 
@@ -56,7 +54,7 @@ export default function loader(content) {
   }
 
   if (typeof options.emitFile === 'undefined' || options.emitFile) {
-    this.emitFile(outputPath, content);
+    this.emitFile(outputPath, content, null, { immutable });
   }
 
   const esModule =
