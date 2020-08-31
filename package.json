@@ -42,32 +42,32 @@
   },
   "dependencies": {
     "loader-utils": "^2.0.0",
-    "schema-utils": "^2.7.0"
+    "schema-utils": "^2.7.1"
   },
   "devDependencies": {
-    "@babel/cli": "^7.10.3",
-    "@babel/core": "^7.10.3",
-    "@babel/preset-env": "^7.10.3",
-    "@commitlint/cli": "^9.0.1",
-    "@commitlint/config-conventional": "^9.0.1",
+    "@babel/cli": "^7.10.5",
+    "@babel/core": "^7.11.4",
+    "@babel/preset-env": "^7.11.0",
+    "@commitlint/cli": "^10.0.0",
+    "@commitlint/config-conventional": "^10.0.0",
     "@webpack-contrib/defaults": "^6.3.0",
     "@webpack-contrib/eslint-config-webpack": "^3.0.0",
-    "babel-jest": "^26.0.1",
+    "babel-jest": "^26.3.0",
     "cross-env": "^7.0.2",
     "del": "^5.1.0",
     "del-cli": "^3.0.1",
-    "eslint": "^7.3.0",
+    "eslint": "^7.7.0",
     "eslint-config-prettier": "^6.11.0",
-    "eslint-plugin-import": "^2.21.2",
+    "eslint-plugin-import": "^2.22.0",
     "husky": "^4.2.5",
-    "jest": "^26.0.1",
-    "lint-staged": "^10.2.11",
+    "jest": "^26.4.2",
+    "lint-staged": "^10.2.13",
     "memfs": "^3.2.0",
     "npm-run-all": "^4.1.5",
-    "prettier": "^2.0.5",
-    "standard-version": "^8.0.0",
+    "prettier": "^2.1.1",
+    "standard-version": "^9.0.0",
     "url-loader": "^4.1.0",
-    "webpack": "^4.43.0"
+    "webpack": "^4.44.1"
   },
   "keywords": [
     "webpack"

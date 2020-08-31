@@ -112,7 +112,7 @@ describe('loader', () => {
     expect(normalizeErrors(stats.compilation.errors)).toMatchSnapshot('errors');
 
     if (stats.compilation.modules.size) {
-      expect(stats.compilation.modules.size).toBe(2);
+      expect(stats.compilation.modules.size).toBe(3);
     } else {
       expect(stats.compilation.modules.length).toBe(1);
     }
