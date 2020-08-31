@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [6.1.0](https://github.com/webpack-contrib/file-loader/compare/v6.0.0...v6.1.0) (2020-08-31)
+
+
+### Features
+
+* pass immutable flag to asset info ([#383](https://github.com/webpack-contrib/file-loader/issues/383)) ([40fcde8](https://github.com/webpack-contrib/file-loader/commit/40fcde81681d4f8ee19d2ee3845fd34e24459195))
+
 ## [6.0.0](https://github.com/webpack-contrib/file-loader/compare/v5.1.0...v6.0.0) (2020-03-17)
 
 
