@@ -83,37 +83,61 @@ describe('"name" option', () => {
     expect(normalizeErrors(stats.compilation.errors)).toMatchSnapshot('errors');
   });
 
-  it('should mark hashed asset as immutable', async () => {
+  it('should work and emit "immutable" for assets flag by default', async () => {
+    expect.assertions(1);
+
+    const compiler = getCompiler('simple.js');
+    const stats = await compile(compiler);
+
+    for (const [name, info] of stats.compilation.assetsInfo) {
+      if (name.endsWith('png')) {
+        expect(info.immutable).toBe(true);
+      }
+    }
+  });
+
+  it('should work and emit "immutable" for hashed assets', async () => {
+    expect.assertions(1);
+
     const compiler = getCompiler('simple.js', {
       name: '[md5:hash:hex:8].asset.[ext]',
     });
     const stats = await compile(compiler);
 
-    let assetInfo;
     for (const [name, info] of stats.compilation.assetsInfo) {
-      if (name.match('asset.')) {
-        assetInfo = info;
-        break;
+      if (name.endsWith('png')) {
+        expect(info.immutable).toBe(true);
       }
     }
+  });
 
-    expect(assetInfo.immutable).toBe(true);
+  it('should work and emit "immutable" for hashed assets #2', async () => {
+    expect.assertions(1);
+
+    const compiler = getCompiler('simple.js', {
+      name: '[name].[contenthash].asset.[ext]',
+    });
+    const stats = await compile(compiler);
+
+    for (const [name, info] of stats.compilation.assetsInfo) {
+      if (name.endsWith('png')) {
+        expect(info.immutable).toBe(true);
+      }
+    }
   });
 
   it('should not mark unhashed asset as immutable', async () => {
+    expect.assertions(1);
+
     const compiler = getCompiler('simple.js', {
       name: 'asset.[ext]',
     });
     const stats = await compile(compiler);
 
-    let assetInfo;
     for (const [name, info] of stats.compilation.assetsInfo) {
-      if (name.match('asset.')) {
-        assetInfo = info;
-        break;
+      if (name.endsWith('png')) {
+        expect(info.immutable).toBe(false);
       }
     }
-
-    expect(assetInfo.immutable).toBe(false);
   });
 });
