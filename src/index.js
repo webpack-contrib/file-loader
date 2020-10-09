@@ -1,14 +1,14 @@
 import path from 'path';
 
-import loaderUtils from 'loader-utils';
-import validateOptions from 'schema-utils';
+import { getOptions, interpolateName } from 'loader-utils';
+import { validate } from 'schema-utils';
 
 import schema from './options.json';
 
 export default function loader(content) {
-  const options = loaderUtils.getOptions(this);
+  const options = getOptions(this);
 
-  validateOptions(schema, options, {
+  validate(schema, options, {
     name: 'File Loader',
     baseDataPath: 'options',
   });
@@ -17,7 +17,7 @@ export default function loader(content) {
   const name = options.name || '[contenthash].[ext]';
   const immutable = /\[([^:\]]+:)?(hash|contenthash)(:[^\]]+)?\]/gi.test(name);
 
-  const url = loaderUtils.interpolateName(this, name, {
+  const url = interpolateName(this, name, {
     context,
     content,
     regExp: options.regExp,
