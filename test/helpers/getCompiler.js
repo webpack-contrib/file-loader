@@ -10,6 +10,7 @@ export default (fixture, loaderOptions = {}, config = {}) => {
     context: path.resolve(__dirname, '../fixtures'),
     entry: path.resolve(__dirname, '../fixtures', fixture),
     output: {
+      publicPath: '',
       path: path.resolve(__dirname, '../outputs'),
       filename: '[name].bundle.js',
       chunkFilename: '[name].chunk.js',
