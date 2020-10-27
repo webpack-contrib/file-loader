@@ -4,6 +4,7 @@ import { getOptions, interpolateName } from 'loader-utils';
 import { validate } from 'schema-utils';
 
 import schema from './options.json';
+import { normalizePath } from './utils';
 
 export default function loader(content) {
   const options = getOptions(this);
@@ -72,6 +73,10 @@ export default function loader(content) {
         assetInfo.immutable = true;
       }
     }
+
+    assetInfo.sourceFilename = normalizePath(
+      path.relative(this.rootContext, this.resourcePath)
+    );
 
     this.emitFile(outputPath, content, null, assetInfo);
   }
