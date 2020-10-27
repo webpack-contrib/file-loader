@@ -15,7 +15,6 @@ export default function loader(content) {
 
   const context = options.context || this.rootContext;
   const name = options.name || '[contenthash].[ext]';
-  const immutable = /\[([^:\]]+:)?(hash|contenthash)(:[^\]]+)?\]/gi.test(name);
 
   const url = interpolateName(this, name, {
     context,
@@ -54,7 +53,27 @@ export default function loader(content) {
   }
 
   if (typeof options.emitFile === 'undefined' || options.emitFile) {
-    this.emitFile(outputPath, content, null, { immutable });
+    const assetInfo = {};
+
+    if (typeof name === 'string') {
+      let normalizedName = name;
+
+      const idx = normalizedName.indexOf('?');
+
+      if (idx >= 0) {
+        normalizedName = normalizedName.substr(0, idx);
+      }
+
+      const isImmutable = /\[([^:\]]+:)?(hash|contenthash)(:[^\]]+)?]/gi.test(
+        normalizedName
+      );
+
+      if (isImmutable === true) {
+        assetInfo.immutable = true;
+      }
+    }
+
+    this.emitFile(outputPath, content, null, assetInfo);
   }
 
   const esModule =
