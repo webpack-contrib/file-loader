@@ -157,4 +157,47 @@ describe('"name" option', () => {
       }
     }
   });
+
+  it('should work and add "sourceFilename" to asset info', async () => {
+    expect.assertions(1);
+
+    const compiler = getCompiler('simple.js');
+    const stats = await compile(compiler);
+
+    for (const [name, info] of stats.compilation.assetsInfo) {
+      if (name.endsWith('.png')) {
+        expect(info.sourceFilename).toBe('file.png');
+      }
+    }
+  });
+
+  it('should work and add "sourceFilename" to asset info #2', async () => {
+    expect.assertions(1);
+
+    const compiler = getCompiler('simple.js', {
+      name: '[name].asset.[ext]?foo=[contenthash]',
+    });
+    const stats = await compile(compiler);
+
+    for (const [name, info] of stats.compilation.assetsInfo) {
+      if (name.startsWith('file.asset.png')) {
+        expect(info.sourceFilename).toBe('file.png');
+      }
+    }
+  });
+
+  it('should work and add "sourceFilename" to asset info #3', async () => {
+    expect.assertions(1);
+
+    const compiler = getCompiler('cdn.js', {
+      name: '[name].asset.[ext]',
+    });
+    const stats = await compile(compiler);
+
+    for (const [name, info] of stats.compilation.assetsInfo) {
+      if (name.startsWith('file.asset.png')) {
+        expect(info.sourceFilename).toBe('nested/file.png');
+      }
+    }
+  });
 });

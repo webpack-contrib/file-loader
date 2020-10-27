@@ -73,6 +73,11 @@ export default function loader(content) {
       }
     }
 
+    assetInfo.sourceFilename = path.relative(
+      this.rootContext,
+      this.resourcePath
+    );
+
     this.emitFile(outputPath, content, null, assetInfo);
   }
 
