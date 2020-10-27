@@ -2,6 +2,18 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [6.2.0](https://github.com/webpack-contrib/file-loader/compare/v6.1.1...v6.2.0) (2020-10-27)
+
+
+### Features
+
+* added the `sourceFilename` property to asset info with original filename ([#393](https://github.com/webpack-contrib/file-loader/issues/393)) ([654e0d6](https://github.com/webpack-contrib/file-loader/commit/654e0d641ec067089f6a2d12e30ec3520f00d808))
+
+
+### Bug Fixes
+
+* immutable flag when the `name` option have hash in query string ([#392](https://github.com/webpack-contrib/file-loader/issues/392)) ([381d8bd](https://github.com/webpack-contrib/file-loader/commit/381d8bda3f2494487bfe840386e365b97b6025fe))
+
 ### [6.1.1](https://github.com/webpack-contrib/file-loader/compare/v6.1.0...v6.1.1) (2020-10-09)
 
 ### Chore
