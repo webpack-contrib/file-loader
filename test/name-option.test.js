@@ -90,7 +90,7 @@ describe('"name" option', () => {
     const stats = await compile(compiler);
 
     for (const [name, info] of stats.compilation.assetsInfo) {
-      if (name.endsWith('png')) {
+      if (name.endsWith('.png')) {
         expect(info.immutable).toBe(true);
       }
     }
@@ -105,7 +105,7 @@ describe('"name" option', () => {
     const stats = await compile(compiler);
 
     for (const [name, info] of stats.compilation.assetsInfo) {
-      if (name.endsWith('png')) {
+      if (name.endsWith('.png')) {
         expect(info.immutable).toBe(true);
       }
     }
@@ -120,13 +120,29 @@ describe('"name" option', () => {
     const stats = await compile(compiler);
 
     for (const [name, info] of stats.compilation.assetsInfo) {
-      if (name.endsWith('png')) {
+      if (name.startsWith('file.39f5c21c1aee6ff21844c6e1d8251d97.asset.png')) {
         expect(info.immutable).toBe(true);
       }
     }
   });
 
-  it('should not mark unhashed asset as immutable', async () => {
+  it('should work and emit "immutable" for hashed assets #3', async () => {
+    expect.assertions(1);
+
+    const compiler = getCompiler('simple.js', {
+      name: '[name].asset.[ext]?foo=[contenthash]',
+    });
+    const stats = await compile(compiler);
+
+    for (const [name, info] of stats.compilation.assetsInfo) {
+      if (name.startsWith('file.asset.png')) {
+        // eslint-disable-next-line no-undefined
+        expect(info.immutable).toBe(undefined);
+      }
+    }
+  });
+
+  it('should work and not emit "immutable" for not hashed assets', async () => {
     expect.assertions(1);
 
     const compiler = getCompiler('simple.js', {
@@ -135,8 +151,9 @@ describe('"name" option', () => {
     const stats = await compile(compiler);
 
     for (const [name, info] of stats.compilation.assetsInfo) {
-      if (name.endsWith('png')) {
-        expect(info.immutable).toBe(false);
+      if (name.startsWith('asset.png')) {
+        // eslint-disable-next-line no-undefined
+        expect(info.immutable).toBe(undefined);
       }
     }
   });
