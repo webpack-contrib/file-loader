@@ -14,6 +14,8 @@
 
 # file-loader
 
+**DEPREACTED for v5**: please consider to migarte on [`asset modules`](https://webpack.js.org/guides/asset-modules/).
+
 The `file-loader` resolves `import`/`require()` on a file into a url and emits the file into the output directory.
 
 ## Getting Started
